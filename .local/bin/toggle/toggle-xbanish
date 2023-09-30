@@ -1,0 +1,19 @@
+#!/bin/sh
+
+on() {
+  setsid -f xbanish
+  notify-send \
+    -t 1000 \
+    -h string:x-dunst-stack-tag:notify_toggle_xbanish \
+    "xbanish enabled"
+}
+
+off() {
+  killall xbanish
+  notify-send \
+    -t 1000 \
+    -h string:x-dunst-stack-tag:notify_toggle_xbanish \
+    "disabled"
+}
+
+pidof xbanish >/dev/null && off || on
