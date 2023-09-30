@@ -1,0 +1,41 @@
+#!/bin/bash
+# ueberzug, ffmpegthumbnailer
+
+image() {
+	if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$4" "$5" "$(($2-1))" "$(($3-1))" "$1" > "$FIFO_UEBERZUG"
+		exit 1
+	else
+    printf "Preview unavailable"
+	fi
+}
+
+bat_or_cat() {
+  file="$1"
+  shift
+  if command -v bat > /dev/null 2>&1; then
+    bat --style=plain "$file" "$@"
+  else
+    cat "$file"
+  fi
+}
+
+CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+
+case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
+  *.pdf) 
+    [ -f "${CACHE},jpg" ] || \
+      pdftoppm -f 1 -singlefile -jpeg "$1" "${CACHE}"
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
+  *.png|*.jpg|*.jpeg|*.gif|*.ppm|*.bmp|*.webp) image "$1" "$2" "$3" "$4" "$5" ;;
+  *.mkv|*.mp4|*.webm)
+    [ -f "${CACHE}.jpg" ] || \
+      ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
+  *.mp3|*.m4a|*.opus|*.flac|*.wav) ffprobe "$1" 2>&1 | grep -A90 'Metadata:' ;;
+  *.doc) printf "Word (no preview yet)" ;;
+  *.zip) unzip -l "$1" ;;
+  *.tar.gz) tar tzf "$1" ;;
+  *.[1-8]) man "$1" | col -b ;;
+  *) bat_or_cat "$1" ;;
+esac
