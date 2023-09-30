@@ -45,4 +45,4 @@ alias \
 alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
 alias gdb='gdb -tui'
 
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
