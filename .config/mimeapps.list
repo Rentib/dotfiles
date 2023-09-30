@@ -1,0 +1,28 @@
+[Default Applications]
+text/x-shellscript=text.desktop
+text/plain=text.desktop
+text/x-makefile=text.desktop;
+text/x-chdr=text.desktop;
+text/x-csrc=text.desktop;
+text/x-c++src=text.desktop;
+image/jpeg=img.desktop;
+image/png=img.desktop;
+image/gif=img.desktop
+application/pdf=pdf.desktop;
+application/postscript=pdf.desktop;
+video/x-matroska=video.desktop
+x-scheme-handler/mailto=brave-browser.desktop
+x-scheme-handler/tg=org.telegram.desktop.desktop
+application/vnd.debian.binary-package=discord.desktop
+x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_opt_stm32cubeide_.desktop
+
+[Added Associations]
+text/x-tex=text.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-KFHQG1.desktop;userapp-Telegram Desktop-EI9GH1.desktop;userapp-Telegram Desktop-ETJQH1.desktop;userapp-Telegram Desktop-MK59Q1.desktop;userapp-Telegram Desktop-ZPPYW1.desktop;userapp-Telegram Desktop-F45811.desktop;org.telegram.desktop.desktop;
+application/pdf=pdf.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
+text/plain=text.desktop;
+video/mp4=video.desktop;
+application/xml=text.desktop;
+text/x-java=text.desktop;
+application/x-shellscript=text.desktop;
+application/vnd.debian.binary-package=discord.desktop;
