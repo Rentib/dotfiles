@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Media Player
+Exec=/usr/bin/mpv %u
+Icon=/usr/share/icons/hicolor/128x128/apps/mpv.png
+Comment=mpv

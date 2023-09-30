@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Text Editor
+Exec=/usr/local/bin/st -e nvim %u
+Icon=/usr/share/icons/hicolor/128x128/apps/nvim.png
+Comment=neovim in st

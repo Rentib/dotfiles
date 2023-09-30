@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Image Viewer
+Exec=/usr/local/bin/nsxiv -a %f
+Icon=/usr/local/share/icons/hicolor/128x128/apps/nsxiv.png
+Comment=neo simple x image viewer (nsxiv)
