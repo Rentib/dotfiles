@@ -1,0 +1,5 @@
+#!/bin/sh
+pidof -x mpdup-statusbar >/dev/null 2>&1 || mpdup-statusbar >/dev/null 2>&1 &
+res=$((mpc | grep "playing\|paused") | sed "s/\\[paused].*//g;s/\\[playing].*//g")
+title=$(mpc | sed "/^volume:/d;/\\[paused].*/d;/\\[playing].*/d")
+[ -n "$title" ] && printf "%s %s\n" "$res" "$title"

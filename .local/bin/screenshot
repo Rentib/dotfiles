@@ -1,0 +1,30 @@
+#!/bin/sh
+
+DIR="/home/rentib/Pictures/Screenshots"
+NAME="$(date +%Y-%m-%d_%H:%M:%S).png"
+PIC="$DIR/$NAME"
+
+case $1 in
+  "1")
+    case $(printf "screen\\narea" | dmenu -i -p "Take screenshot") in
+      "screen")
+        shotgun $PIC
+        ;;
+      "area")
+        selection=$(hacksaw -f "-i %i -g %g")
+        shotgun $selection $PIC
+        ;;
+    esac
+    ;;
+  "2")
+    case $(printf "screen\\narea" | dmenu -i -p "Copy screenshot") in
+      "screen")
+        shotgun - | xclip -selection clipboard -t image/png
+        ;;
+      "area")
+        selection=$(hacksaw -f "-i %i -g %g")
+        shotgun $selection - | xclip -selection clipboard -t image/png
+        ;;
+    esac
+    ;;
+esac

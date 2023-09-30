@@ -1,0 +1,47 @@
+#!/bin/sh
+
+function zathura {
+  file="/home/rentib/.config/zathura/zathurarc"
+  sed -i '1s/light/temp/g; 1s/dark/light/g; 1s/temp/dark/g' $file
+}
+
+function gtk {
+  header="gtk-application-prefer-dark-theme="
+
+  file="/home/rentib/.config/gtk-3.0/settings.ini"
+  sed -i "s/${header}true/${header}temp/g; s/${header}false/${header}true/g; s/${header}temp/${header}false/g" $file
+
+  file="/home/rentib/.config/gtk-4.0/settings.ini"
+  sed -i "s/${header}1/${header}temp/g; s/${header}0/${header}1/g; s/${header}temp/${header}0/g" $file
+}
+
+function Xresources {
+  file="/home/rentib/.config/X11/Xresources"
+
+  n=$(grep -n "!! Light Colors" $file | cut -d: -f1)
+
+  sed -i "$((n+1)),$((n+18))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+18))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+18))s/^#//" $file
+
+  n=$(grep -n "!! Dark Colors" $file | cut -d: -f1)
+
+  sed -i "$((n+1)),$((n+18))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+18))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+18))s/^#//" $file
+
+  xrdb $file
+
+  # update st instances
+  pidof st | xargs kill -s USR1
+  pidof nvim | xargs kill -s WINCH
+}
+
+zathura
+gtk
+Xresources
+
+notify-send \
+  -t 1000 \
+  -h string:x-dunst-stack-tag:notify_toggle_theme \
+  "Theme has been changed"

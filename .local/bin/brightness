@@ -1,0 +1,17 @@
+function notify_brightness {
+    brightness=$(xbacklight -get | cut -d '.' -f 1)
+    brightness_icon=""
+    bar_color="#d65d0e"
+    notify-send \
+      -t 1000 \
+      -h string:x-dunst-stack-tag:notify_brightness \
+      -h string:hlcolor:$bar_color \
+      -h int:value:$brightness \
+      "$brightness_icon $brightness%"
+}
+
+xbacklight \
+  -inc $1 \
+  -steps ${1#-} \
+  -time 50 \
+&& notify_brightness
