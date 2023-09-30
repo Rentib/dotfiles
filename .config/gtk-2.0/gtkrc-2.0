@@ -1,0 +1,10 @@
+# gtk-theme-name="Sweet-Dark"
+# gtk-icon-theme-name="Sweet-Purple"
+gtk-theme-name="Gruvbox-Material-Dark"
+gtk-icon-theme-name="Gruvbox-Material-Dark"
+gtk-font-name="Cantarell 11"
+gtk-cursor-theme-name="Adwaita"
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+
+# vim: ft=config
