@@ -1,0 +1,14 @@
+#!/bin/sh
+setxkbmap pl &
+resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
+[ -f $resources ] && xrdb $resources & 
+setbg "$HOME/Pictures/wallpapers/Gruv/skull-gruv.jpg" &
+xbanish -t 5 -i all -s & 
+
+# daemons="mpd dunst pipewire slbar mpdup-statusbar"
+daemons="mpd dunst pipewire slstatus mpdup-statusbar"
+for daemon in $daemons; do
+  pidof -s "$daemon" || setsid -f "$daemon"
+done >/dev/null 2>&1
+
+command -v ssh-agent >/dev/null && ssh-agent dwm || exec dwm
