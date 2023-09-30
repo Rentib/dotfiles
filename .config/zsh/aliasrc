@@ -1,0 +1,48 @@
+#!/bin/sh
+
+[ -f $XINITRC ] && alias startx='startx $XINITRC'
+
+alias v='nvim'
+alias vim='nvim'
+alias vimdiff='nvim -d'
+
+alias \
+  l='ls -CF' \
+  ls='ls --group-directories-first -v' \
+  lsd='ls -d *(-/DN)' \
+  la='ls -A' \
+  ll='ls -alF'
+
+alias \
+  rm='rm -iv' \
+  mv='mv -iv' \
+  cp='cp -iv' \
+  mkdir='mkdir -v' \
+  rmdir='rmdir -v'
+
+[ -x /usr/bin/dircolors ] && \
+alias \
+  ls='ls --group-directories-first --color=auto -v' \
+  dir='dir --color=auto' \
+  vdir='vdir --color=auto' \
+  grep='grep --color=auto' \
+  fgrep='fgrep --color=auto' \
+  egrep='egrep --color=auto'
+  # diff='diff --color=auto'
+
+alias lf='lfrun' # lf with ueberzug previews
+alias sxiv='nsxiv'
+
+alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
+
+alias \
+  gst='git status' \
+  gbr='git branch'
+
+# alias youtube-dl='yt-dlp'
+# alias yt-dlp='youtube-dl'
+
+alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
+alias gdb='gdb -tui'
+
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
