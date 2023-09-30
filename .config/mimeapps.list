@@ -5,7 +5,7 @@ text/x-makefile=text.desktop;
 text/x-chdr=text.desktop;
 text/x-csrc=text.desktop;
 text/x-c++src=text.desktop;
-image/jpeg=img.desktop;
+image/jpeg=nsxiv.desktop
 image/png=img.desktop;
 image/gif=img.desktop
 application/pdf=pdf.desktop;
@@ -15,6 +15,7 @@ x-scheme-handler/mailto=brave-browser.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
 application/vnd.debian.binary-package=discord.desktop
 x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_opt_stm32cubeide_.desktop
+video/webm=mpv.desktop
 
 [Added Associations]
 text/x-tex=text.desktop;
@@ -26,3 +27,6 @@ application/xml=text.desktop;
 text/x-java=text.desktop;
 application/x-shellscript=text.desktop;
 application/vnd.debian.binary-package=discord.desktop;
+image/png=nsxiv.desktop;
+image/jpeg=nsxiv.desktop;
+video/webm=mpv.desktop;
