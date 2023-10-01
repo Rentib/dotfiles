@@ -46,6 +46,3 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
 
 # enable anti-aliasing for java apps
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
-
-# lf icons
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/lf/lficons.zsh" ] && source $XDG_CONFIG_HOME/lf/lficons.zsh

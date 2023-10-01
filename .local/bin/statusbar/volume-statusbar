@@ -1,17 +1,26 @@
 #!/bin/sh
 
+# font awesome (fa)
+#    
+# material design (md)
+# 󰕿 󰖀 󰕾 
+# 󰝟 󰖁 󰸈 
+# symbola
+# 🔈 🔉 🔊 
+# 🔇
+
 if [ $(pamixer --get-mute) = "true" ]; then
-  icon="🔇"
+  icon="󰸈"
   printf "%s\n" "$icon"
   exit
 fi
 
 vol=$(pamixer --get-volume)
-icon="🔉"
+icon="󰖀 "
 if [ "$vol" -gt "70" ]; then
-	icon="🔊"
+	icon="󰕾 "
 elif [ "$vol" -lt "30" ]; then
-	icon="🔈"
+	icon="󰕿 "
 fi
 
 printf "%s%d%%\n" "$icon" "$vol"
