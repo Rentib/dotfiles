@@ -20,7 +20,7 @@ compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 _comp_options+=(globdots)	 # include hidden files
 
 # setopt GLOB_COMPLETE     # show globs in autocompletion menu
-setopt MENU_COMPLETE       # highlight first option of the menu
+# setopt MENU_COMPLETE     # highlight first option of the menu
 setopt AUTO_LIST           # list choices on ambiguous completion
 setopt COMPLETE_IN_WORD    # complete from anywhere in word
 

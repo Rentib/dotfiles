@@ -8,7 +8,7 @@ Xft.lcdfilter:	lcddefault
 Nsxiv.bar.font: Hack Nerd Font: size=11:style=bold
 Nsxiv.window.alpha: 1.0
 
-st.font: hack:size=12:antialias=true:autohint=true
+st.font: Hack Nerd Font:size=12:antialias=true:autohint=true
 st.borderpx: 3
 st.alpha: 1.0
 
