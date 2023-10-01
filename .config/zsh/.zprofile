@@ -35,7 +35,7 @@ export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/vagrant/aliases"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 # flutter stuff
-export PATH="$PATH:/home/rentib/flutter/bin"
+export PATH="$PATH:/home/rentib/.local/src/flutter/bin"
 export PATH="$PATH:/home/rentib/.local/share/npm/bin"
 export CHROME_EXECUTABLE="/usr/bin/brave"
 export ANDROID_SDK_ROOT='/opt/android-sdk'

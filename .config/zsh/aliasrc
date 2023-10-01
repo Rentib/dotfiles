@@ -27,7 +27,8 @@ alias \
   vdir='vdir --color=auto' \
   grep='grep --color=auto' \
   fgrep='fgrep --color=auto' \
-  egrep='egrep --color=auto'
+  egrep='egrep --color=auto' \
+  ip='ip --color=auto'
   # diff='diff --color=auto'
 
 alias lf='lfrun' # lf with ueberzug previews
