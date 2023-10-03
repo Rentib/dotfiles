@@ -20,15 +20,15 @@ function Xresources {
 
   n=$(grep -n "!! Light Colors" $file | cut -d: -f1)
 
-  sed -i "$((n+1)),$((n+18))s/^!/#/" $file
-  sed -i "$((n+1)),$((n+18))s/^*/!*/" $file
-  sed -i "$((n+1)),$((n+18))s/^#//" $file
+  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+24))s/^#//" $file
 
   n=$(grep -n "!! Dark Colors" $file | cut -d: -f1)
 
-  sed -i "$((n+1)),$((n+18))s/^!/#/" $file
-  sed -i "$((n+1)),$((n+18))s/^*/!*/" $file
-  sed -i "$((n+1)),$((n+18))s/^#//" $file
+  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+24))s/^#//" $file
 
   xrdb $file
 
