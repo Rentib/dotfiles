@@ -1,6 +1,6 @@
 #!/bin/sh
 
-choice=$(printf "shutdown\nsuspend\nreboot" | dmenu)
+choice=$(printf "shutdown\nsuspend\nreboot" | dmenu $@)
 case $choice in
   "shutdown") prompt "Do you want to shutdown?" "shutdown -h now";;
   "suspend") systemctl suspend;;
