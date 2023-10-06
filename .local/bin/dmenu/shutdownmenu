@@ -2,8 +2,8 @@
 
 choice=$(printf "shutdown\nsuspend\nreboot" | dmenu $@)
 case $choice in
-  "shutdown") prompt "Do you want to shutdown?" "shutdown -h now";;
+  "shutdown") [ "$(printf "No\nYes" | dmenu -p "Do you want to shutdown?" $@)" = "Yes" ] && shutdown -h now;;
   "suspend") systemctl suspend;;
-  "reboot") prompt "Do you want to reboot?" "reboot";;
+  "reboot") [ "$(printf "No\nYes" | dmenu -p "Do you want to reboot?" $@)" = "Yes" ] && reboot;;
   *);;
 esac

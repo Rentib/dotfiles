@@ -13,7 +13,7 @@ off() {
   notify-send \
     -t 1000 \
     -h string:x-dunst-stack-tag:notify_toggle_xbanish \
-    "disabled"
+    "xbanish disabled"
 }
 
 pidof xbanish >/dev/null && off || on
