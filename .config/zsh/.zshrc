@@ -68,11 +68,6 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# custom functions
-fcd() {
-  cd "$(fd --hidden --type directory | fzf --height 40% --reverse)"
-}
-
 # plugins (use .local/share/zsh/plugins for place to keep repos with plugins)
 plugin_dir="${XDG_DATA_HOME}/zsh/plugins"
 url="https://github.com"
