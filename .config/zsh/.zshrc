@@ -1,13 +1,14 @@
 # $ZDOTDIR/.zshrc file for zsh interactive shells.
 
 setopt autocd              # changes directory just by typing its name
-# setopt correct           # auto correct mistakes
+setopt correct             # auto correct mistakes
 setopt interactivecomments # allow comments in interactive mode
 # setopt magicequalsubst   # enable filename expansion for arguments of the form 'anything=expression'
 # setopt nonomatch         # hide error message if there is no match for the pattern
 setopt notify              # report the status of background jobs immediately
 setopt numericglobsort     # sort filenames numerically when it makes sense
 # setopt promptsubst       # enable command substitutions in prompt
+setopt noclobber           # don't overwrite existing files (you can with >!)
 
 WORDCHARS=${WORDCHARS//\/} # don't consider certain characters part of the word
 PROMPT_EOL_MARK=""         # hide EOL sign ('%')
@@ -73,7 +74,9 @@ plugin_dir="${XDG_DATA_HOME}/zsh/plugins"
 url="https://github.com"
 [ -d $plugin_dir/fast-syntax-highlighting ] || {
   echo "Fetching fast-syntax-highlighting"
-  git clone --depth=1 $url/zdharma-continuum/fast-syntax-highlighting $plugin_dir/fast-syntax-highlighting
+  git -C "$plugin_dir" \
+    clone --depth 1 --single-branch --no-tags -q \
+    "$url/zdharma-continuum/fast-syntax-highlighting"
 }
 source "$plugin_dir/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 unset plugin_dir url
