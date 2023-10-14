@@ -59,15 +59,14 @@ PROMPT_EOL_MARK=""           # hide EOL sign ('%')
 # }}}
 
 # }}}
-# {{{COMPLETION WIDGETS
+# {{{COMPLETION SYSTEM
 
+# {{{widgets
 # edit line in vim with ctrl+e
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
-
 # }}}
-# {{{COMPLETION SYSTEM
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-$XDG_DATA_HOME/zsh/completion/}}
 
@@ -81,13 +80,16 @@ zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
-zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+zstyle ':completion:*:functions' ignored-patterns '(_*|*-widget|pre(cmd|exec))'
 
-zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -o pid,user,command -w'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01'
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -w -o pid,user,cmd'
+
+# {{{kill
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=32;1=31;1=33;1'
 zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:*:kill:*' force-list always
+zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*' insert-ids single
+# }}}
 
 # }}}
 # {{{KEYBINDINGS
