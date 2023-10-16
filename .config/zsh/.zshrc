@@ -202,8 +202,6 @@ update_plugins() {
   unset plugin_dir url
 }
 
-eval $(opam env)
-
 # fuzzy finder
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
