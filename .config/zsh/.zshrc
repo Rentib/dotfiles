@@ -186,7 +186,7 @@ for plugin in $plugins; do
   [ -d "$plugin_dir/$repo" ] || \
     git -C "$plugin_dir" \
       clone --depth 1 --single-branch --no-tags -q \
-      "https://github.com/$url/$plugin"
+      "https://github.com/$plugin"
 
   source $(find "$plugin_dir/$repo" -type f -name "*.plugin.zsh")
 done
