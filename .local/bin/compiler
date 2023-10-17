@@ -24,6 +24,7 @@ case "$ext" in
 	cpp) g++ "$file" -o "$base" && "$base" ;;
   ml) ocaml "$file" ;;
 	py) python "$file" ;;
+  sh|bash|zsh) sh "$file" ;;
 	tex) textype "$file" ;;
   *) notify-send "not compilable type"
 esac

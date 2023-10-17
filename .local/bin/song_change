@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MUSIC_DIR="$HOME/Music"
+PREVIEW_DIR="$XDG_CONFIG_HOME/ncmpcpp/previews"
+
+cover="$(find "$(dirname "$MUSIC_DIR/$(mpc -f %file% current)")" -type f -iregex '.*\.\(jpg\|png\|jpeg\)' | head -n 1)"
+preview="$PREVIEW_DIR/$(mpc -f %album% current | iconv -f utf-8 -t ascii//TRANSLIT | base64).png"
+
+[ -e "$preview" ] || ffmpeg -y -i "$cover" -an -vf scale=128:128 "$preview" > /dev/null 2>&1
+
+notify-send \
+  -t 2000 \
+  -h string:x-dunst-stack-tag:notify_song_change \
+  -i "$preview" \
+  "Now Playing" \
+  "$(mpc -f %artist% current)\n<i>$(mpc -f %title% current)</i>"
