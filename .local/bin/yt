@@ -114,7 +114,7 @@ done
 IDS=$(curl -s "$URL_SEARCH$QUERY" |\
   grep -Eo "watch\?v=.{11}" |\
   uniq |\
-  head -n $NUMBER_OF_RESULTS |\
+  sed "$NUMBER_OF_RESULTS"q |\
   cut -c 9-)
 
 COUNT=0
