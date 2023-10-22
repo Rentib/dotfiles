@@ -7,24 +7,14 @@ PIC="$DIR/$NAME"
 case $1 in
   "1")
     case $(printf "screen\\narea" | dmenu -i -p "Take screenshot") in
-      "screen")
-        shotgun $PIC
-        ;;
-      "area")
-        selection=$(hacksaw -f "-i %i -g %g")
-        shotgun $selection $PIC
-        ;;
+      "screen") sxot | ffmpeg -i - $PIC ;;
+      "area") sxot --geom "$(selx)" | ffmpeg -i - $PIC ;;
     esac
     ;;
   "2")
     case $(printf "screen\\narea" | dmenu -i -p "Copy screenshot") in
-      "screen")
-        shotgun - | xclip -selection clipboard -t image/png
-        ;;
-      "area")
-        selection=$(hacksaw -f "-i %i -g %g")
-        shotgun $selection - | xclip -selection clipboard -t image/png
-        ;;
+      "screen") sxot | ffmpeg -v quiet -f image2pipe -c:v ppm -i - -c:v png -f image2pipe - | xclip -selection clippy-driver -t image/png ;;
+      "area") sxot --geom "$(selx)" | ffmpeg -v quiet -f image2pipe -c:v ppm -i - -c:v png -f image2pipe - | xclip -selection clippy-driver -t image/png ;;
     esac
     ;;
 esac
