@@ -9,18 +9,16 @@
 # 🔈 🔉 🔊 
 # 🔇
 
-if [ $(pamixer --get-mute) = "true" ]; then
-  icon="󰸈"
-  printf "%s\n" "$icon"
-  exit
-fi
+vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 
-vol=$(pamixer --get-volume)
+[ "$vol" != "${vol%\[MUTED\]}" ] && printf "󰸈\n" && exit
+
+vol=$(echo ${vol#Volume: } | sed 's/\.//;s/^0*//')
 icon="󰖀 "
 if [ "$vol" -gt "70" ]; then
-	icon="󰕾 "
+  icon="󰕾 "
 elif [ "$vol" -lt "30" ]; then
-	icon="󰕿 "
+  icon="󰕿 "
 fi
 
 printf "%s%d%%\n" "$icon" "$vol"
