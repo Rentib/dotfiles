@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $BUTTON in
+  1) st -e ncmpcpp ;;
+  2) st -e "$EDITOR" "$0" ;;
+  3) mpc toggle ;;
+  4) mpc seek +10;;
+  5) mpc seek -10;;
+esac

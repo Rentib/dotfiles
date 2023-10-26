@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $BUTTON in
+  1) st -e btop ;;
+  2) st -e "$EDITOR" "$0" ;;
+  3) ;;
+  4) brightness +5;;
+  5) brightness -5;;
+esac
