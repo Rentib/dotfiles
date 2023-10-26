@@ -1,49 +1,57 @@
 #!/bin/sh
 
-[ -f $XINITRC ] && alias startx='startx $XINITRC'
-
-alias v='nvim'
-alias vim='nvim'
-alias vimdiff='nvim -d'
-
-alias \
-  l='ls -CF' \
+# {{{REASONABLE ALIASES
+alias                                  \
+  l='ls -CF'                           \
   ls='ls --group-directories-first -v' \
-  lsd='ls -d *(-/DN)' \
-  la='ls -A' \
+  lsd='ls -d *(-/DN)'                  \
+  la='ls -A'                           \
   ll='ls -alF'
 
-alias \
-  rm='rm -iv' \
-  mv='mv -iv' \
-  cp='cp -iv' \
-  mkdir='mkdir -v' \
-  rmdir='rmdir -v'
+alias                          \
+  rm='rm -iv'                  \
+  mv='mv -iv'                  \
+  cp='cp -iv'                  \
+  mkdir='mkdir -pv'            \
+  rmdir='rmdir -v'             \
+  df='df -h'                   \
+  du='du -h'                   \
+  ffmpeg='ffmpeg -hide_banner'
 
-[ -x /usr/bin/dircolors ] && \
-alias \
-  ls='ls --group-directories-first --color=auto -v' \
-  dir='dir --color=auto' \
-  vdir='vdir --color=auto' \
-  grep='grep --color=auto' \
-  fgrep='fgrep --color=auto' \
-  egrep='egrep --color=auto' \
-  ip='ip --color=auto'
-  # diff='diff --color=auto'
-
-alias lf='lfrun' # lf with ueberzug previews
-alias sxiv='nsxiv'
-
-alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
-
-alias \
+alias              \
   gst='git status' \
   gbr='git branch'
+# }}}
+# {{{COLORS
+[ -x /usr/bin/dircolors ] &&                        \
+alias                                               \
+  ls='ls --group-directories-first -v --color=auto' \
+  dir='dir --color=auto'                            \
+  vdir='vdir --color=auto'                          \
+  grep='grep --color=auto'                          \
+  egrep='egrep --color=auto'                        \
+  fgrep='fgrep --color=auto'                        \
+  ip='ip --color=auto'                              \
+  diff='diff --color=auto'
+# }}}
+# {{{MY ALIASES
+[ -f $XINITRC ] && alias startx='startx $XINITRC'
 
-# alias youtube-dl='yt-dlp'
-# alias yt-dlp='youtube-dl'
+alias               \
+  v=$EDITOR         \
+  vim='nvim'        \
+  vimdiff='nvim -d'
+
+alias \
+  lf='lfrun'   \
+  sxiv='nsxiv' \
 
 alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
 alias gdb='gdb -tui'
 
+alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
+
 alias config='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
+# }}}
+
+# vim: set fdm=marker fmr={{{,}}}:
