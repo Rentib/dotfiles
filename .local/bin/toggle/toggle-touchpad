@@ -7,7 +7,7 @@ on() {
   notify-send \
     -t 1000 \
     -h string:x-dunst-stack-tag:notify_toggle_touchpad \
-    "🖲️ Touchpad enabled"
+    "󰍿 Touchpad enabled"
 }
 
 off() {
@@ -15,7 +15,7 @@ off() {
   notify-send \
     -t 1000 \
     -h string:x-dunst-stack-tag:notify_toggle_touchpad \
-    "🖲️ Touchpad disabled"
+    "󰎀 Touchpad disabled"
 }
 
 xinput list $deviceId | grep -q 'This device is disabled' && on || off
