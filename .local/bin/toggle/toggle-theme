@@ -49,7 +49,6 @@ function Xresources {
 
   # update st instances
   pidof st | xargs kill -s USR1
-  pidof nvim | xargs kill -s WINCH
 }
 
 zathura
