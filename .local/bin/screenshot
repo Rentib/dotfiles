@@ -6,7 +6,7 @@ PIC="$DIR/$NAME"
 
 case $1 in
   "1")
-    case $(printf "screen\\narea" | dmenu -i -p "Take screenshot") in
+    case $(printf "screen\\narea" | dmenu -i -p "Take screenshot" $(dmenu_opts)) in
       # "screen") sxot | ffmpeg -i - $PIC ;;
       # "area") sxot --geom "$(selx)" | ffmpeg -i - $PIC ;;
       "screen") grim -t ppm - | ffmpeg -i - $PIC ;;
@@ -14,7 +14,7 @@ case $1 in
     esac
     ;;
   "2")
-    case $(printf "screen\\narea" | dmenu -i -p "Copy screenshot") in
+    case $(printf "screen\\narea" | dmenu -i -p "Copy screenshot" $(dmenu_opts)) in
       # "screen") sxot | ffmpeg -v quiet -f image2pipe -c:v ppm -i - -c:v png -f image2pipe - | xclip -selection clippy-driver -t image/png ;;
       # "area") sxot --geom "$(selx)" | ffmpeg -v quiet -f image2pipe -c:v ppm -i - -c:v png -f image2pipe - | xclip -selection clippy-driver -t image/png ;;
       "screen") grim -t ppm - | ffmpeg -v quiet -f image2pipe -c:v ppm -i - -c:v png -f image2pipe - | xclip -selection clippy-driver -t image/png ;;
