@@ -32,31 +32,6 @@
 # riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
 # riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
 
-# Declare a passthrough mode. This mode has only a single mapping to return to
-# normal mode. This makes it useful for testing a nested wayland compositor
-riverctl declare-mode passthrough
-
-# Super+F11 to enter passthrough mode
-riverctl map normal Super F11 enter-mode passthrough
-
-# Super+F11 to return to normal mode
-riverctl map passthrough Super F11 enter-mode normal
-
-# Set background and border color
-riverctl background-color       0x000000
-riverctl border-color-focused   0x93a1a1
-riverctl border-color-unfocused 0x586e75
-
-# Make certain views start floating
-riverctl float-filter-add app-id float
-riverctl float-filter-add title "popup title with spaces"
-
-# Set app-ids and titles of views which should use client side decorations
-riverctl csd-filter-add app-id "gedit"
-
-# Set the default layout generator to be rivertile and start it.
-# River will send the process group of the init executable SIGTERM on exit.
-
 # NOTE: MY CONFIG
 
 #xinitrc{{{
@@ -83,8 +58,17 @@ riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 \
           -main-location left -main-count 1 -main-ratio 0.55 &
 
-dmenu_opts='-s -m 0 -fn "hack:size=10" -nb #fbf1c7 -nf #654735 -sb #fb4934 -sf #282828'
+riverctl background-color       0x000000
+riverctl border-color-focused   0x93a1a1
+riverctl border-color-unfocused 0x586e75
+
 #}}}
+# Rules{{{
+riverctl rule-add -app-id Brave-browser   tag $((1<<1))
+riverctl rule-add -app-id Firefox         tag $((1<<1))
+riverctl rule-add -app-id discord         tag $((1<<8))
+# TODO: riverctl rule-add -app-id "TelegramDesktop" tag 9
+# }}}
 # Key Bindings{{{
 for i in $(seq 1 9); do
     tags=$((1 << ($i - 1)))
@@ -123,20 +107,20 @@ riverctl map normal Super+Shift P spawn 'mpc stop'
 # riverctl map normal Super+Shift A
 # riverctl map normal Super       S
 # riverctl map normal Super+Shift S
-riverctl map normal Super       D spawn 'dmenu_run $dmenu_opts' # TODO:
-riverctl map normal Super+Shift D spawn 'passmenu $dmenu_opts' # TODO:
+riverctl map normal Super       D spawn 'dmenu_run $(dmenu_opts)'
+riverctl map normal Super+Shift D spawn 'passmenu $(dmenu_opts)' # TODO:
 riverctl map normal Super       F toggle-fullscreen
 riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
 # riverctl map normal Super       G
 # riverctl map normal Super+Shift G
-riverctl map normal Super       H send-layout-cmd rivertile "main-ratio -0.01"
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1" # TODO:
-riverctl map normal Super       J focus-view next
-riverctl map normal Super+Shift J swap next
-riverctl map normal Super       K focus-view previous
-riverctl map normal Super+Shift K swap previous
-riverctl map normal Super       L send-layout-cmd rivertile "main-ratio +0.01"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1" # TODO:
+riverctl map -repeat normal Super       H send-layout-cmd rivertile "main-ratio -0.01"
+riverctl map -repeat normal Super+Shift H send-layout-cmd rivertile "main-count -1"
+riverctl map -repeat normal Super       J focus-view next
+riverctl map -repeat normal Super+Shift J swap next
+riverctl map -repeat normal Super       K focus-view previous
+riverctl map -repeat normal Super+Shift K swap previous
+riverctl map -repeat normal Super       L send-layout-cmd rivertile "main-ratio +0.01"
+riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count +1"
 # riverctl map normal Super       Semicolon
 # riverctl map normal Super+Shift Semicolon
 # riverctl map normal Super       Apostrophe
@@ -147,7 +131,7 @@ riverctl map normal Super       Return spawn '$TERMINAL'
 # riverctl map normal Super       Z
 # riverctl map normal Super+Shift Z
 # riverctl map normal Super       X
-riverctl map normal Super+Shift X spawn 'shutdownmenu $dmenu_opts' # TODO:
+riverctl map normal Super+Shift X spawn 'shutdownmenu $(dmenu_opts)' # TODO:
 # riverctl map normal Super       C
 # riverctl map normal Super+Shift C
 # riverctl map normal Super       V
@@ -159,9 +143,9 @@ riverctl map normal Super+Shift N spawn 'restart-dunst'
 riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
 # riverctl map normal Super+Shift M
 riverctl map normal Super       Comma spawn 'mpc prev'
-riverctl map normal Super+Shift Comma spawn 'mpc seek -10'
+riverctl map -repeat normal Super+Shift Comma spawn 'mpc seek -10'
 riverctl map normal Super       Period spawn 'mpc next'
-riverctl map normal Super+Shift Period spawn 'mpc seek +10'
+riverctl map -repeat normal Super+Shift Period spawn 'mpc seek +10'
 
 riverctl map normal Super       Space zoom
 riverctl map normal Super+Shift Space toggle-float
@@ -171,12 +155,12 @@ riverctl map normal Shift       Print spawn 'screenshot 2'
 riverctl map normal Super       F12 spawn 'toggle-theme'
 
 for mode in normal locked; do
-  riverctl map $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
-  riverctl map $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
-  riverctl map $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
-  riverctl map $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
-  riverctl map $mode None XF86MonBrightnessDown spawn 'brightness -5'
-  riverctl map $mode None XF86MonBrightnessUp   spawn 'brightness +5'
+  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
+  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
+  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
+  riverctl map -repeat $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
+  riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
+  riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
 done
 #}}}
 # Mouse Bindings{{{
@@ -184,5 +168,9 @@ riverctl map-pointer normal Super BTN_LEFT move-view
 riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 #}}}
+
+riverctl declare-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
+riverctl map passthrough Super F11 enter-mode normal
 
 # vim: set fdm=marker fmr={{{,}}}:
