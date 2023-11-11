@@ -1,13 +1,5 @@
 #!/bin/sh
 
-# Super+Period and Super+Comma to focus the next/previous output
-# riverctl map normal Super Period focus-output next
-# riverctl map normal Super Comma focus-output previous
-
-# Super+Shift+{Period,Comma} to send the focused view to the next/previous output
-# riverctl map normal Super+Shift Period send-to-output next
-# riverctl map normal Super+Shift Comma send-to-output previous
-
 # Super+Alt+{H,J,K,L} to move views
 # riverctl map normal Super+Alt H move left 100
 # riverctl map normal Super+Alt J move down 100
@@ -36,8 +28,9 @@
 
 #xinitrc{{{
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
-[ -f $resources ] && xrdb $resources & 
+[ -f $resources ] && xrdb $resources &
 setbg "$HOME/Pictures/wallpapers/irena_orwid.png" &
+foot --server --hold &
 
 daemons="dunst mpd pipewire"
 for daemon in $daemons; do
@@ -50,23 +43,11 @@ riverctl hide-cursor when-typing enabled
 riverctl set-repeat 50 300
 riverctl input $(riverctl list-inputs | grep TouchPad) tap enabled
 #}}}
-# Options{{{
-riverctl border-width 2
-riverctl focus-follows-cursor normal
-
-riverctl default-layout rivertile
-rivertile -view-padding 0 -outer-padding 0 \
-          -main-location left -main-count 1 -main-ratio 0.55 &
-
-riverctl background-color       0x000000
-riverctl border-color-focused   0x93a1a1
-riverctl border-color-unfocused 0x586e75
-
-#}}}
 # Rules{{{
 riverctl rule-add -app-id Brave-browser   tag $((1<<1))
 riverctl rule-add -app-id Firefox         tag $((1<<1))
 riverctl rule-add -app-id discord         tag $((1<<8))
+riverctl rule-add -app-id '*'             ssd
 # TODO: riverctl rule-add -app-id "TelegramDesktop" tag 9
 # }}}
 # Key Bindings{{{
@@ -107,8 +88,8 @@ riverctl map normal Super+Shift P spawn 'mpc stop'
 # riverctl map normal Super+Shift A
 # riverctl map normal Super       S
 # riverctl map normal Super+Shift S
-riverctl map normal Super       D spawn 'dmenu_run $(dmenu_opts)'
-riverctl map normal Super+Shift D spawn 'passmenu $(dmenu_opts)' # TODO:
+riverctl map normal Super       D spawn 'wmenu_run $(wmenu_opts)'
+riverctl map normal Super+Shift D spawn 'passmenu $(wmenu_opts)' # TODO:
 riverctl map normal Super       F toggle-fullscreen
 riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
 # riverctl map normal Super       G
@@ -125,19 +106,19 @@ riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count 
 # riverctl map normal Super+Shift Semicolon
 # riverctl map normal Super       Apostrophe
 # riverctl map normal Super+Shift Apostrophe
-riverctl map normal Super       Return spawn '$TERMINAL'
+riverctl map normal Super       Return spawn 'footclient'
 # riverctl map normal Super+Shift Return
 
 # riverctl map normal Super       Z
 # riverctl map normal Super+Shift Z
 # riverctl map normal Super       X
-riverctl map normal Super+Shift X spawn 'shutdownmenu $(dmenu_opts)' # TODO:
+riverctl map normal Super+Shift X spawn 'shutdownmenu'
 # riverctl map normal Super       C
 # riverctl map normal Super+Shift C
 # riverctl map normal Super       V
 # riverctl map normal Super+Shift V
 riverctl map normal Super       B spawn '$BROWSER'
-# riverctl map normal Super+Shift B # TODO:
+riverctl map normal Super+Mod1  B spawn 'pkill -SIGUSR1 i3bar-river'
 # riverctl map normal Super       N
 riverctl map normal Super+Shift N spawn 'restart-dunst'
 riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
@@ -151,13 +132,17 @@ riverctl map normal Super       Space zoom
 riverctl map normal Super+Shift Space toggle-float
 riverctl map normal None        Print spawn 'screenshot 1'
 riverctl map normal Shift       Print spawn 'screenshot 2'
+riverctl map normal Super       Page_Up focus-output previous
+riverctl map normal Super+Shift Page_Up send-to-output previous
+riverctl map normal Super       Page_Down focus-output next
+riverctl map normal Super+Shift Page_Down send-to-output next
 
 riverctl map normal Super       F12 spawn 'toggle-theme'
 
 for mode in normal locked; do
-  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
-  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
-  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
+  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle; pkill -10 slstatus'
+  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-; pkill -10 slstatus'
+  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+; pkill -10 slstatus'
   riverctl map -repeat $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
@@ -168,9 +153,29 @@ riverctl map-pointer normal Super BTN_LEFT move-view
 riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 #}}}
+# Options{{{
+riverctl focus-follows-cursor normal
+
+riverctl default-layout rivertile
+rivertile -view-padding 0 -outer-padding 0 \
+          -main-location left -main-count 1 -main-ratio 0.55 &
+
+# hacky solution: if options were earlier in the file, xrdb might have not yet finished and we wouldnt be able to get colors
+riverctl border-width 2
+riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+
+#gtk{{{
+gsettings set org.gnome.desktop.interface gtk-theme    'Gruvbox'
+gsettings set org.gnome.desktop.interface icon-theme   'Gruvbox-Material-Dark'
+gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+gsettings set org.gnome.desktop.interface font-name    'Cantarell 11'
+#}}}
+#}}}
 
 riverctl declare-mode passthrough
 riverctl map normal Super F11 enter-mode passthrough
 riverctl map passthrough Super F11 enter-mode normal
+riverctl spawn i3bar-river
 
 # vim: set fdm=marker fmr={{{,}}}:
