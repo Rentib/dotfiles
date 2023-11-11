@@ -13,7 +13,7 @@ vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 
 [ "$vol" != "${vol%\[MUTED\]}" ] && printf "󰸈\n" && exit
 
-vol=$(echo ${vol#Volume: } | sed 's/\.//;s/^0*//')
+vol=$(echo ${vol#Volume: } | sed 's/\.//;s/^0*//;s/^$/0/')
 icon="󰖀 "
 if [ "$vol" -gt "70" ]; then
   icon="󰕾 "

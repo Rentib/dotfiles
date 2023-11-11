@@ -1,0 +1,12 @@
+#!/bin/sh
+
+nb="$(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
+nf="$(xrdb -query | grep -E '^\*dwm\.normfgcolor:' | awk '{print $NF}')"
+sb="$(xrdb -query | grep -E '^\*dwm\.selbordercolor:' | awk '{print $NF}')"
+sf="$(xrdb -query | grep -E '^\*dwm\.selfgcolor:' | awk '{print $NF}')"
+opts='-m 0 --fn hack:size=10'
+opts="$opts --tb $nb --fb $nb --cb $nb --nb $nb --fbb $nb --ab $nb --scb $nb"
+opts="$opts --tf $nf --ff $nf --cf $nf --nf $nf --fbf $nf --af $nf --scf $nf"
+opts="$opts --hb $sb --sb $sb"
+opts="$opts --hf $sf --sf $sf"
+echo $opts

@@ -1,3 +1,0 @@
-#!/bin/sh
-xrandr --output HDMI1 --auto --same-as eDP1 &
-pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo

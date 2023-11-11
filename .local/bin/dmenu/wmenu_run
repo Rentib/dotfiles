@@ -1,0 +1,2 @@
+#!/bin/sh
+wmenu_path | wmenu "$@" | ${SHELL:-"/bin/sh"} &
