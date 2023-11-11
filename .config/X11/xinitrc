@@ -2,7 +2,7 @@
 setxkbmap pl &
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 [ -f $resources ] && xrdb $resources & 
-setbg "$HOME/Pictures/wallpapers/Gruv/skull-gruv.jpg" &
+setbg "$HOME/Pictures/wallpapers/irena_orwid.png" &
 xbanish -t 5 -i all -s & 
 
 # daemons="mpd dunst pipewire slbar mpdup-statusbar"
