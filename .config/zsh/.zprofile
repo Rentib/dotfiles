@@ -1,5 +1,6 @@
 # Default programs
-export TERMINAL="st"
+# export TERMINAL="st"
+export TERMINAL="foot"
 export WM="dwm"
 export READER="zathura"
 export PAGER="nvim --cmd 'let g:vim_man_pager=1' +Man!"
@@ -33,6 +34,7 @@ export GRADLE_USER_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/gradle"
 export VAGRANT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/vagrant"
 export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/vagrant/aliases"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
 
 # flutter stuff
 export PATH="$PATH:/home/rentib/.local/src/flutter/bin"
