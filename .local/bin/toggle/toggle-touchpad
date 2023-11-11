@@ -1,21 +1,39 @@
 #!/bin/sh
 
-deviceId="$(xinput list | grep -i "touchpad" | sed -n -e 's/^.*id=//p'|cut -f1)"
-
-on() {
-	xinput enable $deviceId
+notify() {
+  case $1 in
+    0) msg="󰎀 Touchpad disabled" ;;
+    1) msg="󰍿 Touchpad enabled"  ;;
+  esac
   notify-send \
     -t 1000 \
     -h string:x-dunst-stack-tag:notify_toggle_touchpad \
-    "󰍿 Touchpad enabled"
+    "$msg"
 }
 
-off() {
-	xinput disable $deviceId
-  notify-send \
-    -t 1000 \
-    -h string:x-dunst-stack-tag:notify_toggle_touchpad \
-    "󰎀 Touchpad disabled"
-}
+if command -v xinput; then
+  deviceId="$(xinput list | grep -i "touchpad" | sed -n -e 's/^.*id=//p'|cut -f1)"
 
-xinput list $deviceId | grep -q 'This device is disabled' && on || off
+  on() {
+    xinput enable $deviceId && notify 1
+  }
+  off() {
+    xinput disable $deviceId && notify 0
+  }
+  xinput list $deviceId | grep -q 'This device is disabled' && on || off
+fi
+
+if pidof river > /dev/null; then
+  deviceId="$(riverctl list-inputs | grep TouchPad)"
+
+  on() {
+    riverctl input $deviceId events enabled && notify 1
+  }
+  off() {
+    riverctl input $deviceId events disabled && notify 0
+  }
+
+  riverctl list-input-configs | \
+    grep -A 2 $deviceId | \
+    grep -q 'events: disabled' && on || off
+fi

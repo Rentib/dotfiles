@@ -71,7 +71,7 @@ riverctl map normal Super+Shift Q close
 riverctl map normal Super+Shift E exit
 # riverctl map normal Super       R
 # riverctl map normal Super+Shift R
-riverctl map normal Super       T spawn 'riverctl input $(riverctl list-inputs | grep TouchPad) events disabled' # TODO:
+riverctl map normal Super       T spawn 'toggle-touchpad'
 riverctl map normal Super+Shift T spawn 'riverctl hide-cursor timeout 0' # TODO:
 # riverctl map normal Super       Y
 # riverctl map normal Super+Shift Y
