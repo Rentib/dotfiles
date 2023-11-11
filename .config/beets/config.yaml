@@ -1,4 +1,4 @@
-plugins: acousticbrainz chroma fromfilename discogs spotify duplicates missing zero fetchart thumbnails lastgenre
+plugins: acousticbrainz chroma fromfilename discogs spotify duplicates missing fetchart lastgenre
 
 fetchart:
   cautious: true
@@ -9,8 +9,3 @@ discogs:
 
 spotify:
   source_weight: 0.3
-
-zero:
-  keep_fields: length bitrate samplerate channels title artist albumartist album year track genre composer disc acoustid_fingerprint acoustid_id
-  comments: [EAC, LAME, from.+collection, 'ripped by']
-  update_database: true
