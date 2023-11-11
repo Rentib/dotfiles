@@ -5,10 +5,14 @@ set ignorecase true
 set ifs "\n"
 set drawbox true
 set icons true
+set sixel true
 
 set preview true
-set previewer ~/.config/lf/preview
-set cleaner ~/.config/lf/cleaner
+set previewer ~/.local/src/ctpv/ctpv
+set cleaner ~/.local/src/ctpv/ctpvclear
+
+# set previewer ~/.config/lf/preview
+# set cleaner ~/.config/lf/cleaner
 
 # Custom functions
 cmd open ${{
