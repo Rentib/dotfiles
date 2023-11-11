@@ -5,7 +5,6 @@
 setopt AUTO_CD               # cd by typing directory name
 setopt PUSHD_IGNORE_DUPS     # don't pushd duplicates
 # }}}
-
 # {{{Completion
 setopt AUTO_LIST             # list choices on ambiguous completion
 setopt AUTO_MENU             # use menu completion after the 2nd completion request
@@ -15,14 +14,12 @@ setopt GLOB_COMPLETE         # list options instead of inserting them when match
 # setopt MENU_COMPLETE       # automatically choose 1st menu option
 setopt REC_EXACT             # if the string exactly matches a possible completion, accept it
 # }}}
-
 # {{{Expansion and Globbing
 # setopt EXTENDED_GLOB       # treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation
 # setopt GLOB_DOTS           # don't require leading . to be completed
 setopt MAGIC_EQUAL_SUBST     # unquoted arguments of the form ‘anything=expression’ after the command name have filename expansion
 setopt NUMERIC_GLOB_SORT     # sort filenames numerically when it makes sense
 # }}}
-
 # {{{History
 setopt HIST_FIND_NO_DUPS     # ignore duplicates when searching history
 setopt HIST_IGNORE_ALL_DUPS  # if new command duplicates and old one, the old one is removed
@@ -32,32 +29,26 @@ setopt HIST_SAVE_NO_DUPS     # when writing out the history file, older commands
 setopt HIST_VERIFY           # entering a line with history expansion puts it into the editing buffer (doesn't execute)
 # setopt SHARE_HISTORY       # share history between all zsh instances
 # }}}
-
 # {{{Input/Output
 setopt NO_CLOBBER            # don't overwrite existing files (you can with >!)
 setopt CORRECT               # ask to correct mistakes in commands
 setopt INTERACTIVE_COMMENTS  # allow for comments in interactive mode
 # }}}
-
 # {{{Job Control
 setopt LONG_LIST_JOBS        # print job notifications in the long format by default
 setopt NOTIFY                # report the status of a job immediately
 # }}}
-
 # {{{Prompting
 setopt PROMPT_SUBST          # expansions are performed in prompts
 # }}}
-
 # {{{Zle (Zsh Line Editor)
 setopt NO_BEEP               # no beep on zle errors
 setopt EMACS                 # emacs mode
 # }}}
-
 # {{{Misc
 WORDCHARS=${WORDCHARS//\/}   # don't consider certain characters part of the word
 PROMPT_EOL_MARK=""           # hide EOL sign ('%')
 # }}}
-
 # }}}
 # {{{COMPLETION SYSTEM
 
@@ -207,5 +198,33 @@ update_plugins() {
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # }}}
+
+if [ "$TERM" = "foot" ]; then
+  function osc7-pwd() {
+    emulate -L zsh
+    setopt extendedglob
+    local LC_ALL=C
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+  }
+
+  function chpwd-osc7-pwd() {
+    (( ZSH_SUBSHELL )) || osc7-pwd
+  }
+  add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
+  get_scheme() {
+    # https://github.com/lemnos/theme.sh
+    file=/home/rentib/.config/gtk-3.0/settings.ini
+    grep -q "gtk-application-prefer-dark-theme=true" $file && \
+      sh /home/rentib/.config/zsh/theme.sh gruvbox-material-dark-medium
+    grep -q "gtk-application-prefer-dark-theme=false" $file && \
+      sh /home/rentib/.config/zsh/theme.sh gruvbox-material-light-medium
+  }
+  # get_scheme
+fi
+
+TRAPUSR1() {
+  [ "$TERM" = "foot" ] && get_scheme
+}
 
 # vim: set fdm=marker fmr={{{,}}}:
