@@ -8,7 +8,8 @@
   width = (300,400)
   heigth = 300
   origin = top-right
-  offset = 10x30
+  # offset = 10x30 # X11
+  offset = 10x10 # Wayland
   scale = 0
   notification_limit = 20
 
@@ -55,7 +56,7 @@
   ellipsize = middle
   ignore_newline = no
   stack_duplicates = true
-  hide_diplicate_count = false
+  hide_duplicate_count = false
   show_indicators = yes
 
   ### Icons ###
