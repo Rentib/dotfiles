@@ -52,12 +52,31 @@ function terminal {
   # st
   pidof st | xargs kill -s USR1
 
+  # TODO: reload server's configuration (otherwise new clients use old theme)
   # foot
-  file="/home/rentib/.config/foot/foot.ini"
   pidof zsh | xargs kill -s USR1
-  sed -i "s/\(include.*\)light\(.*\)/\1tmplight\2/" $file
-  sed -i "s/\(include.*\)dark\(.*\)/\1light\2/" $file
-  sed -i "s/\(include.*\)tmplight\(.*\)/\1dark\2/" $file
+
+  file="/home/rentib/.config/foot/foot.ini"
+  sedmagic="s/\(include.*\)light\(.*\)/\1tmplight\2/"
+  sedmagic="$sedmagic;s/\(include.*\)dark\(.*\)/\1light\2/"
+  sedmagic="$sedmagic;s/\(include.*\)tmplight\(.*\)/\1dark\2/"
+  sed -i "$sedmagic" $file
+}
+
+function i3bar_river {
+  file="/home/rentib/.config/i3bar-river/config.toml"
+
+  n=$(grep -n "^### Light Colors" $file | cut -d: -f1)
+  sed -i "$((n+1)),$((n+11))s/^# /! /" $file
+  sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
+  sed -i "$((n+1)),$((n+11))s/^! //" $file
+
+  n=$(grep -n "^### Dark Colors" $file | cut -d: -f1)
+  sed -i "$((n+1)),$((n+11))s/^# /! /" $file
+  sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
+  sed -i "$((n+1)),$((n+11))s/^! //" $file
+
+  pidof i3bar-river >/dev/null && killall i3bar-river && riverctl spawn i3bar-river
 }
 
 zathura
@@ -65,6 +84,7 @@ gtk
 Xresources
 btop
 terminal
+i3bar_river
 
 notify-send \
   -t 1000 \
