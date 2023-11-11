@@ -46,15 +46,25 @@ function Xresources {
   sed -i "$((n+1)),$((n+24))s/^#//" $file
 
   xrdb $file
+}
 
-  # update st instances
+function terminal {
+  # st
   pidof st | xargs kill -s USR1
+
+  # foot
+  file="/home/rentib/.config/foot/foot.ini"
+  pidof zsh | xargs kill -s USR1
+  sed -i "s/\(include.*\)light\(.*\)/\1tmplight\2/" $file
+  sed -i "s/\(include.*\)dark\(.*\)/\1light\2/" $file
+  sed -i "s/\(include.*\)tmplight\(.*\)/\1dark\2/" $file
 }
 
 zathura
 gtk
 Xresources
 btop
+terminal
 
 notify-send \
   -t 1000 \
