@@ -27,12 +27,13 @@
 # NOTE: MY CONFIG
 
 #xinitrc{{{
+dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 [ -f $resources ] && xrdb $resources &
 setbg "$HOME/Pictures/wallpapers/irena_orwid.png" &
 foot --server --hold &
 
-daemons="dunst mpd pipewire"
+daemons="dunst mpd pipewire mpdup-statusbar"
 for daemon in $daemons; do
   pidof -f "$daemon" || setsid -f "$daemon"
 done >/dev/null 2>&1
@@ -140,9 +141,12 @@ riverctl map normal Super+Shift Page_Down send-to-output next
 riverctl map normal Super       F12 spawn 'toggle-theme'
 
 for mode in normal locked; do
-  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle; pkill -10 slstatus'
-  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-; pkill -10 slstatus'
-  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+; pkill -10 slstatus'
+  # riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle; pkill -10 slstatus'
+  # riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-; pkill -10 slstatus'
+  # riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+; pkill -10 slstatus'
+  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
+  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
+  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
   riverctl map -repeat $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
