@@ -1,36 +1,10 @@
 #!/bin/sh
 
-# Super+Alt+{H,J,K,L} to move views
-# riverctl map normal Super+Alt H move left 100
-# riverctl map normal Super+Alt J move down 100
-# riverctl map normal Super+Alt K move up 100
-# riverctl map normal Super+Alt L move right 100
-
-# Super+Alt+Control+{H,J,K,L} to snap views to screen edges
-# riverctl map normal Super+Alt+Control H snap left
-# riverctl map normal Super+Alt+Control J snap down
-# riverctl map normal Super+Alt+Control K snap up
-# riverctl map normal Super+Alt+Control L snap right
-
-# Super+Alt+Shift+{H,J,K,L} to resize views
-# riverctl map normal Super+Alt+Shift H resize horizontal -100
-# riverctl map normal Super+Alt+Shift J resize vertical 100
-# riverctl map normal Super+Alt+Shift K resize vertical -100
-# riverctl map normal Super+Alt+Shift L resize horizontal 100
-
-# Super+{Up,Right,Down,Left} to change layout orientation
-# riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
-# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-# riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
-# riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
-
-# NOTE: MY CONFIG
-
 #xinitrc{{{
-dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 [ -f $resources ] && xrdb $resources &
-setbg "$HOME/Pictures/wallpapers/irena_orwid.png" &
+swww init # preserve last colorscheme
 foot --server --hold &
 
 daemons="dunst mpd pipewire mpdup-statusbar"
@@ -45,10 +19,12 @@ riverctl set-repeat 50 300
 riverctl input $(riverctl list-inputs | grep TouchPad) tap enabled
 #}}}
 # Rules{{{
-riverctl rule-add -app-id Brave-browser   tag $((1<<1))
+riverctl rule-add -app-id Brave-browser   tag $((1<<1)) # Xwayland
+riverctl rule-add -app-id brave-browser   tag $((1<<1)) # Wayland
 riverctl rule-add -app-id Firefox         tag $((1<<1))
 riverctl rule-add -app-id discord         tag $((1<<8))
 riverctl rule-add -app-id '*'             ssd
+riverctl rule-add -app-id 'swayimg*'      float
 # TODO: riverctl rule-add -app-id "TelegramDesktop" tag 9
 # }}}
 # Key Bindings{{{
@@ -73,7 +49,7 @@ riverctl map normal Super+Shift E exit
 # riverctl map normal Super       R
 # riverctl map normal Super+Shift R
 riverctl map normal Super       T spawn 'toggle-touchpad'
-riverctl map normal Super+Shift T spawn 'riverctl hide-cursor timeout 0' # TODO:
+riverctl map normal Super+Shift T spawn 'riverctl hide-cursor timeout 0'
 # riverctl map normal Super       Y
 # riverctl map normal Super+Shift Y
 # riverctl map normal Super       U
@@ -90,7 +66,7 @@ riverctl map normal Super+Shift P spawn 'mpc stop'
 # riverctl map normal Super       S
 # riverctl map normal Super+Shift S
 riverctl map normal Super       D spawn 'wmenu_run $(wmenu_opts)'
-riverctl map normal Super+Shift D spawn 'passmenu $(wmenu_opts)' # TODO:
+riverctl map normal Super+Shift D spawn 'passmenu $(wmenu_opts)'
 riverctl map normal Super       F toggle-fullscreen
 riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
 # riverctl map normal Super       G
@@ -151,6 +127,31 @@ for mode in normal locked; do
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
 done
+
+# Super+Alt+{H,J,K,L} to move views
+# riverctl map normal Super+Alt H move left 100
+# riverctl map normal Super+Alt J move down 100
+# riverctl map normal Super+Alt K move up 100
+# riverctl map normal Super+Alt L move right 100
+
+# Super+Alt+Control+{H,J,K,L} to snap views to screen edges
+# riverctl map normal Super+Alt+Control H snap left
+# riverctl map normal Super+Alt+Control J snap down
+# riverctl map normal Super+Alt+Control K snap up
+# riverctl map normal Super+Alt+Control L snap right
+
+# Super+Alt+Shift+{H,J,K,L} to resize views
+# riverctl map normal Super+Alt+Shift H resize horizontal -100
+# riverctl map normal Super+Alt+Shift J resize vertical 100
+# riverctl map normal Super+Alt+Shift K resize vertical -100
+# riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+# Super+{Up,Right,Down,Left} to change layout orientation
+# riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+# riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+# riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+
 #}}}
 # Mouse Bindings{{{
 riverctl map-pointer normal Super BTN_LEFT move-view
