@@ -35,16 +35,15 @@ alias                                               \
   diff='diff --color=auto'
 # }}}
 # {{{MY ALIASES
-[ -f $XINITRC ] && alias startx='startx $XINITRC'
+# [ -f $XINITRC ] && alias startx='startx $XINITRC'
 
 alias               \
   v=$EDITOR         \
   vim='nvim'        \
   vimdiff='nvim -d'
 
-alias \
-  lf='lfrun'   \
-  sxiv='nsxiv' \
+alias sxiv='nsxiv'
+alias lf='lfrun'
 
 alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
 alias gdb='gdb -tui'

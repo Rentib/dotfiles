@@ -198,7 +198,7 @@ update_plugins() {
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # }}}
-
+# {{{FOOT TERMINAL
 if [ "$TERM" = "foot" ]; then
   function osc7-pwd() {
     emulate -L zsh
@@ -210,6 +210,7 @@ if [ "$TERM" = "foot" ]; then
   function chpwd-osc7-pwd() {
     (( ZSH_SUBSHELL )) || osc7-pwd
   }
+  autoload -Uz add-zsh-hook
   add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 
   get_scheme() {
@@ -220,11 +221,12 @@ if [ "$TERM" = "foot" ]; then
     grep -q "gtk-application-prefer-dark-theme=false" $file && \
       sh /home/rentib/.config/zsh/theme.sh gruvbox-material-light-medium
   }
-  # get_scheme
+  get_scheme
 fi
 
 TRAPUSR1() {
   [ "$TERM" = "foot" ] && get_scheme
 }
+#}}}
 
 # vim: set fdm=marker fmr={{{,}}}:
