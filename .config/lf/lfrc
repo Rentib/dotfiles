@@ -4,6 +4,8 @@ set shellopts -eu
 set ignorecase true
 set ifs "\n"
 set drawbox true
+set scrolloff 10
+set cursorpreviewfmt "\033[7;1m"
 set icons true
 set sixel true
 
