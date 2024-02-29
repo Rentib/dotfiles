@@ -1,0 +1,4 @@
+#!/bin/sh
+pidof dunst && killall dunst
+dunst & 
+notify-send -u low "dunst restarted"

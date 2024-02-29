@@ -1,0 +1,16 @@
+#!/bin/sh
+
+function notify_brightness {
+  brightness=$(light -G | cut -d '.' -f 1) \
+  brightness_icon=""
+  bar_color="#d65d0e"
+  notify-send \
+    -t 1000 \
+    -h string:x-dunst-stack-tag:notify_brightness \
+    -h string:hlcolor:$bar_color \
+    -h int:value:$brightness \
+    "$brightness_icon $brightness%"
+}
+
+[ $1 -gt 0 ] && light -A $1 || light -U ${1#-}
+notify_brightness

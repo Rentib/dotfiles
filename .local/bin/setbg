@@ -1,0 +1,21 @@
+#!/bin/sh
+
+[ -z "$1" ] || [ ! -f "$1" ] && exit 1
+case $XDG_SESSION_TYPE in
+    wayland)
+      command -v swww >/dev/null && {
+        pidof swww-daemon >/dev/null || swww init
+        swww img \
+          --resize fit \
+          --transition-type any \
+          --transition-duration 2 \
+          "$1"
+      } || {
+        command -v swaybg >/dev/null && {
+          pidof swaybg && killall swaybg
+          swaybg -m fill -i "$1" &
+        }
+      }
+      ;;
+    *) xwallpaper --zoom "$1" ;;
+esac
