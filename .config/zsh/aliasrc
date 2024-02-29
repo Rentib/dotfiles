@@ -52,7 +52,7 @@ alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all
 
 alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
 
-alias config='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
 # }}}
 
 # vim: set fdm=marker fmr={{{,}}}:
