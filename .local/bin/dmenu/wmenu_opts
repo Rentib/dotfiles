@@ -1,0 +1,10 @@
+#!/bin/sh
+
+opts="-i"
+opts="$opts -N $(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
+opts="$opts -n $(xrdb -query | grep -E '^\*dwm\.normfgcolor:' | awk '{print $NF}')"
+opts="$opts -M $(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
+opts="$opts -m $(xrdb -query | grep -E '^\*dwm\.normfgcolor:' | awk '{print $NF}')"
+opts="$opts -S $(xrdb -query | grep -E '^\*dwm\.selbordercolor:' | awk '{print $NF}')"
+opts="$opts -s $(xrdb -query | grep -E '^\*dwm\.selfgcolor:' | awk '{print $NF}')"
+echo $opts

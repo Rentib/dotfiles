@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[ "$XDG_SESSION_TYPE" = "wayland" ] && menu="wmenu $(wmenu_opts)" || menu="dmenu $(dmenu_opts)"
+choice=$(printf "shutdown\nsuspend\nreboot" | $menu)
+case $choice in
+  "shutdown") [ "$(printf "No\nYes" | $menu -p "Do you want to shutdown?")" = "Yes" ] && shutdown -h now;;
+  "suspend") systemctl suspend;;
+  "reboot") [ "$(printf "No\nYes" | $menu -p "Do you want to reboot?")" = "Yes" ] && reboot;;
+  *);;
+esac
