@@ -1,0 +1,67 @@
+#!/bin/sh
+
+toggle_touchpad() {
+    notify() {
+        case $1 in
+            0) msg="󰎀 Touchpad disabled" ;;
+            1) msg="󰍿 Touchpad enabled"  ;;
+        esac
+        notify-send \
+            -t 1000 \
+            -h string:x-dunst-stack-tag:notify_toggle_touchpad \
+            "$msg"
+    }
+
+    if command -v xinput; then
+        deviceId="$(xinput list | grep -i "touchpad" | sed -n -e 's/^.*id=//p'|cut -f1)"
+
+        on() {
+            xinput enable $deviceId && notify 1
+        }
+        off() {
+            xinput disable $deviceId && notify 0
+        }
+        xinput list $deviceId | grep -q 'This device is disabled' && on || off
+    fi
+
+    if pidof river > /dev/null; then
+        deviceId="$(riverctl list-inputs | grep TouchPad)"
+
+        on() {
+            riverctl input $deviceId events enabled && notify 1
+        }
+        off() {
+            riverctl input $deviceId events disabled && notify 0
+        }
+
+        riverctl list-input-configs | \
+            grep -A 2 $deviceId | \
+            grep -q 'events: disabled' && on || off
+    fi
+}
+
+toggle_xbanish() {
+    on() {
+        setsid -f xbanish
+        notify-send \
+            -t 1000 \
+            -h string:x-dunst-stack-tag:notify_toggle_xbanish \
+            "xbanish enabled"
+    }
+
+    off() {
+        killall xbanish
+        notify-send \
+            -t 1000 \
+            -h string:x-dunst-stack-tag:notify_toggle_xbanish \
+            "xbanish disabled"
+    }
+
+    pidof xbanish >/dev/null && off || on
+}
+
+case "$1" in
+    "touchpad") toggle_touchpad ;;
+    "xbanish") toggle_xbanish ;;
+    *) notify-send "Invalid argument" ;;
+esac
