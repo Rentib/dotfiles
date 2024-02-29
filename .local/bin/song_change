@@ -1,0 +1,38 @@
+#!/bin/sh
+
+MUSIC_DIR="$HOME/Music"
+PREVIEW_DIR="$XDG_CONFIG_HOME/ncmpcpp/previews"
+
+[ -d "$PREVIEW_DIR" ] || mkdir -p "$PREVIEW_DIR"
+
+cover="$(find "$(dirname "$MUSIC_DIR/$(mpc -f %file% current)")" -type f -iregex '.*\.\(jpg\|png\|jpeg\)' | head -n 1)"
+preview="$PREVIEW_DIR/$(mpc -f %album% current | iconv -f utf-8 -t ascii//TRANSLIT | base64).png"
+
+[ -e "$preview" ] || ffmpeg -y -i "$cover" -an -vf scale=128:128 "$preview" > /dev/null 2>&1
+
+notify-send \
+  -t 2500 \
+  -h string:x-dunst-stack-tag:notify_song_change \
+  -i "$preview" \
+  "Now Playing" \
+  "$(mpc -f %artist% current)\n<i>$(mpc -f %title% current)</i>"
+
+# radio - if current song is last in playlist, find something similar to it and add it to playlist
+
+[ -z "$(mpc current)" ] || [ "$(mpc playlist | wc -l)" -eq "$(mpc current -f %position%)" ] || exit
+
+album_artist=$(mpc current -f %albumartist%)
+artist=$(mpc current -f %artist%)
+composer=$(mpc current -f %composer%)
+date=$(mpc current -f %date%)
+genre=$(mpc current -f %genre%)
+
+playlist=$(mpc playlist -f "%file%")
+
+same_artist=$(mpc search artist "$artist" | grep -v "$playlist")
+same_composer=$(mpc search composer "$composer" | grep -v "$playlist")
+same_date=$(mpc search date "$date" | grep -v "$playlist")
+same_genre=$(mpc search genre "$genre" | grep -v "$playlist")
+
+songs=$(echo "$all_songs$same_artist$same_composer$same_date$same_genre")
+[ -z "$songs" ] || echo "$songs" | sort | uniq -c | sort -nr | sed 1q | cut -c 9- | mpc add
