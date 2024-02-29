@@ -1,0 +1,53 @@
+# command = "slstatus -s"
+command = "i3status-rs"
+
+### Light Colors
+background      = "#fbf1c7"
+color           = "#654735"
+separator       = "#654735"
+tag_fg          = "#654735"
+tag_bg          = "#fbf1c7"
+tag_focused_fg  = "#282828"
+tag_focused_bg  = "#ebdbb2"
+tag_urgent_fg   = "#282828"
+tag_urgent_bg   = "#ebdbb2"
+tag_inactive_fg = "#654735"
+tag_inactive_bg = "#fbf1c7"
+
+### Dark Colors
+# background      = "#282828"
+# color           = "#9c8d74"
+# separator       = "#9c8d74"
+# tag_fg          = "#9c8d74"
+# tag_bg          = "#282828"
+# tag_focused_fg  = "#d4be98"
+# tag_focused_bg  = "#1d2021"
+# tag_urgent_fg   = "#d4be98"
+# tag_urgent_bg   = "#1d2021"
+# tag_inactive_fg = "#9c8d74"
+# tag_inactive_bg = "#282828"
+
+font = "hack 10"
+height = 20
+margin_top = 0
+margin_bottom = 0
+margin_left = 0
+margin_right = 0
+separator_width = 1.0
+tags_r = 0.0
+tags_padding = 10.0
+blocks_r = 0.0
+blocks_overlap = 0.0
+
+position = "top"
+hide_inactive_tags = true
+invert_touchpad_scrolling = false
+show_layout_name = false
+
+# Per output overrides
+# [output.your-output-name]
+# enable = false
+
+# You can have any number of overrides
+# [output.eDP-1]
+# enable = false

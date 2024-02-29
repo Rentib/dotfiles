@@ -1,0 +1,68 @@
+[icons]
+icons = "material-nf"
+
+[theme]
+theme = "native"
+
+[[block]]
+block = "custom"
+command = "music-statusbar"
+signal = 1
+hide_when_empty = true
+[[block.click]]
+button = "left"
+cmd = "statuscmd-music 1"
+[[block.click]]
+button = "right"
+cmd = "statuscmd-music 3"
+[[block.click]]
+button = "up"
+cmd = "statuscmd-music 4"
+[[block.click]]
+button = "down"
+cmd = "statuscmd-music 5"
+
+[[block]]
+block = "sound"
+step_width = 1
+
+[[block]]
+block = "net"
+format = "$icon {$signal_strength $ssid} "
+[[block.click]]
+button = "left"
+cmd = "statuscmd-wifi 1"
+
+[[block]]
+block = "custom"
+command = "battery-statusbar"
+interval = 10
+[[block.click]]
+button = "up"
+cmd = "brightness +5"
+[[block.click]]
+button = "down"
+cmd = "brightness -5"
+
+[[block]]
+block = "time"
+interval = 60
+[block.format]
+full = "$timestamp.datetime(f:'%a %b %d') "
+[[block.click]]
+button = "left"
+cmd = "statuscmd-calendar 1"
+[[block.click]]
+button = "right"
+cmd = "statuscmd-calendar 3"
+[[block]]
+block = "time"
+interval = 60
+[block.format]
+full = "$timestamp.datetime(f:'%I:%M %p') "
+[[block.click]]
+button = "left"
+cmd = "statuscmd-calendar 1"
+[[block.click]]
+button = "right"
+cmd = "statuscmd-calendar 3"
