@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Media player
+Exec=/usr/bin/mpv -quiet %f
+Icon=mpv

@@ -1,0 +1,17 @@
+[Default Applications]
+text/x-shellscript=text.desktop;
+text/plain=text.desktop;
+text/x-chdr=text.desktop
+text/x-c++src=text.desktop;
+text/x-tex=text.desktop
+text/x-makefile=text.desktop
+text/x-csrc=text.desktop
+application/x-shellscript=text.desktop
+application/pdf=pdf.desktop;
+application/postscript=pdf.desktop;
+image/png=img.desktop;
+image/jpeg=img.desktop;
+video/x-matroska=media.desktop
+video/mp4=media.desktop
+audio/flac=media.desktop
+audio/mp4=media.desktop
