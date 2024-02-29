@@ -1,0 +1,114 @@
+#!/bin/sh
+
+function zathura {
+  file="/home/rentib/.config/zathura/zathurarc"
+  sed -i '1s/light/temp/g; 1s/dark/light/g; 1s/temp/dark/g' $file
+}
+
+function gtk {
+  header="gtk-application-prefer-dark-theme="
+
+  file="/home/rentib/.config/gtk-3.0/settings.ini"
+  sed -i "s/${header}true/${header}temp/g; s/${header}false/${header}true/g; s/${header}temp/${header}false/g" $file
+
+  file="/home/rentib/.config/gtk-4.0/settings.ini"
+  sed -i "s/${header}1/${header}temp/g; s/${header}0/${header}1/g; s/${header}temp/${header}0/g" $file
+}
+
+function btop() {
+  file="/home/rentib/.config/btop/btop.conf"
+
+  light="./themes/light.theme"
+  dark="./themes/dark.theme"
+
+  n=$(grep -n "color_theme" $file | cut -d: -f1)
+
+  echo "$n"
+
+  sed -i "$((n))s/light/xd/" $file
+  sed -i "$((n))s/dark/light/" $file
+  sed -i "$((n))s/xd/dark/" $file
+}
+
+function Xresources {
+  file="/home/rentib/.config/X11/Xresources"
+
+  n=$(grep -n "!! Light Colors" $file | cut -d: -f1)
+
+  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+24))s/^#//" $file
+
+  n=$(grep -n "!! Dark Colors" $file | cut -d: -f1)
+
+  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
+  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
+  sed -i "$((n+1)),$((n+24))s/^#//" $file
+
+  xrdb $file
+}
+
+function terminal {
+  # st
+  pidof st && pidof st | xargs kill -s USR1
+
+  # TODO: reload server's configuration (otherwise new clients use old theme)
+  # foot
+  pidof zsh | xargs kill -s USR1
+  pidof footclient >/dev/null || killall foot --server
+
+  file="/home/rentib/.config/foot/foot.ini"
+  sedmagic="s/\(include.*\)light\(.*\)/\1tmplight\2/"
+  sedmagic="$sedmagic;s/\(include.*\)dark\(.*\)/\1light\2/"
+  sedmagic="$sedmagic;s/\(include.*\)tmplight\(.*\)/\1dark\2/"
+  sed -i "$sedmagic" $file
+}
+
+function i3bar_river {
+  file="/home/rentib/.config/i3bar-river/config.toml"
+
+  n=$(grep -n "^### Light Colors" $file | cut -d: -f1)
+  sed -i "$((n+1)),$((n+11))s/^# /! /" $file
+  sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
+  sed -i "$((n+1)),$((n+11))s/^! //" $file
+
+  n=$(grep -n "^### Dark Colors" $file | cut -d: -f1)
+  sed -i "$((n+1)),$((n+11))s/^# /! /" $file
+  sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
+  sed -i "$((n+1)),$((n+11))s/^! //" $file
+
+  pidof i3bar-river >/dev/null && killall i3bar-river && riverctl spawn i3bar-river
+}
+
+function wallpaper {
+  file="/home/rentib/.config/gtk-3.0/settings.ini"
+  grep -q "gtk-application-prefer-dark-theme=true" $file \
+    && setbg ~/Pictures/wallpapers/irena_orwid.png \
+    || setbg ~/Pictures/wallpapers/Sif.png
+}
+
+function dunst {
+    file="/home/rentib/.config/dunst/dunstrc"
+    # it breaks stuff without vim-commentary
+    nvim -c "g/^# theme/norm jgc2j3jgc2j" -c "wq" $file
+}
+
+function bat {
+    file="/home/rentib/.config/bat/config"
+    sed -i 's/\(theme=.*-\)light/\1temp/g; s/\(theme=.*-\)dark/\1light/g; s/\(theme=.*-\)temp/\1dark/g' $file
+}
+
+zathura
+gtk
+Xresources
+btop
+terminal
+i3bar_river
+wallpaper
+dunst && restart-dunst
+bat
+
+notify-send \
+  -t 1000 \
+  -h string:x-dunst-stack-tag:notify_toggle_theme \
+  "Theme has been changed"
