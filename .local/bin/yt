@@ -1,0 +1,127 @@
+#!/bin/sh
+
+URL_SEARCH="https://www.youtube.com/results?search_query="
+URL_WATCH="https://www.youtube.com/watch?v="
+
+CACHE_SEPARATOR="#####"
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/yt/cache"
+RECENT_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/yt/recent"
+
+[ ! -f $CACHE_FILE ] && touch $CACHE_FILE
+[ ! -f $RECENT_FILE ] && touch $RECENT_FILE
+
+YTDL=""
+[ -x "$(command -v yt-dlp)" ] && YTDL="yt-dlp"
+[ -x "$(command -v youtube-dl)" ] && YTDL="youtube-dl"
+[ -z "$YTDL" ] && echo "yt: error: yt-dlp or youtube-dl not found" >&2 && exit 1
+
+QUERY="$1"
+NUMBER_OF_RESULTS=10
+
+usage() {
+	cat <<-_EOF
+  Usage: yt [options] <query>
+    -c, --clear             Clear the cache
+    -d, --download          Download the video
+    -h, --help              Show this help message
+    -l, --list              List the results
+    -L, --list-ids          List the ids
+    -m, --download-music    Download the music
+    -n, --number            Number of results to show
+    -p, --play              Play the video
+	_EOF
+}
+
+get_nth_id() {
+  sed -n "${1}p" $RECENT_FILE
+}
+
+get_video_name_from_id() {
+  NAME=$(sed -n "/$1/ s/^.*$CACHE_SEPARATOR//p" $CACHE_FILE)
+  [ -z "$NAME" ] && \
+    NAME=$($YTDL --quiet --no-warnings --get-title "$URL_WATCH$1") && \
+    echo "$1$CACHE_SEPARATOR$NAME" >> $CACHE_FILE
+  echo "$NAME"
+}
+
+play() {
+  ID=$(get_nth_id $1)
+  mpv "$URL_WATCH${ID}"
+}
+
+download() {
+  ID=$(get_nth_id $1)
+  $YTDL \
+    --no-playlist \
+    --concurrent-fragments 10 \
+    --retries 10 --fragment-retries 10 \
+    --progress \
+    --quiet \
+    --no-warnings \
+    "$URL_WATCH${ID}"
+
+  # TODO: make a flag for this
+  # notify-send \
+  #   --icon=/home/rentib/.local/share/icons/Papirus/32x32/apps/youtube-dlg.svg \
+  #   "Downloaded" "<i>$(get_video_name_from_id $ID)</i>"
+}
+
+download_music() {
+  ID=$(get_nth_id $1)
+  $YTDL \
+    --no-playlist \
+    --retries 10 --fragment-retries 10 \
+    --progress \
+    --quiet \
+    --no-warnings \
+    --extract-audio \
+    --audio-format m4a \
+    --audio-quality 0 \
+    "$URL_WATCH${ID}"
+
+    # TODO: check if concurrency improves the speed
+    # --concurrent-fragments 10 \
+    # TODO: check if it is possible to add sensible metadata
+    # --embed-thumbnail \
+    # --add-metadata
+}
+
+list() {
+  COUNT=0
+  LOG10=$(wc -l $RECENT_FILE | awk '{print int(1+log($1)/log(10))}')
+  for ID in $(cat $RECENT_FILE); do
+    printf "%${LOG10}d) %s\n" $((++COUNT)) "$(get_video_name_from_id $ID)"
+  done
+}
+
+while true; do
+  case "$1" in
+    -c|--clear) shift; truncate -s 0 $CACHE_FILE; truncate -s 0 $RECENT_FILE; exit 0 ;;
+    -d|--download) shift; download "$1"; exit 0 ;;
+    -h|--help) shift; usage; exit 0 ;;
+    -l|--list) shift; list; exit 0 ;;
+    -L|--list-ids) shift; cat $RECENT_FILE; exit 0 ;;
+    -m|--download-music) shift; download_music "$1"; exit 0 ;;
+    -n|--number) shift; NUMBER_OF_RESULTS="$1"; shift ;;
+    -p|--play) shift; play "$1"; exit 0 ;;
+    -*|--*) echo "yt: error: unknown option: $1" >&2; exit 1 ;;
+    *) QUERY=$(sed 's/ /+/g' <<< "$@"); break ;;
+  esac
+done
+
+[ -z "$QUERY" ] && echo "yt: error: no query" >&2 && exit 1
+
+IDS=$(curl -s "$URL_SEARCH$QUERY" |\
+  grep -Eo "watch\?v=.{11}" |\
+  uniq |\
+  sed "$NUMBER_OF_RESULTS"q |\
+  cut -c 9-)
+
+COUNT=0
+LOG10=$(echo $NUMBER_OF_RESULTS | awk '{print int(1+log($1)/log(10))}')
+truncate -s 0 $RECENT_FILE
+for ID in $IDS; do
+  NAME=$(get_video_name_from_id $ID)
+  printf "%${LOG10}d) %s\n" $((++COUNT)) "$NAME"
+  echo "$ID" >> $RECENT_FILE
+done
