@@ -1,0 +1,14 @@
+#!/bin/sh
+
+die() {
+    echo "$@" >&2
+    exit 1
+}
+
+cue="$1"
+flac="$2"
+[ -f "$cue" ] || die "Usage: $(basename $0) <cue> <flac>"
+[ -f "$flac" ] || die "Usage: $(basename $0) <cue> <flac>"
+[ -d split ] && die "Directory split already exists"
+mkdir split
+shnsplit -f "$cue" -t "%n-%t" -o flac "$flac" -d split

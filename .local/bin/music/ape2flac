@@ -1,0 +1,13 @@
+#!/bin/sh
+
+die() {
+    echo "$@" >&2
+    exit 1
+}
+
+ape="$1"
+flac="${ape%.ape}.flac"
+[ -f "$ape" ] || die "Usage: $(basename $0) <ape>"
+[ -f "$flac" ] && die "$flac exists already"
+
+ffmpeg -i "$ape" -compression_level 12 "$flac"
