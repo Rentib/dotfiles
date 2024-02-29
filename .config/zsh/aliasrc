@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# {{{REASONABLE ALIASES
+alias                                  \
+  l='ls -CF'                           \
+  ls='ls --group-directories-first -v' \
+  lsd='ls -d *(-/DN)'                  \
+  la='ls -A'                           \
+  ll='ls -alF'
+
+alias                          \
+  rm='rm -iv'                  \
+  mv='mv -iv'                  \
+  cp='cp -iv'                  \
+  mkdir='mkdir -pv'            \
+  rmdir='rmdir -v'             \
+  df='df -h'                   \
+  du='du -c -h'                \
+  free='free -h'               \
+  ping='ping -c 5'             \
+  ffmpeg='ffmpeg -hide_banner'
+
+alias              \
+  gst='git status' \
+  gbr='git branch'
+# }}}
+# {{{COLORS
+[ -x /usr/bin/dircolors ] &&                        \
+alias                                               \
+  ls='ls --group-directories-first -v --color=auto' \
+  dir='dir --color=auto'                            \
+  vdir='vdir --color=auto'                          \
+  grep='grep --color=auto'                          \
+  egrep='egrep --color=auto'                        \
+  fgrep='fgrep --color=auto'                        \
+  ip='ip --color=auto'                              \
+  diff='diff --color=auto'
+# }}}
+# {{{MY ALIASES
+# [ -f $XINITRC ] && alias startx='startx $XINITRC'
+
+alias               \
+  v=$EDITOR         \
+  vim='nvim'        \
+  vimdiff='nvim -d'
+
+alias sxiv='nsxiv'
+alias lf='lfrun'
+alias minicom='minicom -c on'
+
+alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
+
+alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
+
+alias config='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
+# }}}
+
+# vim: set fdm=marker fmr={{{,}}}:
