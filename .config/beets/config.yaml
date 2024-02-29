@@ -1,0 +1,11 @@
+plugins: acousticbrainz chroma fromfilename discogs spotify duplicates missing fetchart lastgenre
+
+fetchart:
+  cautious: true
+  sources: itunes *
+
+discogs:
+  source_weight: 0.4
+
+spotify:
+  source_weight: 0.3
