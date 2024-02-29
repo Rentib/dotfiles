@@ -1,0 +1,67 @@
+# vim: ft=cfg
+
+[mpd]
+mpd_connection_timeout = 5
+mpd_music_dir          = "~/Music"
+mpd_crossfade_time     = 3
+
+[global]
+ncmpcpp_directory = "~/.config/ncmpcpp/"
+lyrics_directory  = "~/.local/share/lyrics"
+playlist_disable_highlight_delay = 5
+message_delay_time               = 1
+colors_enabled                   = "yes"
+external_editor                  = nvim
+use_console_editor               = yes
+
+[visualizer]
+visualizer_in_stereo = yes
+visualizer_autoscale = yes
+visualizer_fps       = 60
+visualizer_type      = spectrum
+
+[browser]
+browser_sort_mode = type
+browser_sort_format = "{%a - }{%t}|{%f} {%l}"
+
+[lyrics]
+lyrics_fetchers = tekstowo, azlyrics, genius, musixmatch, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, zeneszoveg, internet
+fetch_lyrics_for_current_song_in_background = yes
+store_lyrics_in_song_dir  = no
+follow_now_playing_lyrics = yes
+
+[misc]
+execute_on_song_change         = "song_change"
+execute_on_player_state_change = ""
+playlist_show_mpd_host         = no
+playlist_show_remaining_time   = no
+playlist_shorten_total_times   = no
+playlist_separate_albums       = no
+ask_before_clearing_playlists  = yes
+display_volume_level           = yes
+display_bitrate                = no
+display_remaining_time         = no
+
+[startup]
+startup_screen               = "media_library"
+startup_slave_screen         = ""
+startup_slave_screen_focus   = no
+connected_message_on_startup = no
+
+[appearance]
+
+[[display mode]]
+playlist_display_mode        = "columns"
+browser_display_mode         = "columns"
+search_engine_display_mode   = "columns"
+playlist_editor_display_mode = "columns"
+
+[[interface]]
+user_interface = "alternative"
+
+[[progress bar]]
+# progressbar_look = "─╼ "
+
+[[tags]]
+tags_separator   = " | "
+empty_tag_marker = "<empty>"
