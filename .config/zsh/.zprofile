@@ -44,6 +44,7 @@ export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
 export CABAL_DIR="$XDG_DATA_HOME"/cabal
 export STACK_ROOT="$XDG_DATA_HOME"/stack
 export STACK_XDG=1
+export QT_QPA_PLATFORMTHEME="gtk3"
 
 # cargo
 export PATH="$PATH:$HOME/.local/share/cargo/bin"
