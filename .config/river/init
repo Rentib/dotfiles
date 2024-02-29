@@ -1,0 +1,193 @@
+#!/bin/sh
+
+# init{{{
+# dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
+resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
+[ -f $resources ] && xrdb $resources &
+swww init # preserve last colorscheme
+riverctl spawn 'foot --server --hold'
+riverctl spawn 'i3bar-river'
+
+daemons="dunst mpd pipewire mpdup-statusbar"
+for daemon in $daemons; do
+  pidof -f "$daemon" || setsid -f "$daemon"
+done >/dev/null 2>&1
+
+riverctl keyboard-layout pl
+riverctl hide-cursor timeout 5000
+riverctl hide-cursor when-typing enabled
+riverctl set-repeat 50 300
+
+touchpad="$(riverctl list-inputs | grep TouchPad)"
+riverctl input "$touchpad" accel-profile none
+riverctl input "$touchpad" tap enabled
+#}}}
+# Rules{{{
+riverctl rule-add -app-id 'Brave-browser' tags $((1<<1)) # Xwayland
+riverctl rule-add -app-id 'brave-browser' tags $((1<<1)) # Wayland
+riverctl rule-add -app-id 'Firefox'       tags $((1<<1))
+riverctl rule-add -app-id 'discord'       tags $((1<<8))
+riverctl rule-add -app-id 'heroic'        tags $((1<<7))
+riverctl rule-add -app-id 'lutris'        tags $((1<<7))
+riverctl rule-add -app-id '*'             ssd
+riverctl rule-add -app-id 'Nsxiv*'        float
+riverctl rule-add -app-id 'swayimg*'      float
+riverctl rule-add -app-id 'zenity*'       float
+# TODO: riverctl rule-add -app-id "TelegramDesktop" tag 9
+# }}}
+# Key Bindings{{{
+for i in $(seq 1 9); do
+    tags=$((1 << ($i - 1)))
+    riverctl map normal Super $i set-focused-tags $tags
+    riverctl map normal Super+Shift $i set-view-tags $tags
+    riverctl map normal Super+Control $i toggle-focused-tags $tags
+    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+done
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+riverctl map normal Super       Tab focus-previous-tags
+# riverctl map normal Super+Shift Tab
+# riverctl map normal Super Q close
+riverctl map normal Super+Shift Q close
+# riverctl map normal Super       W
+# riverctl map normal Super+Shift W
+# riverctl map normal Super       E
+riverctl map normal Super+Shift E exit
+# riverctl map normal Super       R
+# riverctl map normal Super+Shift R
+riverctl map normal Super       T spawn 'toggle-touchpad'
+riverctl map normal Super+Shift T spawn 'riverctl hide-cursor timeout 0'
+# riverctl map normal Super       Y
+# riverctl map normal Super+Shift Y
+# riverctl map normal Super       U
+# riverctl map normal Super+Shift U
+# riverctl map normal Super       I
+# riverctl map normal Super+Shift I
+# riverctl map normal Super       O
+# riverctl map normal Super+Shift O
+riverctl map normal Super       P spawn 'mpc toggle'
+riverctl map normal Super+Shift P spawn 'mpc stop'
+
+# riverctl map normal Super       A
+# riverctl map normal Super+Shift A
+# riverctl map normal Super       S
+# riverctl map normal Super+Shift S
+riverctl map normal Super       D spawn 'wmenu_run $(wmenu_opts)'
+riverctl map normal Super+Shift D spawn 'passmenu $(wmenu_opts)'
+riverctl map normal Super       F toggle-fullscreen
+riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
+# riverctl map normal Super       G
+# riverctl map normal Super+Shift G
+riverctl map -repeat normal Super       H send-layout-cmd rivertile "main-ratio -0.01"
+riverctl map -repeat normal Super+Shift H send-layout-cmd rivertile "main-count -1"
+riverctl map -repeat normal Super       J focus-view next
+riverctl map -repeat normal Super+Shift J swap next
+riverctl map -repeat normal Super       K focus-view previous
+riverctl map -repeat normal Super+Shift K swap previous
+riverctl map -repeat normal Super       L send-layout-cmd rivertile "main-ratio +0.01"
+riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count +1"
+# riverctl map normal Super       Semicolon
+# riverctl map normal Super+Shift Semicolon
+# riverctl map normal Super       Apostrophe
+# riverctl map normal Super+Shift Apostrophe
+riverctl map normal Super       Return spawn 'footclient'
+# riverctl map normal Super+Shift Return
+
+# riverctl map normal Super       Z
+# riverctl map normal Super+Shift Z
+# riverctl map normal Super       X
+riverctl map normal Super+Shift X spawn 'shutdownmenu'
+# riverctl map normal Super       C
+# riverctl map normal Super+Shift C
+# riverctl map normal Super       V
+# riverctl map normal Super+Shift V
+riverctl map normal Super       B spawn '$BROWSER'
+riverctl map normal Super+Mod1  B spawn 'pkill -SIGUSR1 i3bar-river'
+# riverctl map normal Super       N
+riverctl map normal Super+Shift N spawn 'restart-dunst'
+riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
+# riverctl map normal Super+Shift M
+riverctl map normal Super       Comma spawn 'mpc prev'
+riverctl map -repeat normal Super+Shift Comma spawn 'mpc seek -10'
+riverctl map normal Super       Period spawn 'mpc next'
+riverctl map -repeat normal Super+Shift Period spawn 'mpc seek +10'
+
+riverctl map normal Super       Space zoom
+riverctl map normal Super+Shift Space toggle-float
+riverctl map normal None        Print spawn 'screenshot 1'
+riverctl map normal Shift       Print spawn 'screenshot 2'
+riverctl map normal Super       Page_Up focus-output previous
+riverctl map normal Super+Shift Page_Up send-to-output previous
+riverctl map normal Super       Page_Down focus-output next
+riverctl map normal Super+Shift Page_Down send-to-output next
+
+riverctl map normal Super       F12 spawn 'toggle-theme'
+
+for mode in normal locked; do
+  # riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle; pkill -10 slstatus'
+  # riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-; pkill -10 slstatus'
+  # riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+; pkill -10 slstatus'
+  riverctl map -repeat $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
+  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
+  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
+  riverctl map -repeat $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
+  riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
+  riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
+done
+
+# Super+Alt+{H,J,K,L} to move views
+# riverctl map normal Super+Alt H move left 100
+# riverctl map normal Super+Alt J move down 100
+# riverctl map normal Super+Alt K move up 100
+# riverctl map normal Super+Alt L move right 100
+
+# Super+Alt+Control+{H,J,K,L} to snap views to screen edges
+# riverctl map normal Super+Alt+Control H snap left
+# riverctl map normal Super+Alt+Control J snap down
+# riverctl map normal Super+Alt+Control K snap up
+# riverctl map normal Super+Alt+Control L snap right
+
+# Super+Alt+Shift+{H,J,K,L} to resize views
+# riverctl map normal Super+Alt+Shift H resize horizontal -100
+# riverctl map normal Super+Alt+Shift J resize vertical 100
+# riverctl map normal Super+Alt+Shift K resize vertical -100
+# riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+# Super+{Up,Right,Down,Left} to change layout orientation
+# riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+# riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+# riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+# riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+
+riverctl declare-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
+riverctl map passthrough Super F11 enter-mode normal
+
+#}}}
+# Mouse Bindings{{{
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+#}}}
+# Options{{{
+riverctl focus-follows-cursor normal
+
+riverctl default-layout rivertile
+rivertile -view-padding 0 -outer-padding 0 \
+          -main-location left -main-count 1 -main-ratio 0.55 &
+
+# hacky solution: if options were earlier in the file, xrdb might have not yet finished and we wouldnt be able to get colors
+riverctl border-width 2
+riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+
+#gtk{{{
+gsettings set org.gnome.desktop.interface gtk-theme    'Gruvbox'
+gsettings set org.gnome.desktop.interface icon-theme   'Gruvbox-Material-Dark'
+gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+gsettings set org.gnome.desktop.interface font-name    'Cantarell 11'
+#}}}
+#}}}
+
+# vim: set fdm=marker fmr={{{,}}}:
