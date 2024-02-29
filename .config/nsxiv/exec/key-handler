@@ -1,0 +1,15 @@
+#!/bin/sh
+
+while read file; do
+  case "$1" in
+  "y") 
+    # xclip -selection clipboard -target image/png "$file" # X11
+    wl-copy -t image/png < "$file" # Wayland
+    dunstify -I "$file" "${file%.*}" "copied to clipboard" ;;
+  "d")
+    prompt "Are you sure you want to delete $file?" && \
+    rm "$file" ;;
+  "b")
+    setbg "$file" ;;
+  esac
+done
