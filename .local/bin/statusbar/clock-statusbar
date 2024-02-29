@@ -1,0 +1,4 @@
+#!/bin/sh
+var=$(date +"%a %b %d %I:%M %p")
+# weekday, month, day, hour:minute PM/AM
+printf " %s\n" "$var"

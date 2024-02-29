@@ -1,0 +1,23 @@
+#!/bin/sh
+
+[ -z $BUTTON ] && BUTTON=$1
+
+show_calendar() {
+	notify-send -h string:x-dunst-stack-tag:statuscmd-calendar \
+    "$(cal | sed 1q)" \
+    "$(cal | sed "1d; s/\<$(date +'%e')\>/<b><span color='red'>&<\/span><\/b>/")"
+}
+
+show_day() {
+  notify-send -h string:x-dunst-stack-tag:statuscmd-calendar \
+    --icon=calendar \
+    "$(date +'%A, %B %e, %Y')"
+}
+
+case $BUTTON in
+  1) show_calendar ;;
+  2) st -e "$EDITOR" "$0" ;;
+  3) show_day ;;
+  4) ;;
+  5) ;;
+esac
