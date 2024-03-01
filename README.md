@@ -3,7 +3,7 @@
 These are my dotfiles setup as a bare git repo.
 <a href="https://www.archlinux.org/"><img src="https://img.shields.io/badge/Arch-BTW-blue?logo=arch%20linux"></a><br><br>
 
-# Current Setup
+## Current Setup
 
 I run *[Arch Linux](https://archlinux.org/)* on ThinkPad E590 with 512GiB of HDD and 16GiB of RAM;
 typical memory usage is from 600MB to ~3GB when browsing the web.
@@ -22,9 +22,10 @@ Here are some of the programs I use:
 - **[dunst](https://dunst-project.org/)** notification manager
 - **[brave](https://brave.com/)** browser
 - **[btop](https://github.com/aristocratos/btop)** system monitor
+- **[wlsunset](https://sr.ht/~kennylevinsen/wlsunset/)** gamma adjustments
 - **[yay](https://github.com/Jguer/yay)** AUR helper
 
 ## Eye-candy
 
 - I set `gruvbox` colors in basically everything.
-- The font i use is [Hack](https://github.com/source-foundry/Hack)
+- The font I use is [Hack](https://github.com/source-foundry/Hack)
