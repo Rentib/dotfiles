@@ -7,6 +7,7 @@ resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 swww init # preserve last colorscheme
 riverctl spawn 'foot --server --hold'
 riverctl spawn 'i3bar-river'
+riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
 
 daemons="dunst mpd pipewire mpdup-statusbar"
 for daemon in $daemons; do
