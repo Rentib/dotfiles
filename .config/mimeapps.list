@@ -15,3 +15,4 @@ video/x-matroska=media.desktop
 video/mp4=media.desktop
 audio/flac=media.desktop
 audio/mp4=media.desktop
+text/html=chromium.desktop

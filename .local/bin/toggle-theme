@@ -98,6 +98,13 @@ function bat {
     sed -i 's/\(theme=.*-\)light/\1temp/g; s/\(theme=.*-\)dark/\1light/g; s/\(theme=.*-\)temp/\1dark/g' $file
 }
 
+function chromium {
+    file="/home/rentib/.config/chromium-flags.conf"
+    grep -qe "--force-dark-mode" $file         \
+        && sed -i "/--force-dark-mode/d" $file \
+        || echo "--force-dark-mode" >> $file
+}
+
 zathura
 gtk
 Xresources
@@ -107,6 +114,7 @@ i3bar_river
 wallpaper
 dunst && restart-dunst
 bat
+chromium
 
 notify-send \
   -t 1000 \

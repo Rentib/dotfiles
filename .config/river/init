@@ -27,6 +27,7 @@ riverctl input "$touchpad" tap enabled
 riverctl rule-add -app-id 'Brave-browser' tags $((1<<1)) # Xwayland
 riverctl rule-add -app-id 'brave-browser' tags $((1<<1)) # Wayland
 riverctl rule-add -app-id 'Firefox'       tags $((1<<1))
+riverctl rule-add -app-id 'chromium'      tags $((1<<1))
 riverctl rule-add -app-id 'discord'       tags $((1<<8))
 riverctl rule-add -app-id 'heroic'        tags $((1<<7))
 riverctl rule-add -app-id 'lutris'        tags $((1<<7))

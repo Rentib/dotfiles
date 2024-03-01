@@ -20,7 +20,7 @@ Here are some of the programs I use:
 - **[ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)** music player (with **[mpd](https://www.musicpd.org/)**)
 - **[mpv](https://mpv.io/)** media player
 - **[dunst](https://dunst-project.org/)** notification manager
-- **[brave](https://brave.com/)** browser
+- **[ungoogled chromium](https://github.com/ungoogled-software/ungoogled-chromium)** browser
 - **[btop](https://github.com/aristocratos/btop)** system monitor
 - **[wlsunset](https://sr.ht/~kennylevinsen/wlsunset/)** gamma adjustments
 - **[yay](https://github.com/Jguer/yay)** AUR helper

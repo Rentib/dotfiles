@@ -8,7 +8,7 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 export EDITOR="nvim"
 export DIFFTOOL="nvim -d"
-export BROWSER="brave"
+export BROWSER="chromium"
 export FILEMANAGER="lf"
 export GUIFILEMANAGER="thunar"
 export DO_NOT_TRACK=1
@@ -44,6 +44,8 @@ export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
 export CABAL_DIR="$XDG_DATA_HOME"/cabal
 export STACK_ROOT="$XDG_DATA_HOME"/stack
 export STACK_XDG=1
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+
 export QT_QPA_PLATFORMTHEME="gtk3"
 
 # cargo
