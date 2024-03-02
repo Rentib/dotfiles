@@ -28,4 +28,4 @@ Here are some of the programs I use:
 ## Eye-candy
 
 - I set `gruvbox` colors in basically everything.
-- The font I use is [Hack](https://github.com/source-foundry/Hack)
+- The fonts I use are [Iosevka](https://github.com/be5invis/Iosevka) and [Hack](https://github.com/source-foundry/Hack)
