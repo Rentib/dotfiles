@@ -5,7 +5,7 @@
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 [ -f $resources ] && xrdb $resources &
 swww init # preserve last colorscheme
-riverctl spawn 'foot --server --hold'
+[ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'i3bar-river'
 riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
 
@@ -93,7 +93,7 @@ riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count 
 # riverctl map normal Super+Shift Semicolon
 # riverctl map normal Super       Apostrophe
 # riverctl map normal Super+Shift Apostrophe
-riverctl map normal Super       Return spawn 'footclient'
+[ "$TERMINAL" == "foot" ] && riverctl map normal Super       Return spawn 'footclient' || riverctl map normal Super       Return spawn '$TERMINAL'
 # riverctl map normal Super+Shift Return
 
 # riverctl map normal Super       Z
@@ -183,12 +183,15 @@ rivertile -view-padding 0 -outer-padding 0 \
 riverctl border-width 2
 riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
 riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+riverctl xcursor-theme 'gruvbox-cursors'
 
 #gtk{{{
-gsettings set org.gnome.desktop.interface gtk-theme    'Gruvbox'
-gsettings set org.gnome.desktop.interface icon-theme   'Gruvbox-Material-Dark'
-gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-gsettings set org.gnome.desktop.interface font-name    'Cantarell 11'
+gsettings set org.gnome.desktop.interface gtk-theme           'Gruvbox'
+gsettings set org.gnome.desktop.interface icon-theme          'Gruvbox-Material-Dark'
+gsettings set org.gnome.desktop.interface cursor-theme        'Adwaita'
+gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka Nerd Font 11'
+gsettings set org.gnome.desktop.interface cursor-theme        'gruvbox-cursors'
 #}}}
 #}}}
 
