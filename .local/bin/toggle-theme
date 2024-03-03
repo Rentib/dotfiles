@@ -13,6 +13,11 @@ function gtk {
 
   file="/home/rentib/.config/gtk-4.0/settings.ini"
   sed -i "s/${header}1/${header}temp/g; s/${header}0/${header}1/g; s/${header}temp/${header}0/g" $file
+
+  file="/home/rentib/.config/gtk-3.0/settings.ini"
+  grep -q "gtk-application-prefer-dark-theme=true" $file \
+      && gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark-BL' \
+      || gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light-BL'
 }
 
 function btop() {
@@ -105,16 +110,16 @@ function chromium {
         || echo "--force-dark-mode" >> $file
 }
 
-zathura
 gtk
 Xresources
-btop
-terminal
-i3bar_river
-wallpaper
+zathura      &
+btop         &
+terminal     &
+i3bar_river  &
+wallpaper    &
+bat          &
+chromium     &
 dunst && restart-dunst
-bat
-chromium
 
 notify-send \
   -t 1000 \
