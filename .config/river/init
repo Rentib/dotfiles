@@ -183,12 +183,12 @@ rivertile -view-padding 0 -outer-padding 0 \
 riverctl border-width 2
 riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
 riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-riverctl xcursor-theme 'gruvbox-cursors'
+riverctl xcursor-theme 'Adwaita'
 
 #gtk{{{
 gsettings set org.gnome.desktop.interface gtk-theme           'Gruvbox'
 gsettings set org.gnome.desktop.interface icon-theme          'Gruvbox-Material-Dark'
-gsettings set org.gnome.desktop.interface cursor-theme        'gruvbox-cursors'
+gsettings set org.gnome.desktop.interface cursor-theme        'Adwaita'
 gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka Nerd Font 11'
 #}}}
