@@ -14,7 +14,7 @@ Here are some of the programs I use:
 - **[foot](https://codeberg.org/dnkl/foot)** terminal
 - **[zsh](https://www.zsh.org/)** shell
 - **[neovim](https://github.com/Rentib/nvim)** text editor
-- **[lf](https://github.com/gokcehan/lf)** and **[thunar](https://docs.xfce.org/xfce/thunar/start)** file managers
+- **[lf](https://github.com/gokcehan/lf)** (with **[ctpv](https://github.com/NikitaIvanovV/ctpv)**) and **[thunar](https://docs.xfce.org/xfce/thunar/start)** file managers
 - **[zathura](https://pwmt.org/projects/zathura/)** pdf viewer
 - **[nsxiv](https://codeberg.org/nsxiv/nsxiv/)** image viewer
 - **[ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)** music player (with **[mpd](https://www.musicpd.org/)**)
