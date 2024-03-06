@@ -1,5 +1,5 @@
 # Default programs
-export TERMINAL="st"
+export TERMINAL="foot"
 export READER="zathura"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
