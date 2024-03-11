@@ -6,7 +6,7 @@
 
   ### Geometry ###
   width = (300,400)
-  heigth = 300
+  height = 300
   origin = top-right
   # offset = 10x30 # X11
   offset = 10x10 # Wayland
@@ -16,11 +16,11 @@
   ### Progress bar ###
   progress_bar = true
   progress_bar_height = 10
+  progress_bar_corner_radius = 5 # at most half the progress_bar_height
   progress_bar_frame_width = 1
   progress_bar_min_width = 150
   progress_bar_max_width = 300
 
-  progress_bar_corner_radius = 10
   icon_corner_radius = 10
 
   indicate_hidden = yes
@@ -96,10 +96,10 @@
 
 [urgency_low]
   timeout = 2
-  default_icon = 
+  default_icon = none
 # theme
-  background = "#458588"
-  foreground = "#ebdbb2"
+  background = "#fbf1c7"
+  foreground = "#a89984"
   frame_color = "#ebdbb2"
   # background = "#1d2021"
   # foreground = "#d4be98"
@@ -107,7 +107,7 @@
 
 [urgency_normal]
   timeout = 10
-  default_icon = 
+  default_icon = none
 # theme
   background = "#fbf1c7"
   foreground = "#654735"
@@ -120,9 +120,9 @@
   timeout = 0
   default_icon = state-warning
 # theme
-  background = "#ff0000"
-  foreground = "#000000"
-  frame_color = "#000000"
+  background = "#f14a4a"
+  foreground = "#3c3836"
+  frame_color = "#3c3836"
   # background = "#3c1f1e"
   # foreground = "#ddc7a1"
   # frame_color = "#ea6962"
