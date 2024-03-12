@@ -1,5 +1,7 @@
 include themes/gruvbox_material_light
 
+set database "sqlite"
+
 set selection-clipboard clipboard
 set window-title-home-tilde true
 set statusbar-home-tilde true
