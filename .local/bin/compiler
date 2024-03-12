@@ -18,14 +18,15 @@ textype() { \
 }
 
 case "$ext" in
-	# Try to keep these cases in alphabetical order.
-	[0-9]) preconv "$file" | refer -PS -e | groff -mandoc -T pdf > "$base".pdf ;;
-	c) cc "$file" -o "$base" && "$base" ;;
-	cpp) g++ "$file" -o "$base" && "$base" ;;
-  ml) ocaml "$file" ;;
-	py) python "$file" ;;
-  sh|bash|zsh) sh "$file" ;;
-	tex) textype "$file" ;;
-  *) notify-send "not compilable type"
+    # Try to keep these cases in alphabetical order.
+    [0-9]) preconv "$file" | refer -PS -e | groff -mandoc -T pdf > "$base".pdf ;;
+    c) cc "$file" -o "$base" && "$base" ;;
+    cpp) g++ "$file" -o "$base" && "$base" ;;
+    hs) ghc -o "$base" "$file" && "$base" ;;
+    ml) ocaml "$file" ;;
+    py) python "$file" ;;
+    sh|bash|zsh) sh "$file" ;;
+    tex) textype "$file" ;;
+    *) notify-send "not compilable type"
 esac
 
