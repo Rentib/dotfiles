@@ -1,17 +1,32 @@
 #!/bin/bash
 
-# Credits: https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
+linuxconfig() {
+    # Credits: https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
 
-# Location code from: https://weather.codes/search
-location="PLXX0028"
-tmpfile=/tmp/$location.out
+    # Location code from: https://weather.codes/search
+    location="PLXX0028"
+    tmpfile=/tmp/$location.out
 
-# Information about sunrise and sunset from: weather.com
-wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
+    # Information about sunrise and sunset from: weather.com
+    wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
 
-SUNR=$(grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | head -1)
-SUNS=$(grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | tail -1)
+    SUNR=$(grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | head -1)
+    SUNS=$(grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | tail -1)
 
-sunrise=$(date --date="$SUNR" +%R)
-sunset=$(date --date="$SUNS" +%R)
-echo "-S $sunrise -s $sunset"
+    sunrise=$(date --date="$SUNR" +%R)
+    sunset=$(date --date="$SUNS" +%R)
+    echo "-S $sunrise -s $sunset"
+}
+
+custom() {
+    tmpfile=/tmp/wlsunset.out
+    URL="https://dateandtime.info/pl/citysunrisesunset.php"
+    wget -q "$URL" -O "$tmpfile"
+    sunrise=$(grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' "$tmpfile" | sed 1q)
+    sunset=$(grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' "$tmpfile" | sed '2q;d')
+    sunrise=$(date --date="$sunrise" +%R)
+    sunset=$(date --date="$sunset" +%R)
+    echo "-S $sunrise -s $sunset"
+}
+
+custom
