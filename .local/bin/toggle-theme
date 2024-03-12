@@ -110,6 +110,14 @@ function chromium {
         || echo "--force-dark-mode" >> $file
 }
 
+function tmux {
+    tmuxDir="/home/rentib/.config/tmux"
+    file="/home/rentib/.config/gtk-3.0/settings.ini"
+    grep -q "gtk-application-prefer-dark-theme=true" $file \
+        && ln -sf $tmuxDir/themes/gruvbox-material-dark-medium.tmux $tmuxDir/themes/theme.tmux \
+        || ln -sf $tmuxDir/themes/gruvbox-material-light-medium.tmux $tmuxDir/themes/theme.tmux
+}
+
 gtk
 Xresources
 zathura      &
@@ -120,6 +128,7 @@ wallpaper    &
 bat          &
 chromium     &
 dunst && restart-dunst
+tmux
 
 notify-send \
   -t 1000 \
