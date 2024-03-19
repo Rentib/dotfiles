@@ -15,18 +15,18 @@ set cleaner   "~/.config/lf/ctpv/ctpvclear"
 
 # Custom functions
 cmd open ${{
-  case $(file --mime-type "$(readlink -f $f)" -b) in
-  	application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-    text/*) $EDITOR $fx ;;
-	  image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\|ppm\)\(_large\)*$" | setsid -f nsxiv -aio 2>/dev/null | lf-select & ;;
-	  audio/*) mpv --audio-display=no $f ;;
-	  video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	  application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-    application/pgp-encrypted) $EDITOR $fx ;;
-    application/x-gba-rom) mgba-qt $f ;;
-    application/x-dosexec) wine $f ;;
-    *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
-  esac
+    case $(file -b --mime-type "$(readlink -f $f)") in
+        application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        text/*) $EDITOR $fx ;;
+        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\|ppm\)\(_large\)*$" | setsid -f nsxiv -aio 2>/dev/null | lf-select & ;;
+        audio/*) mpv --audio-display=no $f ;;
+        video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        application/pgp-encrypted) $EDITOR $fx ;;
+        application/x-gba-rom) mgba-qt $f ;;
+        application/x-dosexec) wine $f ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
 }}
 
 ${{ mkdir -p ~/.local/share/Trash }}
