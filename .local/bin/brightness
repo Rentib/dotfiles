@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function notify_brightness {
-  brightness=$(light -G | cut -d '.' -f 1) \
+  brightness=$(light -G | cut -d '.' -f 1)
   brightness_icon=""
   bar_color="#d65d0e"
   notify-send \
