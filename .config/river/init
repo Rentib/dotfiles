@@ -4,8 +4,8 @@
 # dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
 resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
 [ -f $resources ] && xrdb $resources &
-swww init # preserve last colorscheme
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
+riverctl spawn 'swww-daemon'
 riverctl spawn 'i3bar-river'
 riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
 
@@ -22,6 +22,7 @@ riverctl set-repeat 50 300
 touchpad="$(riverctl list-inputs | grep TouchPad)"
 riverctl input "$touchpad" accel-profile none
 riverctl input "$touchpad" tap enabled
+# riverctl input "$touchpad" natural-scroll enabled
 #}}}
 # Rules{{{
 riverctl rule-add -app-id 'Brave-browser' tags $((1<<1)) # Xwayland
@@ -50,8 +51,8 @@ riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 riverctl map normal Super       Tab focus-previous-tags
 # riverctl map normal Super+Shift Tab
-# riverctl map normal Super Q close
-riverctl map normal Super+Shift Q close
+riverctl map normal Super Q close
+# riverctl map normal Super+Shift Q close
 # riverctl map normal Super       W
 # riverctl map normal Super+Shift W
 # riverctl map normal Super       E
