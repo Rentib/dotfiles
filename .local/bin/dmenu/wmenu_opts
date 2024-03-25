@@ -1,7 +1,7 @@
 #!/bin/sh
 
+opts="-f Iosevka Nerd Font 10"
 opts="-i"
-opts="$opts -f iosevka 10"
 opts="$opts -N $(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
 opts="$opts -n $(xrdb -query | grep -E '^\*dwm\.normfgcolor:' | awk '{print $NF}')"
 opts="$opts -M $(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
