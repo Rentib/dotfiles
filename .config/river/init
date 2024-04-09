@@ -2,8 +2,6 @@
 
 # init{{{
 # dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
-resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
-[ -f $resources ] && xrdb $resources &
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'swww-daemon'
 riverctl spawn 'i3bar-river'
@@ -180,11 +178,14 @@ riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 \
           -main-location left -main-count 1 -main-ratio 0.55 &
 
-# hacky solution: if options were earlier in the file, xrdb might have not yet finished and we wouldnt be able to get colors
-riverctl border-width 2
-riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-riverctl xcursor-theme 'Adwaita'
+{
+    resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
+    [ -f $resources ] && xrdb $resources
+    riverctl border-width 2
+    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl xcursor-theme 'Adwaita'
+} &
 
 #gtk{{{
 gsettings set org.gnome.desktop.interface gtk-theme           'Gruvbox'
