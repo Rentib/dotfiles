@@ -159,6 +159,12 @@ SAVEHIST=20000
 export LS_COLORS="su=30;41:sg=30;46:tw=30;42:ow=30;43"
 export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
 
+command -v fd > /dev/null && {
+    export FZF_DEFAULT_COMMAND='fd -t f          -H -L -E .git --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND='  fd -t d          -H -L -E .git --strip-cwd-prefix'
+    export FZF_CTRL_T_COMMAND=' fd -t f --type d -H -L -E .git --strip-cwd-prefix'
+}
+
 # }}}
 # {{{ALIASES
 
