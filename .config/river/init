@@ -191,6 +191,7 @@ rivertile -view-padding 0 -outer-padding 0 \
 gsettings set org.gnome.desktop.interface gtk-theme           'Gruvbox'
 gsettings set org.gnome.desktop.interface icon-theme          'Gruvbox-Material-Dark'
 gsettings set org.gnome.desktop.interface cursor-theme        'Adwaita'
+gsettings set org.gnome.desktop.interface cursor-size         '11'
 gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka Nerd Font 11'
 #}}}
