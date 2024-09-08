@@ -5,8 +5,8 @@ These are my dotfiles setup as a bare git repo.
 
 ## Current Setup
 
-I run *[Arch Linux](https://archlinux.org/)* on ThinkPad E590 with 512GiB of HDD and 16GiB of RAM;
-typical memory usage is from 600MB to ~3GB when browsing the web.
+I run *[Arch Linux](https://archlinux.org/)* on ThinkPad T14 with 512GiB of SSD and 32GiB of RAM;
+typical memory usage is from 600MB to ~2GB when browsing the web.
 Here are some of the programs I use:
 - **[river](https://github.com/riverwm/river)** window manager
     - **[i3bar-river](https://github.com/MaxVerevkin/i3bar-river)** bar
