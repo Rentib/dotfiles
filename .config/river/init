@@ -28,13 +28,15 @@ riverctl rule-add -app-id 'brave-browser' tags $((1<<1)) # Wayland
 riverctl rule-add -app-id 'Firefox'       tags $((1<<1))
 riverctl rule-add -app-id 'chromium'      tags $((1<<1))
 riverctl rule-add -app-id 'discord'       tags $((1<<8))
+riverctl rule-add -app-id 'vesktop'       tags $((1<<8))
 riverctl rule-add -app-id 'heroic'        tags $((1<<7))
 riverctl rule-add -app-id 'lutris'        tags $((1<<7))
+riverctl rule-add -app-id 'transmission'  tags $((1<<2))
 riverctl rule-add -app-id '*'             ssd
 riverctl rule-add -app-id 'Nsxiv*'        float
 riverctl rule-add -app-id 'swayimg*'      float
 riverctl rule-add -app-id 'zenity*'       float
-# TODO: riverctl rule-add -app-id "TelegramDesktop" tag 9
+riverctl rule-add -app-id 'Pinentry*'     float
 # }}}
 # Key Bindings{{{
 for i in $(seq 1 9); do
