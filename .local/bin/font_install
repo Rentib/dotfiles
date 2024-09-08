@@ -1,0 +1,15 @@
+#!/bin/sh
+
+font="$1"
+
+path="/home/rentib/.local/share/fonts/"
+url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
+ext="tar.xz"
+
+mkdir -p "$path/$font"
+
+curl -OL "$url/$font.$ext"
+tar -xf "$font.tar.xz" -C "$path/$font"
+rm "$font.tar.xz"
+
+fc-cache -fv >/dev/null 2>&1
