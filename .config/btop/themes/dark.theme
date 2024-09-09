@@ -1,4 +1,5 @@
 #dark
+# Btop gruvbox material dark (https://github.com/sainnhe/gruvbox-material) theme
 # by Marco Radocchia
 
 # Colors should be in 6 or 2 character hexadecimal or single spaced rgb decimal: "#RRGGBB", "#BW" or "0-255 0-255 0-255"
@@ -18,7 +19,7 @@ theme[main_fg]="#d4be98"
 # Title color for boxes
 theme[title]="#d4be98"
 
-# Higlight color for keyboard shortcuts
+# Highlight color for keyboard shortcuts
 theme[hi_fg]="#ea6962"
 
 # Background color of selected items
