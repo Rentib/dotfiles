@@ -137,6 +137,7 @@ for mode in normal locked; do
   riverctl map         $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle && [ "$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -b 7-)" = "yes" ] && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
+  riverctl map         $mode None XF86FullScreen        toggle-fullscreen
 done
 
 # Super+Alt+{H,J,K,L} to move views
