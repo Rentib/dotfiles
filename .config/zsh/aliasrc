@@ -53,7 +53,8 @@ alias minicom='minicom -c on'
 
 alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
 
-alias available_packages="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
+alias pacman_available="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
+alias pacman_installed="pacman -Qeq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
 alias dvim='GIT_DIR=$HOME/.local/dotfiles/ GIT_WORK_TREE=$HOME nvim'
