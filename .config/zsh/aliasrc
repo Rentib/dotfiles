@@ -35,6 +35,9 @@ alias                                               \
   fgrep='fgrep --color=auto'                        \
   ip='ip --color=auto'                              \
   diff='diff --color=auto'
+
+# use bat to colorize --help outputs
+[ -x /usr/bin/bat ] && alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 # }}}
 # {{{MY ALIASES
 # [ -f $XINITRC ] && alias startx='startx $XINITRC'
