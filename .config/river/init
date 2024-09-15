@@ -129,12 +129,12 @@ riverctl map normal Super+Shift Page_Down send-to-output next
 
 riverctl map normal Super       F12 spawn 'toggle-theme'
 
-[ "$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -b 7-)" = "yes" ] && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0
+riverctl spawn 'wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
 for mode in normal locked; do
   riverctl map         $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
   riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
   riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
-  riverctl map         $mode None XF86AudioMicMute      spawn 'pactl set-source-mute @DEFAULT_SOURCE@ toggle && [ "$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -b 7-)" = "yes" ] && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
+  riverctl map         $mode None XF86AudioMicMute      spawn 'wpctl set-mute @DEFAULT_SOURCE@ toggle && wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
   riverctl map         $mode None XF86FullScreen        toggle-fullscreen
