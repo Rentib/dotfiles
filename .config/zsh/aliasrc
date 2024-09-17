@@ -14,7 +14,7 @@ alias                          \
   cp='cp -iv'                  \
   mkdir='mkdir -pv'            \
   rmdir='rmdir -v'             \
-  df='df -h'                   \
+  df='df -Th'                  \
   du='du -c -h'                \
   free='free -h'               \
   ping='ping -c 5'             \
