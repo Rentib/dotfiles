@@ -42,6 +42,10 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 # Program settings
+export CFLAGS="-O3 -march=native"
+export CXXFLAGS="$CFLAGS"
+export MAKEFLAGS="-j$(nproc)"
+
 export DO_NOT_TRACK=1
 export QT_QPA_PLATFORMTHEME="gtk3"
 export _JAVA_AWT_WM_NONREPARENTING=1
