@@ -78,8 +78,8 @@ riverctl map normal Super+Shift P spawn 'mpc stop'
 # riverctl map normal Super+Shift A
 # riverctl map normal Super       S
 # riverctl map normal Super+Shift S
-riverctl map normal Super       D spawn 'wmenu_run $(wmenu_opts)'
-riverctl map normal Super+Shift D spawn 'passmenu $(wmenu_opts)'
+riverctl map normal Super       D spawn 'mew-run $(mew_opts)'
+riverctl map normal Super+Shift D spawn 'passmenu $(mew_opts)'
 riverctl map normal Super       F toggle-fullscreen
 riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
 # riverctl map normal Super       G

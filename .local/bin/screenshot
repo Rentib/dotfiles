@@ -4,7 +4,7 @@ DIR="/home/rentib/Pictures/screenshots"
 NAME="$(date +%Y-%m-%d_%H:%M:%S).png"
 PIC="$DIR/$NAME"
 
-[ "$XDG_SESSION_TYPE" = "wayland" ] && menu="wmenu $(wmenu_opts)" || menu="dmenu $(dmenu_opts)"
+[ "$XDG_SESSION_TYPE" = "wayland" ] && menu="mew $(mew_opts)" || menu="dmenu $(dmenu_opts)"
 case $1 in
   "1")
     case $(printf "screen\\narea" | $menu -i -p "Take screenshot") in
