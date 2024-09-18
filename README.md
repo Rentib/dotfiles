@@ -9,8 +9,8 @@ I run *[Arch Linux](https://archlinux.org/)* on ThinkPad T14 with 512GiB of SSD 
 typical memory usage is from 600MB to ~2GB when browsing the web.
 Here are some of the programs I use:
 - **[river](https://github.com/riverwm/river)** window manager
-    - **[i3bar-river](https://github.com/MaxVerevkin/i3bar-river)** bar
-    - **[i3status-rust](https://github.com/greshake/i3status-rust)** status generator
+    - **[dam](https://github.com/Rentib/dam)** bar
+    - **[slstatus](https://github.com/Rentib/slstatus)** status generator
 - **[foot](https://codeberg.org/dnkl/foot)** terminal
 - **[zsh](https://www.zsh.org/)** shell
 - **[neovim](https://github.com/Rentib/nvim)** text editor
