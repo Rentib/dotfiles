@@ -22,7 +22,7 @@ riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
 
 daemons="dunst mpd pipewire mpdup-statusbar"
 for daemon in $daemons; do
-  pidof -f "$daemon" || setsid -f "$daemon"
+  pidof -sx "$daemon" || setsid -f "$daemon"
 done >/dev/null 2>&1
 
 riverctl keyboard-layout pl
