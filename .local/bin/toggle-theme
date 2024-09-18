@@ -118,15 +118,19 @@ function tmux {
         || ln -sf $tmuxDir/themes/gruvbox-material-light-medium.tmux $tmuxDir/themes/theme.tmux
 }
 
+function dam {
+    pidof dam && pidof dam | xargs kill -s USR2
+}
+
 gtk
 Xresources
 zathura      &
 btop         &
 terminal     &
-i3bar_river  &
 wallpaper    &
 bat          &
 chromium     &
+dam          &
 dunst && restart-dunst
 tmux
 
