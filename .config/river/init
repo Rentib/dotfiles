@@ -6,8 +6,19 @@ riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_
 
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'swww-daemon'
-riverctl spawn 'i3bar-river'
 riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
+
+{
+    resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
+    [ -f $resources ] && xrdb $resources
+    riverctl border-width 2
+    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl xcursor-theme 'Adwaita'
+
+    # dam requires xrdb
+    riverctl spawn 'slstatus | dam'
+} &
 
 daemons="dunst mpd pipewire mpdup-statusbar"
 for daemon in $daemons; do
@@ -108,7 +119,7 @@ riverctl map normal Super+Shift X spawn 'shutdownmenu'
 # riverctl map normal Super       V
 # riverctl map normal Super+Shift V
 riverctl map normal Super       B spawn '$BROWSER'
-riverctl map normal Super+Mod1  B spawn 'pkill -SIGUSR1 i3bar-river'
+riverctl map normal Super+Mod1  B spawn 'pkill -SIGUSR1 dam'
 # riverctl map normal Super       N
 riverctl map normal Super+Shift N spawn 'restart-dunst'
 riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
@@ -131,9 +142,9 @@ riverctl map normal Super       F12 spawn 'toggle-theme'
 
 riverctl spawn 'wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
 for mode in normal locked; do
-  riverctl map         $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'
-  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%-'
-  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+'
+  riverctl map         $mode None XF86AudioMute         spawn 'wpctl set-mute @DEFAULT_SINK@ toggle && kill -35 $(pidof slstatus)'
+  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%- && kill -35 $(pidof slstatus)'
+  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'wpctl set-volume @DEFAULT_SINK@ 2%+ && kill -35 $(pidof slstatus)'
   riverctl map         $mode None XF86AudioMicMute      spawn 'wpctl set-mute @DEFAULT_SOURCE@ toggle && wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
   riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness -5'
   riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightness +5'
@@ -180,16 +191,6 @@ riverctl focus-follows-cursor normal
 riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 \
           -main-location left -main-count 1 -main-ratio 0.55 &
-
-{
-    resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
-    [ -f $resources ] && xrdb $resources
-    riverctl border-width 2
-    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-    riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-    riverctl xcursor-theme 'Adwaita'
-} &
-
 #gtk{{{
 gsettings set org.gnome.desktop.interface gtk-theme           'Gruvbox'
 gsettings set org.gnome.desktop.interface icon-theme          'Gruvbox-Material-Dark'
