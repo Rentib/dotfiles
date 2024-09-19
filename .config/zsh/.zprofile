@@ -40,6 +40,7 @@ export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
 
 # Program settings
 export CFLAGS="-O3 -march=native"
