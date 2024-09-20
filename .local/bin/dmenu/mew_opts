@@ -1,0 +1,8 @@
+#!/bin/sh
+
+opts='-s -f IosevkaNerdFontMono:size=10'
+opts="$opts -nb $(xrdb -query | grep -E '^\*dwm\.normbgcolor:' | awk '{print $NF}')"
+opts="$opts -nf $(xrdb -query | grep -E '^\*dwm\.normfgcolor:' | awk '{print $NF}')"
+opts="$opts -sb $(xrdb -query | grep -E '^\*dwm\.selbordercolor:' | awk '{print $NF}')"
+opts="$opts -sf $(xrdb -query | grep -E '^\*dwm\.selfgcolor:' | awk '{print $NF}')"
+echo $opts
