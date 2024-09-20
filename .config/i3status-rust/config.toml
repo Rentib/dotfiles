@@ -39,10 +39,10 @@ command = "battery-statusbar"
 interval = 10
 [[block.click]]
 button = "up"
-cmd = "brightness +5"
+cmd = "rentib brightness +5"
 [[block.click]]
 button = "down"
-cmd = "brightness -5"
+cmd = "rentib brightness -5"
 
 [[block]]
 block = "time"

@@ -3,7 +3,7 @@
 case $BUTTON in
   1) ;;
   2) st -e "$EDITOR" "$0" ;;
-  3) wpctl set-mute @DEFAULT_SINK@ toggle; kill -10 $(pidof slstatus) ;;
-  4) wpctl set-volume @DEFAULT_SINK@ 1%+; kill -10 $(pidof slstatus) ;;
-  5) wpctl set-volume @DEFAULT_SINK@ 1%-; kill -10 $(pidof slstatus) ;;
+  3) rentib volume mute ;;
+  4) rentib volume 1%+ ;;
+  5) rentib volume 1%- ;;
 esac

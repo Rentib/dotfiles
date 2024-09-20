@@ -4,6 +4,6 @@ case $BUTTON in
   1) st -e btop ;;
   2) st -e "$EDITOR" "$0" ;;
   3) ;;
-  4) brightness +5;;
-  5) brightness -5;;
+  4) rentib brightness +5;;
+  5) rentib brightness -5;;
 esac
