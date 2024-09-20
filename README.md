@@ -11,7 +11,7 @@ Here are some of the programs I use:
 - **[river](https://github.com/riverwm/river)** window manager
     - **[dam](https://github.com/Rentib/dam)** bar
     - **[slstatus](https://github.com/Rentib/slstatus)** status generator
-- **[foot](https://codeberg.org/dnkl/foot)** terminal
+- **[st](https://github.com/Rentib/st-flexipatch)** terminal
 - **[mew](https://codeberg.org/Rentib/mew)** application launcher
 - **[zsh](https://www.zsh.org/)** shell
 - **[neovim](https://github.com/Rentib/nvim)** text editor
