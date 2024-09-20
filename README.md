@@ -12,6 +12,7 @@ Here are some of the programs I use:
     - **[dam](https://github.com/Rentib/dam)** bar
     - **[slstatus](https://github.com/Rentib/slstatus)** status generator
 - **[foot](https://codeberg.org/dnkl/foot)** terminal
+- **[mew](https://codeberg.org/Rentib/mew)** application launcher
 - **[zsh](https://www.zsh.org/)** shell
 - **[neovim](https://github.com/Rentib/nvim)** text editor
 - **[lf](https://github.com/gokcehan/lf)** (with **[ctpv](https://github.com/NikitaIvanovV/ctpv)**) and **[thunar](https://docs.xfce.org/xfce/thunar/start)** file managers
