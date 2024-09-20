@@ -25,7 +25,7 @@ browser_sort_mode = type
 browser_sort_format = "{%a - }{%t}|{%f} {%l}"
 
 [lyrics]
-lyrics_fetchers = tekstowo, azlyrics, genius, musixmatch, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, zeneszoveg, internet
+lyrics_fetchers = tags, tekstowo, azlyrics, genius, musixmatch, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, zeneszoveg, internet
 fetch_lyrics_for_current_song_in_background = yes
 store_lyrics_in_song_dir  = no
 follow_now_playing_lyrics = yes
