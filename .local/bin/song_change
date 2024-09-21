@@ -35,4 +35,4 @@ same_date=$(mpc search date "$date" | grep -v "$playlist")
 same_genre=$(mpc search genre "$genre" | grep -v "$playlist")
 
 songs=$(echo "$all_songs$same_artist$same_composer$same_date$same_genre")
-[ -z "$songs" ] || echo "$songs" | sort | uniq -c | sort -nr | sed 1q | cut -c 9- | mpc add
+[ -z "$songs" ] || echo "$songs" | sort | uniq -c | awk 'max < $1 { max = $1; line = $0 } END { if (line) { gsub(/^[[:space:]]*[0-9]+[[:space:]]*/, "", line); print line } }' | mpc add
