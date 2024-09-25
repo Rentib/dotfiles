@@ -1,4 +1,8 @@
-plugins: acousticbrainz chroma fromfilename discogs spotify duplicates missing fetchart lastgenre
+plugins: acousticbrainz chroma fromfilename discogs spotify duplicates missing fetchart lastgenre lyrics
+
+lyrics:
+  synced: yes
+  sources: lrclib tekstowo genius google
 
 fetchart:
   cautious: true
