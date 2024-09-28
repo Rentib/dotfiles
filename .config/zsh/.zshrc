@@ -56,7 +56,7 @@ PROMPT_EOL_MARK=""           # hide EOL sign ('%')
 # edit line in vim with ctrl+e
 autoload edit-command-line
 zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey '^v' edit-command-line
 # }}}
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-$XDG_DATA_HOME/zsh/completion/}}
