@@ -5,17 +5,18 @@ set -e
 [ -f "$1" ] || { echo "File not found: $1"; exit 1; }
 
 case "$1" in
-    *.tar.bz2) tar xvjf "$1" ;;
-    *.tar.gz)  tar xvzf "$1" ;;
-    *.bz2)     bunzip2  "$1" ;;
-    *.rar)     unrar    "$1" ;;
-    *.gz)      gunzip   "$1" ;;
-    *.tar)     tar xvf  "$1" ;;
-    *.tbz2)    tar xvjf "$1" ;;
-    *.tgz)     tar xvzf "$1" ;;
-    *.zip)     unzip    "$1" ;;
-    *.7z)      7z x     "$1" ;;
-    *.xz)      unxz     "$1" ;;
-    *.zst)     unzstd   "$1" ;;
+    *.tar.bz2) tar xvjf   "$1" ;;
+    *.tar.gz)  tar xvzf   "$1" ;;
+    *.bz2)     bunzip2    "$1" ;;
+    *.rar)     unrar      "$1" ;;
+    *.gz)      gunzip     "$1" ;;
+    *.tar)     tar xvf    "$1" ;;
+    *.tbz2)    tar xvjf   "$1" ;;
+    *.tgz)     tar xvzf   "$1" ;;
+    *.zip)     unzip      "$1" ;;
+    *.7z)      7z x       "$1" ;;
+    *.xz)      unxz       "$1" ;;
+    *.zst)     unzstd     "$1" ;;
+    *.Z)       uncompress "$1" ;;
     *) echo "'$1' unknown format" ;;
 esac
