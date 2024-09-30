@@ -22,7 +22,8 @@ alias                          \
 
 alias              \
   gst='git status' \
-  gbr='git branch'
+  gbr='git branch' \
+  glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 # }}}
 # {{{COLORS
 [ -x /usr/bin/dircolors ] &&                        \
