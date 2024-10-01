@@ -29,4 +29,5 @@ custom() {
     echo "-S $sunrise -s $sunset"
 }
 
-custom
+linuxconfig
+# custom
