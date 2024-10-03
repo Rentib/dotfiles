@@ -36,6 +36,7 @@ export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export KODI_DATA="$XDG_DATA_HOME/kodi"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export GHCUP_USE_XDG_DIRS=true
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
@@ -58,7 +59,7 @@ export STACK_XDG=1
 export PATH="$PATH:$HOME/.local/share/cargo/bin"
 
 # ghcup
-[ -f "/home/rentib/.ghcup/env" ] && source "/home/rentib/.ghcup/env" # ghcup-env
+[ -f "/home/rentib/.local/share/ghcup/env" ] && source "/home/rentib/.local/share/ghcup/env" # ghcup-env
 export PATH="$PATH:$HOME/.local/share/cabal/bin"
 
 # flutter stuff
