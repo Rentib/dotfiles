@@ -116,6 +116,7 @@ function toggle_tmux {
     grep -q "gtk-application-prefer-dark-theme=true" $file \
         && ln -sf $tmuxDir/themes/gruvbox-material-dark-medium.tmux $tmuxDir/themes/theme.tmux \
         || ln -sf $tmuxDir/themes/gruvbox-material-light-medium.tmux $tmuxDir/themes/theme.tmux
+    tmux source-file $tmuxDir/tmux.conf
 }
 
 function toggle_dam {
