@@ -1,9 +1,6 @@
 #!/bin/sh
 
-function toggle_zathura {
-    file="$XDG_CONFIG_HOME/zathura/zathurarc"
-    sed -i '1s/light/temp/g; 1s/dark/light/g; 1s/temp/dark/g' $file
-}
+MODE="light"
 
 function toggle_gtk {
     header="gtk-application-prefer-dark-theme="
@@ -19,33 +16,29 @@ function toggle_gtk {
         && gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark-BL' \
         || gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light-BL'
 
-    MODE=$(gsettings get org.gnome.desktop.interface gtk-theme | cut -d"'" -f2 | cut -d"-" -f2)
-}
-
-function toggle_btop() {
-    file="$XDG_CONFIG_HOME/btop/btop.conf"
-
-    light="./themes/light.theme"
-    dark="./themes/dark.theme"
-
-    n=$(grep -n "color_theme" $file | cut -d: -f1)
-
-    echo "$n"
-
-    sed -i "$((n))s/light/xd/" $file
-    sed -i "$((n))s/dark/light/" $file
-    sed -i "$((n))s/xd/dark/" $file
+    grep -q "gtk-application-prefer-dark-theme=true" $file && MODE="dark" || MODE="light"
 }
 
 function toggle_Xresources {
     dir="$XDG_CONFIG_HOME/X11"
 
     case "$MODE" in
-        "Dark")  ln -sf "$dir/themes/gruvbox_material_dark"  "$dir/themes/theme" ;;
-        "Light") ln -sf "$dir/themes/gruvbox_material_light" "$dir/themes/theme" ;;
+        "dark")  ln -sf "$dir/themes/gruvbox_material_dark"  "$dir/themes/theme" ;;
+        "light") ln -sf "$dir/themes/gruvbox_material_light" "$dir/themes/theme" ;;
     esac
 
     xrdb $dir/Xresources
+}
+
+function toggle_zathura {
+    file="$XDG_CONFIG_HOME/zathura/zathurarc"
+    sed -i "1s/\(light\|dark\)/$MODE/;" $file
+}
+
+function toggle_btop() {
+    file="$XDG_CONFIG_HOME/btop/btop.conf"
+    n=$(grep -n "color_theme" $file | cut -d: -f1)
+    sed -i "$((n))s/\(light\|dark\)/$MODE/" $file
 }
 
 function toggle_terminal {
@@ -82,9 +75,10 @@ function toggle_i3bar_river {
 
 function toggle_wallpaper {
     file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
-    grep -q "gtk-application-prefer-dark-theme=true" $file \
-        && setbg ~/Pictures/wallpapers/irena_orwid.png \
-        || setbg ~/Pictures/wallpapers/Sif.png
+    case "$MODE" in
+        "dark")  setbg ~/Pictures/wallpapers/irena_orwid.png ;;
+        "light") setbg ~/Pictures/wallpapers/Sif.png ;;
+    esac
 }
 
 function toggle_dunst {
@@ -95,7 +89,7 @@ function toggle_dunst {
 
 function toggle_bat {
     file="$XDG_CONFIG_HOME/bat/config"
-    sed -i 's/\(theme=.*-\)light/\1temp/g; s/\(theme=.*-\)dark/\1light/g; s/\(theme=.*-\)temp/\1dark/g' $file
+    sed -i "s/\(theme=.*-\)\(light\|dark\)/\1$MODE/" $file
 }
 
 function toggle_chromium {
@@ -106,12 +100,12 @@ function toggle_chromium {
 }
 
 function toggle_tmux {
-    tmuxDir="$XDG_CONFIG_HOME/tmux"
-    file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
-    grep -q "gtk-application-prefer-dark-theme=true" $file \
-        && ln -sf $tmuxDir/themes/gruvbox-material-dark-medium.tmux $tmuxDir/themes/theme.tmux \
-        || ln -sf $tmuxDir/themes/gruvbox-material-light-medium.tmux $tmuxDir/themes/theme.tmux
-    tmux source-file $tmuxDir/tmux.conf
+    dir="$XDG_CONFIG_HOME/tmux"
+    case "$MODE" in
+        "dark")  ln -sf $dir/themes/gruvbox-material-dark-medium.tmux  $dir/themes/theme.tmux ;;
+        "light") ln -sf $dir/themes/gruvbox-material-light-medium.tmux $dir/themes/theme.tmux ;;
+    esac
+    tmux source-file $dir/tmux.conf
 }
 
 function toggle_dam {
