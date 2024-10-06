@@ -1,11 +1,11 @@
 #!/bin/sh
 
-function zathura {
+function toggle_zathura {
   file="/home/rentib/.config/zathura/zathurarc"
   sed -i '1s/light/temp/g; 1s/dark/light/g; 1s/temp/dark/g' $file
 }
 
-function gtk {
+function toggle_gtk {
   header="gtk-application-prefer-dark-theme="
 
   file="/home/rentib/.config/gtk-3.0/settings.ini"
@@ -20,7 +20,7 @@ function gtk {
       || gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light-BL'
 }
 
-function btop() {
+function toggle_btop() {
   file="/home/rentib/.config/btop/btop.conf"
 
   light="./themes/light.theme"
@@ -35,7 +35,7 @@ function btop() {
   sed -i "$((n))s/xd/dark/" $file
 }
 
-function Xresources {
+function toggle_Xresources {
   file="/home/rentib/.config/X11/Xresources"
 
   n=$(grep -n "!! Light Colors" $file | cut -d: -f1)
@@ -53,7 +53,7 @@ function Xresources {
   xrdb $file
 }
 
-function terminal {
+function toggle_terminal {
   # st
   pidof st && pidof st | xargs kill -s USR1
 
@@ -69,7 +69,7 @@ function terminal {
   sed -i "$sedmagic" $file
 }
 
-function i3bar_river {
+function toggle_i3bar_river {
   file="/home/rentib/.config/i3bar-river/config.toml"
 
   n=$(grep -n "^### Light Colors" $file | cut -d: -f1)
@@ -85,32 +85,32 @@ function i3bar_river {
   pidof i3bar-river >/dev/null && killall i3bar-river && riverctl spawn i3bar-river
 }
 
-function wallpaper {
+function toggle_wallpaper {
   file="/home/rentib/.config/gtk-3.0/settings.ini"
   grep -q "gtk-application-prefer-dark-theme=true" $file \
     && setbg ~/Pictures/wallpapers/irena_orwid.png \
     || setbg ~/Pictures/wallpapers/Sif.png
 }
 
-function dunst {
+function toggle_dunst {
     file="/home/rentib/.config/dunst/dunstrc"
     # it breaks stuff without vim-commentary
     nvim -c "g/^# theme/norm jgc2j3jgc2j" -c "wq" $file
 }
 
-function bat {
+function toggle_bat {
     file="/home/rentib/.config/bat/config"
     sed -i 's/\(theme=.*-\)light/\1temp/g; s/\(theme=.*-\)dark/\1light/g; s/\(theme=.*-\)temp/\1dark/g' $file
 }
 
-function chromium {
+function toggle_chromium {
     file="/home/rentib/.config/chromium-flags.conf"
     grep -qe "--force-dark-mode" $file         \
         && sed -i "/--force-dark-mode/d" $file \
         || echo "--force-dark-mode" >> $file
 }
 
-function tmux {
+function toggle_tmux {
     tmuxDir="/home/rentib/.config/tmux"
     file="/home/rentib/.config/gtk-3.0/settings.ini"
     grep -q "gtk-application-prefer-dark-theme=true" $file \
@@ -118,21 +118,21 @@ function tmux {
         || ln -sf $tmuxDir/themes/gruvbox-material-light-medium.tmux $tmuxDir/themes/theme.tmux
 }
 
-function dam {
+function toggle_dam {
     pidof dam && pidof dam | xargs kill -s USR2
 }
 
-gtk
-Xresources
-zathura      &
-btop         &
-terminal     &
-wallpaper    &
-bat          &
-chromium     &
-dam          &
-dunst && restart-dunst
-tmux
+toggle_gtk
+toggle_Xresources
+toggle_zathura      &
+toggle_btop         &
+toggle_terminal     &
+toggle_wallpaper    &
+toggle_bat          &
+toggle_chromium     &
+toggle_dam          &
+toggle_tmux         &
+toggle_dunst && restart-dunst
 
 notify-send \
   -t 1000 \
