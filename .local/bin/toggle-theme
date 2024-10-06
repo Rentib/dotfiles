@@ -43,12 +43,12 @@ function toggle_btop() {
 
 function toggle_terminal {
     # st
-    pidof st && pidof st | xargs kill -s USR1
+    pidof -q st && pidof st | xargs kill -s USR1
 
     # TODO: reload server's configuration (otherwise new clients use old theme)
     # foot
     pidof zsh | xargs kill -s USR1
-    pidof footclient >/dev/null || killall foot --server
+    pidof -q footclient || killall -q 'foot --server'
 
     file="$XDG_CONFIG_HOME/foot/foot.ini"
     sedmagic="s/\(include.*\)light\(.*\)/\1tmplight\2/"
@@ -74,7 +74,6 @@ function toggle_i3bar_river {
 }
 
 function toggle_wallpaper {
-    file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
     case "$MODE" in
         "dark")  setbg ~/Pictures/wallpapers/irena_orwid.png ;;
         "light") setbg ~/Pictures/wallpapers/Sif.png ;;
@@ -109,7 +108,7 @@ function toggle_tmux {
 }
 
 function toggle_dam {
-    pidof dam && pidof dam | xargs kill -s USR2
+    pidof -q dam && pidof dam | xargs kill -s USR2
 }
 
 toggle_gtk
@@ -122,7 +121,7 @@ toggle_bat          &
 toggle_chromium     &
 toggle_dam          &
 toggle_tmux         &
-toggle_dunst && restart-dunst
+toggle_dunst && restart-dunst >/dev/null 2>&1
 
 notify-send \
     -t 1000 \
