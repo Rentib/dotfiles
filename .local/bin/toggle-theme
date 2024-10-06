@@ -18,6 +18,8 @@ function toggle_gtk {
   grep -q "gtk-application-prefer-dark-theme=true" $file \
       && gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark-BL' \
       || gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light-BL'
+
+  MODE=$(gsettings get org.gnome.desktop.interface gtk-theme | cut -d"'" -f2 | cut -d"-" -f2)
 }
 
 function toggle_btop() {
@@ -36,21 +38,14 @@ function toggle_btop() {
 }
 
 function toggle_Xresources {
-  file="/home/rentib/.config/X11/Xresources"
+  dir="$XDG_CONFIG_HOME/X11"
 
-  n=$(grep -n "!! Light Colors" $file | cut -d: -f1)
+  case "$MODE" in
+    "Dark")  ln -sf "$dir/themes/gruvbox_material_dark"  "$dir/themes/theme" ;;
+    "Light") ln -sf "$dir/themes/gruvbox_material_light" "$dir/themes/theme" ;;
+  esac
 
-  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
-  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
-  sed -i "$((n+1)),$((n+24))s/^#//" $file
-
-  n=$(grep -n "!! Dark Colors" $file | cut -d: -f1)
-
-  sed -i "$((n+1)),$((n+24))s/^!/#/" $file
-  sed -i "$((n+1)),$((n+24))s/^*/!*/" $file
-  sed -i "$((n+1)),$((n+24))s/^#//" $file
-
-  xrdb $file
+  xrdb $dir/Xresources
 }
 
 function toggle_terminal {
