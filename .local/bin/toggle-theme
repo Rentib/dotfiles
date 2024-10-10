@@ -74,10 +74,7 @@ function toggle_i3bar_river {
 }
 
 function toggle_wallpaper {
-    case "$MODE" in
-        "dark")  setbg ~/Pictures/wallpapers/irena_orwid.png ;;
-        "light") setbg ~/Pictures/wallpapers/Sif.png ;;
-    esac
+    setbg ~/Pictures/wallpapers/$MODE
 }
 
 function toggle_dunst {
