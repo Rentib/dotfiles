@@ -1,0 +1,8 @@
+#!/bin/sh
+
+wl-copy -t image/png < "$1"
+notify-send \
+    -i "$(realpath $1)" \
+    "${1%.*}" \
+    "Copied to clipboard" \
+    -h string:x-dunst-stack-tag:swayimg_copy_image

@@ -1,0 +1,51 @@
+# Swayimg configuration file.
+# vim: filetype=dosini
+
+[general]
+mode = viewer
+size = 800,600
+
+[viewer]
+antialiasing = yes
+
+[gallery]
+size = 200
+cache = 100
+fill = no
+antialiasing = yes
+window = #00000000
+background = #00000006
+select = #00000006
+border = #000000ff
+shadow = #00000000
+
+[keys.viewer]
+q = exit
+return = mode
+f = fullscreen
+g = first_file
+Shift+g = last_file
+r = reload
+h = step_left 5
+j = step_down 5
+k = step_up 5
+l = step_right 5
+n = next_file
+p = prev_file
+e = zoom width
+Shift+e = zoom height
+b = exec setbg "%"
+y = exec $HOME/.config/swayimg/exec_copy_image "%"
+
+[keys.gallery]
+q = exit
+return = mode
+f = fullscreen
+g = first_file
+Shift+g = last_file
+h = step_left
+j = step_down
+k = step_up
+l = step_right
+b = exec setbg "%"
+y = exec $HOME/.config/swayimg/exec_copy_image "%"
