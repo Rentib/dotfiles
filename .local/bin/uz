@@ -18,5 +18,6 @@ case "$1" in
     *.xz)      unxz       "$1" ;;
     *.zst)     unzstd     "$1" ;;
     *.Z)       uncompress "$1" ;;
+    *.wv)      wvunpack   "$1" ;;
     *) echo "'$1' unknown format" ;;
 esac
