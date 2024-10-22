@@ -1,0 +1,22 @@
+[submodule ".config/nvim"]
+    path = .config/nvim
+    url = https://github.com/Rentib/nvim
+
+[submodule ".local/src/dam"]
+    path = .local/src/dam
+    url = https://github.com/Rentib/dam
+[submodule ".local/src/st-flexipatch"]
+    path = .local/src/st-flexipatch
+    url = https://github.com/Rentib/st-flexipatch
+[submodule ".local/src/slstatus"]
+    path = .local/src/slstatus
+    url = https://github.com/Rentib/slstatus
+[submodule ".local/src/mew"]
+    path = .local/src/mew
+    url = https://codeberg.org/Rentib/mew
+[submodule ".local/src/ctpv"]
+    path = .local/src/ctpv
+    url = https://github.com/NikitaIvanovV/ctpv
+[submodule ".local/src/shntool"]
+    path = .local/src/shntool
+    url = https://github.com/bayun/shntool
