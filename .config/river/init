@@ -108,7 +108,7 @@ riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count 
 # riverctl map normal Super+Shift Semicolon
 # riverctl map normal Super       Apostrophe
 # riverctl map normal Super+Shift Apostrophe
-[ "$TERMINAL" == "foot" ] && riverctl map normal Super       Return spawn 'footclient' || riverctl map normal Super       Return spawn '$TERMINAL'
+[ "$TERMINAL" = "foot" ] && riverctl map normal Super       Return spawn 'footclient' || riverctl map normal Super       Return spawn '$TERMINAL'
 # riverctl map normal Super+Shift Return
 
 # riverctl map normal Super       Z
