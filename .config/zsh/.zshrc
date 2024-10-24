@@ -175,7 +175,7 @@ command -v fd > /dev/null && {
 
 # use .local/share/zsh/plugins for place to keep repos with plugins
 plugin_dir="${XDG_DATA_HOME}/zsh/plugins"
-plugins=("zdharma-continuum/fast-syntax-highlighting")
+plugins=("z-shell/F-Sy-H")
 for plugin in $plugins; do
   user=$(echo $plugin | cut -d '/' -f1)
   repo=$(echo $plugin | cut -d '/' -f2)
