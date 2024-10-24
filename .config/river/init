@@ -7,6 +7,7 @@ riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'swww-daemon'
 riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
+riverctl spawn 'tmux new-session -s $USER -d'
 
 {
     resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
