@@ -1,5 +1,6 @@
 #!/bin/sh
 
+THEME="gruvbox-material"
 MODE="light"
 
 function toggle_gtk {
@@ -12,39 +13,33 @@ function toggle_gtk {
     sed -i "s/${header}1/${header}temp/g; s/${header}0/${header}1/g; s/${header}temp/${header}0/g" $file
 
     file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
-    grep -q "gtk-application-prefer-dark-theme=true" $file \
-        && gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark-BL' \
-        || gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light-BL'
 
     grep -q "gtk-application-prefer-dark-theme=true" $file && MODE="dark" || MODE="light"
+
+    gsettings set org.gnome.desktop.interface gtk-theme "$THEME-$MODE"
 }
 
 function toggle_Xresources {
     dir="$XDG_CONFIG_HOME/X11"
-
-    case "$MODE" in
-        "dark")  ln -sf "$dir/themes/gruvbox_material_dark"  "$dir/themes/theme" ;;
-        "light") ln -sf "$dir/themes/gruvbox_material_light" "$dir/themes/theme" ;;
-    esac
-
+    ln -sf "$dir/themes/$THEME-$MODE" "$dir/themes/theme"
     xrdb $dir/Xresources
 }
 
 function toggle_zathura {
-    file="$XDG_CONFIG_HOME/zathura/zathurarc"
-    sed -i "1s/\(light\|dark\)/$MODE/;" $file
+    dir="$XDG_CONFIG_HOME/zathura"
+    ln -sf "$dir/themes/$THEME-$MODE" "$dir/themes/theme"
 }
 
 function toggle_btop() {
-    file="$XDG_CONFIG_HOME/btop/btop.conf"
-    n=$(grep -n "color_theme" $file | cut -d: -f1)
-    sed -i "$((n))s/\(light\|dark\)/$MODE/" $file
+    dir="$XDG_CONFIG_HOME/btop"
+    ln -sf "$dir/themes/$THEME-$MODE.theme" "$dir/themes/btop.theme"
 }
 
 function toggle_terminal {
     # st
     pidof -q st && pidof st | xargs kill -s USR1
 
+    # FIXME: doesn't work after refactoring
     # TODO: reload server's configuration (otherwise new clients use old theme)
     # foot
     # pidof zsh | xargs kill -s USR1
@@ -73,13 +68,15 @@ function toggle_i3bar_river {
 }
 
 function toggle_wallpaper {
-    setbg ~/Pictures/wallpapers/$MODE
+    dir="$HOME/Pictures/wallpapers"
+    ls $dir/$THEME/$MODE | shuf -n 1
+    ln -sf $dir/$THEME/$MODE/$(ls $dir/$THEME/$MODE/ | shuf -n 1) $dir/$MODE
+    setbg $dir/$MODE
 }
 
 function toggle_dunst {
-    file="$XDG_CONFIG_HOME/dunst/dunstrc"
-    # it breaks stuff without vim-commentary
-    nvim -c "g/^# theme/norm jgc2j3jgc2j" -c "wq" $file
+    dir="$XDG_CONFIG_HOME/dunst"
+    ln -sf "$dir/$THEME-$MODE" "$dir/dunstrc"
 }
 
 function toggle_bat {
@@ -96,10 +93,7 @@ function toggle_chromium {
 
 function toggle_tmux {
     dir="$XDG_CONFIG_HOME/tmux"
-    case "$MODE" in
-        "dark")  ln -sf $dir/themes/gruvbox-material-dark-medium.tmux  $dir/themes/theme.tmux ;;
-        "light") ln -sf $dir/themes/gruvbox-material-light-medium.tmux $dir/themes/theme.tmux ;;
-    esac
+    ln -sf "$dir/themes/$THEME-$MODE.tmux" $dir/themes/theme.tmux
     tmux source-file $dir/tmux.conf
 }
 

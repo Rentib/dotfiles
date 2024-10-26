@@ -1,4 +1,4 @@
-include themes/gruvbox_material_light
+include themes/theme
 
 set database "sqlite"
 
