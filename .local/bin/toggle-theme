@@ -47,14 +47,13 @@ function toggle_terminal {
 
     # TODO: reload server's configuration (otherwise new clients use old theme)
     # foot
-    pidof zsh | xargs kill -s USR1
-    pidof -q footclient || killall -q 'foot --server'
-
-    file="$XDG_CONFIG_HOME/foot/foot.ini"
-    sedmagic="s/\(include.*\)light\(.*\)/\1tmplight\2/"
-    sedmagic="$sedmagic;s/\(include.*\)dark\(.*\)/\1light\2/"
-    sedmagic="$sedmagic;s/\(include.*\)tmplight\(.*\)/\1dark\2/"
-    sed -i "$sedmagic" $file
+    # pidof zsh | xargs kill -s USR1
+    # pidof -q footclient || killall -q 'foot --server'
+    # file="$XDG_CONFIG_HOME/foot/foot.ini"
+    # sedmagic="s/\(include.*\)light\(.*\)/\1tmplight\2/"
+    # sedmagic="$sedmagic;s/\(include.*\)dark\(.*\)/\1light\2/"
+    # sedmagic="$sedmagic;s/\(include.*\)tmplight\(.*\)/\1dark\2/"
+    # sed -i "$sedmagic" $file
 }
 
 function toggle_i3bar_river {
