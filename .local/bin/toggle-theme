@@ -17,6 +17,7 @@ function toggle_gtk {
     grep -q "gtk-application-prefer-dark-theme=true" $file && MODE="dark" || MODE="light"
 
     gsettings set org.gnome.desktop.interface gtk-theme "$THEME-$MODE"
+    gsettings set org.gnome.desktop.interface icon-theme "$THEME-$MODE"
 }
 
 function toggle_Xresources {
