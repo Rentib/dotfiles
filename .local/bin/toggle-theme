@@ -13,11 +13,15 @@ function toggle_gtk {
     sed -i "s/${header}1/${header}temp/g; s/${header}0/${header}1/g; s/${header}temp/${header}0/g" $file
 
     file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
-
     grep -q "gtk-application-prefer-dark-theme=true" $file && MODE="dark" || MODE="light"
+}
 
-    gsettings set org.gnome.desktop.interface gtk-theme "$THEME-$MODE"
-    gsettings set org.gnome.desktop.interface icon-theme "$THEME-$MODE"
+function toggle_gtk_helper {
+    gsettings set org.gnome.desktop.interface gtk-theme    "$THEME-$MODE"
+    gsettings set org.gnome.desktop.interface icon-theme   "$THEME-$MODE"
+    gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
+    gsettings set org.gnome.desktop.interface cursor-size  "11"
+    riverctl xcursor-theme "Adwaita" 11
 }
 
 function toggle_Xresources {
@@ -103,6 +107,7 @@ function toggle_dam {
 }
 
 toggle_gtk
+toggle_gtk_helper   &
 toggle_Xresources
 toggle_zathura      &
 toggle_btop         &
