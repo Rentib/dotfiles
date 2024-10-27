@@ -56,32 +56,11 @@ function toggle_terminal {
     # sed -i "$sedmagic" $file
 }
 
-function toggle_i3bar_river {
-    file="$XDG_CONFIG_HOME/i3bar-river/config.toml"
-
-    n=$(grep -n "^### Light Colors" $file | cut -d: -f1)
-    sed -i "$((n+1)),$((n+11))s/^# /! /" $file
-    sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
-    sed -i "$((n+1)),$((n+11))s/^! //" $file
-
-    n=$(grep -n "^### Dark Colors" $file | cut -d: -f1)
-    sed -i "$((n+1)),$((n+11))s/^# /! /" $file
-    sed -i "$((n+1)),$((n+11))s/^\([a-z]\)/# \1/" $file
-    sed -i "$((n+1)),$((n+11))s/^! //" $file
-
-    pidof i3bar-river >/dev/null && killall i3bar-river && riverctl spawn i3bar-river
-}
-
 function toggle_wallpaper {
     dir="$HOME/Pictures/wallpapers"
     ls $dir/$THEME/$MODE | shuf -n 1
     ln -sf $dir/$THEME/$MODE/$(ls $dir/$THEME/$MODE/ | shuf -n 1) $dir/$MODE
     setbg $dir/$MODE
-}
-
-function toggle_dunst {
-    dir="$XDG_CONFIG_HOME/dunst"
-    ln -sf "$dir/$THEME-$MODE" "$dir/dunstrc"
 }
 
 function toggle_bat {
@@ -96,14 +75,19 @@ function toggle_chromium {
         || echo "--force-dark-mode" >> $file
 }
 
+function toggle_dam {
+    pidof -q dam && pidof dam | xargs kill -s USR2
+}
+
 function toggle_tmux {
     dir="$XDG_CONFIG_HOME/tmux"
     ln -sf "$dir/themes/$THEME-$MODE.tmux" $dir/themes/theme.tmux
     tmux source-file $dir/tmux.conf
 }
 
-function toggle_dam {
-    pidof -q dam && pidof dam | xargs kill -s USR2
+function toggle_dunst {
+    dir="$XDG_CONFIG_HOME/dunst"
+    ln -sf "$dir/$THEME-$MODE" "$dir/dunstrc"
 }
 
 toggle_gtk
