@@ -17,7 +17,7 @@ brightness() {
     esac
     brightness=$(light -G | cut -d '.' -f 1)
     brightness_icon=""
-    bar_color="#d65d0e"
+    bar_color="$(xrdb -query | grep 'color1:' | awk '{print $2}')"
     notify-send \
         -t 1000 \
         -h string:x-dunst-stack-tag:notify_brightness \
