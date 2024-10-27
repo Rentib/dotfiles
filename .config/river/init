@@ -15,7 +15,7 @@ riverctl spawn 'tmux new-session -s $USER -d'
     riverctl border-width 2
     riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
     riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-    riverctl xcursor-theme 'Adwaita'
+    riverctl xcursor-theme 'cursors-gruvbox-material-dark' 30
 
     # dam requires xrdb
     riverctl spawn 'slstatus | dam'
@@ -195,8 +195,8 @@ rivertile -view-padding 0 -outer-padding 0 \
 #gtk{{{
 gsettings set org.gnome.desktop.interface gtk-theme           'gruvbox-material'
 gsettings set org.gnome.desktop.interface icon-theme          'gruvbox-material-dark'
-gsettings set org.gnome.desktop.interface cursor-theme        'Adwaita'
-gsettings set org.gnome.desktop.interface cursor-size         '11'
+gsettings set org.gnome.desktop.interface cursor-theme        'cursors-gruvbox-material-dark'
+gsettings set org.gnome.desktop.interface cursor-size         '30'
 gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka Nerd Font 11'
 #}}}
