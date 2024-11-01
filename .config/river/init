@@ -198,7 +198,7 @@ gsettings set org.gnome.desktop.interface icon-theme          'gruvbox-material-
 gsettings set org.gnome.desktop.interface cursor-theme        'cursors-gruvbox-material-dark'
 gsettings set org.gnome.desktop.interface cursor-size         '30'
 gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka Nerd Font 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'IosevkaTerm Nerd Font 11'
 #}}}
 #}}}
 

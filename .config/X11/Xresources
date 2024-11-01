@@ -5,10 +5,10 @@ Xft.hintstyle:	hintslight
 Xft.rgba:	rgb
 Xft.lcdfilter:	lcddefault
 
-Nsxiv.bar.font: IosevkaNerdFont: size=11:style=bold
+Nsxiv.bar.font: IosevkaTermNerdFont: size=11:style=bold
 Nsxiv.window.alpha: 1.0
 
-st.font: IosevkaNerdFont:size=14:antialias=true:autohint=true
+st.font: IosevkaTermNerdFont:size=14:antialias=true:autohint=true
 st.borderpx: 3
 st.alpha: 1.0
 
