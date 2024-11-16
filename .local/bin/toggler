@@ -16,26 +16,26 @@ toggle_touchpad() {
         deviceId="$(xinput list | grep -i "touchpad" | sed -n -e 's/^.*id=//p'|cut -f1)"
 
         on() {
-            xinput enable $deviceId && notify 1
+            xinput enable "$deviceId" && notify 1
         }
         off() {
-            xinput disable $deviceId && notify 0
+            xinput disable "$deviceId" && notify 0
         }
-        xinput list $deviceId | grep -q 'This device is disabled' && on || off
+        xinput list "$deviceId" | grep -q 'This device is disabled' && on || off
     fi
 
     if pidof river > /dev/null; then
         deviceId="$(riverctl list-inputs | grep TouchPad)"
 
         on() {
-            riverctl input $deviceId events enabled && notify 1
+            riverctl input "$deviceId" events enabled && notify 1
         }
         off() {
-            riverctl input $deviceId events disabled && notify 0
+            riverctl input "$deviceId" events disabled && notify 0
         }
 
         riverctl list-input-configs | \
-            grep -A 2 $deviceId | \
+            grep -A 2 "$deviceId" | \
             grep -q 'events: disabled' && on || off
     fi
 }

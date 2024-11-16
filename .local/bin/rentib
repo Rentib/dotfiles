@@ -1,8 +1,8 @@
 #!/bin/sh
 
-basename=`basename "$0"`
+basename=$(basename "$0")
 if [ "$basename" = rentib ]; then
-    rentib="$basename " basename="$1"
+    # rentib="$basename " basename="$1"
     shift
 fi
 
@@ -12,8 +12,8 @@ brightness() {
         exit 1
     }
     case "$1" in
-        [-+]*) [ $1 -gt 0 ] && light -A $1 || light -U ${1#-} ;;
-        *)     light -S $1 ;;
+        [-+]*) [ "$1" -gt 0 ] && light -A "$1" || light -U "${1#-}" ;;
+        *)     light -S "$1" ;;
     esac
     brightness=$(light -G | cut -d '.' -f 1)
     brightness_icon=""
@@ -21,8 +21,8 @@ brightness() {
     notify-send \
         -t 1000 \
         -h string:x-dunst-stack-tag:notify_brightness \
-        -h string:hlcolor:$bar_color \
-        -h int:value:$brightness \
+        -h string:hlcolor:"$bar_color" \
+        -h int:value:"$brightness" \
         "$brightness_icon $brightness%"
 }
 
@@ -37,7 +37,7 @@ volume() {
     esac
 
     case "$dev" in
-        @DEFAULT_SINK@) pidof slstatus && kill -35 $(pidof slstatus) ;;
+        @DEFAULT_SINK@) pidof slstatus && kill -35 "$(pidof slstatus)" ;;
         @DEFAULT_SOURCE@) wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0 ;;
     esac
 }

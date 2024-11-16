@@ -7,8 +7,8 @@ CACHE_SEPARATOR="#####"
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/yt/cache"
 RECENT_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/yt/recent"
 
-[ ! -f $CACHE_FILE ] && touch $CACHE_FILE
-[ ! -f $RECENT_FILE ] && touch $RECENT_FILE
+[ ! -f "$CACHE_FILE" ] && touch "$CACHE_FILE"
+[ ! -f "$RECENT_FILE" ] && touch "$RECENT_FILE"
 
 YTDL=""
 [ -x "$(command -v yt-dlp)" ] && YTDL="yt-dlp"
@@ -33,24 +33,24 @@ usage() {
 }
 
 get_nth_id() {
-  sed -n "${1}p" $RECENT_FILE
+  sed -n "${1}p" "$RECENT_FILE"
 }
 
 get_video_name_from_id() {
-  NAME=$(sed -n "/$1/ s/^.*$CACHE_SEPARATOR//p" $CACHE_FILE)
+  NAME=$(sed -n "/$1/ s/^.*$CACHE_SEPARATOR//p" "$CACHE_FILE")
   [ -z "$NAME" ] && \
     NAME=$($YTDL --quiet --no-warnings --get-title "$URL_WATCH$1") && \
-    echo "$1$CACHE_SEPARATOR$NAME" >> $CACHE_FILE
+    echo "$1$CACHE_SEPARATOR$NAME" >> "$CACHE_FILE"
   echo "$NAME"
 }
 
 play() {
-  ID=$(get_nth_id $1)
+  ID=$(get_nth_id "$1")
   mpv "$URL_WATCH${ID}"
 }
 
 download() {
-  ID=$(get_nth_id $1)
+  ID=$(get_nth_id "$1")
   $YTDL \
     --no-playlist \
     --concurrent-fragments 10 \
@@ -67,7 +67,7 @@ download() {
 }
 
 download_music() {
-  ID=$(get_nth_id $1)
+  ID=$(get_nth_id "$1")
   $YTDL \
     --no-playlist \
     --retries 10 --fragment-retries 10 \
@@ -88,19 +88,19 @@ download_music() {
 
 list() {
   COUNT=0
-  LOG10=$(wc -l $RECENT_FILE | awk '{print int(1+log($1)/log(10))}')
-  for ID in $(cat $RECENT_FILE); do
-    printf "%${LOG10}d) %s\n" $((++COUNT)) "$(get_video_name_from_id $ID)"
-  done
+  LOG10=$(wc -l "$RECENT_FILE" | awk '{print int(1+log($1)/log(10))}')
+  while read -r ID; do
+    printf "%${LOG10}d) %s\n" $((++COUNT)) "$(get_video_name_from_id "$ID")"
+  done < "$RECENT_FILE"
 }
 
 while true; do
   case "$1" in
-    -c|--clear) shift; truncate -s 0 $CACHE_FILE; truncate -s 0 $RECENT_FILE; exit 0 ;;
+    -c|--clear) shift; truncate -s 0 "$CACHE_FILE"; truncate -s 0 "$RECENT_FILE"; exit 0 ;;
     -d|--download) shift; download "$1"; exit 0 ;;
     -h|--help) shift; usage; exit 0 ;;
     -l|--list) shift; list; exit 0 ;;
-    -L|--list-ids) shift; cat $RECENT_FILE; exit 0 ;;
+    -L|--list-ids) shift; cat "$RECENT_FILE"; exit 0 ;;
     -m|--download-music) shift; download_music "$1"; exit 0 ;;
     -n|--number) shift; NUMBER_OF_RESULTS="$1"; shift ;;
     -p|--play) shift; play "$1"; exit 0 ;;
@@ -118,10 +118,10 @@ IDS=$(curl -s "$URL_SEARCH$QUERY" |\
   cut -c 9-)
 
 COUNT=0
-LOG10=$(echo $NUMBER_OF_RESULTS | awk '{print int(1+log($1)/log(10))}')
-truncate -s 0 $RECENT_FILE
+LOG10=$(echo "$NUMBER_OF_RESULTS" | awk '{print int(1+log($1)/log(10))}')
+truncate -s 0 "$RECENT_FILE"
 for ID in $IDS; do
-  NAME=$(get_video_name_from_id $ID)
+  NAME=$(get_video_name_from_id "$ID")
   printf "%${LOG10}d) %s\n" $((++COUNT)) "$NAME"
-  echo "$ID" >> $RECENT_FILE
+  echo "$ID" >> "$RECENT_FILE"
 done

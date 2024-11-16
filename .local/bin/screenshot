@@ -10,8 +10,8 @@ case $1 in
     case $(printf "screen\\narea" | $menu -i -p "Take screenshot") in
       # "screen") sxot | ffmpeg -i - $PIC ;;
       # "area") sxot --geom "$(selx)" | ffmpeg -i - $PIC ;;
-      "screen") grim -t ppm - | ffmpeg -i - $PIC ;;
-      "area") slurp | grim -g - -t ppm - | ffmpeg -i - $PIC ;;
+      "screen") grim -t ppm - | ffmpeg -i - "$PIC" ;;
+      "area") slurp | grim -g - -t ppm - | ffmpeg -i - "$PIC" ;;
     esac
     ;;
   "2")

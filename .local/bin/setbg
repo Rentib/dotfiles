@@ -1,6 +1,16 @@
 #!/bin/sh
 
-[ -z "$1" ] || [ ! -f "$1" ] && exit 1
+if [ -z "$1" ]; then
+    file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+    grep -q "gtk-application-prefer-dark-theme=true" "$file" && MODE="dark" || MODE="light"
+    dir="$HOME/Pictures/wallpapers/gruvbox-material/$MODE"
+    file=$(find "$dir" -name '*' -not -path '*/[@.]*' | shuf -n 1)
+else
+    file="$1"
+fi
+
+[ -z "$file" ] || [ ! -f "$file" ] && exit 1
+
 case $XDG_SESSION_TYPE in
     wayland)
       command -v swww >/dev/null && {
@@ -9,13 +19,13 @@ case $XDG_SESSION_TYPE in
           --resize fit \
           --transition-type any \
           --transition-duration 2 \
-          "$1"
+          "$file"
       } || {
         command -v swaybg >/dev/null && {
           pidof swaybg && killall swaybg
-          swaybg -m fill -i "$1" &
+          swaybg -m fill -i "$file" &
         }
       }
       ;;
-    *) xwallpaper --zoom "$1" ;;
+    *) xwallpaper --zoom "$file" ;;
 esac

@@ -21,7 +21,7 @@ notify-send \
 
 [ -z "$(mpc current)" ] || [ "$(mpc playlist | wc -l)" -eq "$(mpc current -f %position%)" ] || exit
 
-album_artist=$(mpc current -f %albumartist%)
+# album_artist=$(mpc current -f %albumartist%)
 artist=$(mpc current -f %artist%)
 composer=$(mpc current -f %composer%)
 date=$(mpc current -f %date%)
