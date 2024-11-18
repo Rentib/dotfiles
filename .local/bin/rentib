@@ -2,7 +2,7 @@
 
 basename=$(basename "$0")
 if [ "$basename" = rentib ]; then
-    # rentib="$basename " basename="$1"
+    rentib="$basename " basename="$1"
     shift
 fi
 
