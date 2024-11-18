@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -e
+
+project_name() {
+    (command -v fd >/dev/null && {
+        fd \
+        --unrestricted \
+        --type directory \
+        --exclude '.local/share' --exclude '.cache' \
+        --color never \
+        --glob .git \
+        --prune \
+        --exec dirname {} \; \
+        "$HOME"
+    } || {
+        find "$HOME" \
+        -type d ! \( -path '*/.local/share/*' -o -path '*/.cache/*' \) \
+        -name '.git' \
+        -prune \
+        -exec dirname {} \;
+    }) | fzf
+}
+
+path=$(project_name)
+session=$(basename "$path")
+
+if ! tmux has-session -t "$session" 2>/dev/null; then
+    tmux new-session -d -s "$session" -c "$path"
+    tmux new-window -t "$session" -c "$path"
+    tmux send-keys -t "$session:1" "nvim" Enter
+    tmux select-window -t "$session:1"
+fi
+
+if [ -z "$TMUX" ]; then
+    tmux attach-session -t "$session"
+else
+    tmux switch-client -t "$session"
+fi
