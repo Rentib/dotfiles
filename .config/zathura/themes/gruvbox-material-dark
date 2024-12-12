@@ -48,3 +48,5 @@ set recolor-lightcolor          "#32302f" # bg0
 set recolor-darkcolor           "#d4be98" # fg0
 set recolor                     "true"
 set recolor-keephue             true      # keep original color
+
+# vim: ft=zathurarc

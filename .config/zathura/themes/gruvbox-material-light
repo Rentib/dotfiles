@@ -49,4 +49,4 @@ set recolor-darkcolor           "#654735" # fg0
 set recolor                     "false"
 set recolor-keephue             true      # keep original color
 
-# vim ft=cfg
+# vim: ft=zathurarc
