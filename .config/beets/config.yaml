@@ -1,4 +1,4 @@
-plugins: acousticbrainz chroma describe fromfilename discogs spotify duplicates missing fetchart lastgenre lyrics
+plugins: chroma describe fromfilename discogs spotify duplicates missing fetchart lastgenre lyrics
 
 lyrics:
   synced: yes
