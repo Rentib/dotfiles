@@ -1,15 +1,49 @@
-plugins: chroma describe fromfilename discogs spotify duplicates missing fetchart lastgenre lyrics
+# To install beets with dependencies run:
+# pip install "beets[albumtypes,chroma,describe,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,scrub,smartplaylist,spotify,thumbnails,unimported]"
+# pip install beets-describe
+plugins:
+  - albumtypes
+  - chroma
+  - describe
+  - discogs
+  - duplicates
+  - fetchart
+  - fromfilename
+  - ftintitle
+  - info
+  - lastgenre
+  - lyrics
+  - missing
+  - mpdstats
+  - mpdupdate
+  - scrub
+  - smartplaylist
+  - spotify
+  - thumbnails
+  - unimported
 
-lyrics:
-  synced: yes
-  sources: lrclib tekstowo genius google
+discogs:
+  source_weight: 0.4
 
 fetchart:
   cautious: true
   sources: itunes *
 
-discogs:
-  source_weight: 0.4
+lyrics:
+  synced: yes
+  sources: lrclib tekstowo genius google
+
+smartplaylist:
+  auto: yes
+  relative_to: ~/Music                  # mpd music directory
+  playlist_dir: ~/.config/mpd/playlists # mpd playlist directory
+  forward_slash: no
+  playlists:
+    - name: all.m3u
+      query: ''
 
 spotify:
   source_weight: 0.3
+
+unimported:
+  ignore_subdirectories: .venv
