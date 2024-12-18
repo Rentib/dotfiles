@@ -2,7 +2,7 @@
 
 font="$1"
 
-path="/home/rentib/.local/share/fonts/"
+path="${XDG_DATA_HOME}/fonts"
 url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
 ext="tar.xz"
 
