@@ -105,7 +105,7 @@ while true; do
     -n|--number) shift; NUMBER_OF_RESULTS="$1"; shift ;;
     -p|--play) shift; play "$1"; exit 0 ;;
     -*) echo "yt: error: unknown option: $1" >&2; exit 1 ;;
-    *) QUERY=$(sed 's/ /+/g' <<< "$@"); break ;;
+    *) QUERY=$(echo "$@" | sed 's/ /+/g'); break ;;
   esac
 done
 
