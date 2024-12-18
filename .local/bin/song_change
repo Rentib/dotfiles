@@ -8,14 +8,14 @@ PREVIEW_DIR="$XDG_CONFIG_HOME/ncmpcpp/previews"
 cover="$(find "$(dirname "$MUSIC_DIR/$(mpc -f %file% current)")" -type f -iregex '.*\.\(jpg\|png\|jpeg\)' | head -n 1)"
 preview="$PREVIEW_DIR/$(mpc -f %album% current | iconv -f utf-8 -t ascii//TRANSLIT | sha1sum | cut -d ' ' -f 1).png"
 
-[ -e "$preview" ] || ffmpeg -y -i "$cover" -an -vf scale=128:128 "$preview" > /dev/null 2>&1
+[ -e "$preview" ] || ffmpeg -y -i "$cover" -an -vf scale=128:128 "$preview" >/dev/null 2>&1
 
 notify-send \
-  -t 2500 \
-  -h string:x-dunst-stack-tag:notify_song_change \
-  -i "$preview" \
-  "Now Playing" \
-  "$(mpc -f %artist% current)\n<i>$(mpc -f %title% current)</i>"
+    -t 2500 \
+    -h string:x-dunst-stack-tag:notify_song_change \
+    -i "$preview" \
+    "Now Playing" \
+    "$(mpc -f %artist% current)\n<i>$(mpc -f %title% current)</i>"
 
 # radio - if current song is last in playlist, find something similar to it and add it to playlist
 
@@ -29,11 +29,11 @@ genre=$(mpc current -f %genre%)
 
 playlist=$(mpc playlist -f "%file%")
 
-songs=$( {
-    mpc search artist   "$artist"   ;
-    mpc search composer "$composer" ;
-    mpc search date     "$date"     ;
-    mpc search genre    "$genre"    ;
+songs=$({
+    mpc search artist "$artist"
+    mpc search composer "$composer"
+    mpc search date "$date"
+    mpc search genre "$genre"
 } | grep -vF "$playlist")
 
 [ -z "$songs" ] || echo "$songs" | sort | uniq -c | awk 'max < $1 { max = $1; line = $0 } END { if (line) { gsub(/^[[:space:]]*[0-9]+[[:space:]]*/, "", line); print line } }' | mpc add
