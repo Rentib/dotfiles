@@ -1,5 +1,5 @@
 # To install beets with dependencies run:
-# pip install "beets[albumtypes,chroma,describe,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,replaygain,scrub,smartplaylist,spotify,thumbnails,unimported]"
+# pip install "beets[albumtypes,chroma,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,replaygain,scrub,smartplaylist,spotify,thumbnails,unimported]"
 # pip install beets-describe
 plugins:
   - albumtypes
