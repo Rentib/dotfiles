@@ -140,7 +140,7 @@ riverctl map normal Super+Shift Page_Up send-to-output previous
 riverctl map normal Super       Page_Down focus-output next
 riverctl map normal Super+Shift Page_Down send-to-output next
 
-riverctl map normal Super       F12 spawn 'toggle-theme'
+riverctl map normal Super       F12 spawn 'theme -t'
 
 riverctl spawn 'wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
 for mode in normal locked; do
