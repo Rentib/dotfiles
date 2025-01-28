@@ -6,13 +6,13 @@ mode = viewer
 size = 800,600
 
 [viewer]
-antialiasing = yes
+antialiasing = mks13
 
 [gallery]
 size = 200
 cache = 100
 fill = no
-antialiasing = yes
+antialiasing = mks13
 window = #00000000
 background = #00000006
 select = #00000006
