@@ -194,12 +194,32 @@ riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 \
           -main-location left -main-count 1 -main-ratio 0.55 &
 #gtk{{{
-gsettings set org.gnome.desktop.interface gtk-theme           'gruvbox-material'
-gsettings set org.gnome.desktop.interface icon-theme          'gruvbox-material-dark'
-gsettings set org.gnome.desktop.interface cursor-theme        'cursors-gruvbox-material-dark'
-gsettings set org.gnome.desktop.interface cursor-size         '30'
-gsettings set org.gnome.desktop.interface font-name           'Cantarell 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'IosevkaTerm Nerd Font 11'
+THEME="gruvbox-material"
+MODE="light"
+
+file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+grep -q "gtk-application-prefer-dark-theme=true" "$file" && MODE="dark" || MODE="light"
+header="gtk-application-prefer-dark-theme="
+
+file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+case "$MODE" in
+    light) sed -i "s/${header}true/${header}false/g" "$file" ;;
+    dark) sed -i "s/${header}false/${header}true/g" "$file" ;;
+esac
+
+file="$XDG_CONFIG_HOME/gtk-4.0/settings.ini"
+case "$MODE" in
+    light) sed -i "s/${header}1/${header}0/g" "$file" ;;
+    dark) sed -i "s/${header}0/${header}1/g" "$file" ;;
+esac
+
+gsettings set org.gnome.desktop.interface gtk-theme    "$THEME-$MODE"
+gsettings set org.gnome.desktop.interface icon-theme   "$THEME-$MODE"
+gsettings set org.gnome.desktop.interface cursor-theme "cursors-$THEME-$MODE"
+gsettings set org.gnome.desktop.interface cursor-size  "30"
+gsettings set org.gnome.desktop.interface font-name    "Cantarell 11"
+
+riverctl xcursor-theme "cursors-$THEME-$MODE" 30
 #}}}
 #}}}
 
