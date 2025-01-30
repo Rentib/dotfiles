@@ -12,10 +12,9 @@ riverctl spawn 'tmux new-session -s $USER -d'
 {
     resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
     [ -f $resources ] && xrdb $resources
-    riverctl border-width 2
+    # TODO: move to theme script
     riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
     riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
-    riverctl xcursor-theme 'cursors-gruvbox-material-dark' 30
 
     # dam requires xrdb
     riverctl spawn 'slstatus | dam'
@@ -190,6 +189,7 @@ riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 # Options{{{
 riverctl focus-follows-cursor normal
 
+riverctl border-width 2
 riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 \
           -main-location left -main-count 1 -main-ratio 0.55 &
