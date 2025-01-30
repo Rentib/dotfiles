@@ -29,6 +29,7 @@ export PYTHON_HISTORY="$XDG_CACHE_HOME/python/history"
 export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME/python"
 export PYTHONUSERBASE="$XDG_DATA_HOME/python"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
+export WINEARCH=win32
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
