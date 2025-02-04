@@ -26,8 +26,8 @@ set_gtk() {
     gsettings set org.gnome.desktop.interface gtk-theme "$THEME-$MODE"
     gsettings set org.gnome.desktop.interface icon-theme "$THEME-$MODE"
     gsettings set org.gnome.desktop.interface cursor-theme "cursors-$THEME-$MODE"
-    gsettings set org.gnome.desktop.interface cursor-size "30"
-    riverctl xcursor-theme "cursors-$THEME-$MODE" 30
+    gsettings set org.gnome.desktop.interface cursor-size "32"
+    riverctl xcursor-theme "cursors-$THEME-$MODE" 32
 }
 
 set_Xresources() {

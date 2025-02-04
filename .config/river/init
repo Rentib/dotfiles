@@ -216,10 +216,10 @@ esac
 gsettings set org.gnome.desktop.interface gtk-theme    "$THEME-$MODE"
 gsettings set org.gnome.desktop.interface icon-theme   "$THEME-$MODE"
 gsettings set org.gnome.desktop.interface cursor-theme "cursors-$THEME-$MODE"
-gsettings set org.gnome.desktop.interface cursor-size  "30"
+gsettings set org.gnome.desktop.interface cursor-size  "32"
 gsettings set org.gnome.desktop.interface font-name    "Cantarell 11"
 
-riverctl xcursor-theme "cursors-$THEME-$MODE" 30
+riverctl xcursor-theme "cursors-$THEME-$MODE" 32
 #}}}
 #}}}
 
