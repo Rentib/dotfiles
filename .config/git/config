@@ -8,5 +8,10 @@
     format = ssh
 [commit]
     gpgsign = true
+[pull]
+    rebase = false
 [alias]
-    rank = "shortlog -s -n --no-merges"
+    uncommit = reset HEAD~1
+    recommit = reset ORIG_HEAD
+    ncommits = rev-list --all --count
+    ucommits = shortlog --summary --numbered --email
