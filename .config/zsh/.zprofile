@@ -1,48 +1,61 @@
+#    ▄███████▄    ▄████████  ▄██████▄     ▄████████  ▄█   ▄█          ▄████████
+#   ███    ███   ███    ███ ███    ███   ███    ███ ███  ███         ███    ███
+#   ███    ███   ███    ███ ███    ███   ███    █▀  ███▌ ███         ███    █▀
+#   ███    ███  ▄███▄▄▄▄██▀ ███    ███  ▄███▄▄▄     ███▌ ███        ▄███▄▄▄
+# ▀█████████▀  ▀▀███▀▀▀▀▀   ███    ███ ▀▀███▀▀▀     ███▌ ███       ▀▀███▀▀▀
+#   ███        ▀███████████ ███    ███   ███        ███  ███         ███    █▄
+#   ███          ███    ███ ███    ███   ███        ███  ███▌    ▄   ███    ███
+#  ▄████▀        ███    ███  ▀██████▀    ███        █▀   █████▄▄██   ██████████
+#                ███    ███                              ▀
+#                                              Rentib <sbitner420@tutanota.com>
+
 # Default programs
 export TERMINAL="st"
 export READER="zathura"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
+export MANWIDTH=80
 export EDITOR="nvim"
 export DIFFTOOL="nvim -d"
 export BROWSER="chromium"
 export FILEMANAGER="lf"
 export GUIFILEMANAGER="thunar"
 
-# ~/ Clean-up
+# xdg base directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_RUNTIME_DIR="/run/user/1000"
 
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some DMs
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
-export LESSHISTFILE="-"
-export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+# clean ~
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
+export CABAL_DIR="$XDG_DATA_HOME/cabal"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
+export GHCUP_USE_XDG_DIRS=true
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export KODI_DATA="$XDG_DATA_HOME/kodi"
+export LESSHISTFILE="-"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export PYTHON_HISTORY="$XDG_CACHE_HOME/python/history"
 export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME/python"
 export PYTHONUSERBASE="$XDG_DATA_HOME/python"
-export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
-export WINEARCH=win32
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
-export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
-export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
-export KODI_DATA="$XDG_DATA_HOME/kodi"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export GHCUP_USE_XDG_DIRS=true
-export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
-export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
-export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
+export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+export WINEARCH=win32
+export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some DMs
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # Program settings
 export CFLAGS="-O3 -march=native"

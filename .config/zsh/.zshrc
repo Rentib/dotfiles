@@ -1,4 +1,14 @@
-# $ZDOTDIR/.zshrc file for zsh interactive shells.
+#  ▄███████▄     ▄████████    ▄█    █▄       ▄████████  ▄████████ 
+# ██▀     ▄██   ███    ███   ███    ███     ███    ███ ███    ███ 
+#       ▄███▀   ███    █▀    ███    ███     ███    ███ ███    █▀  
+#  ▀█▀▄███▀▄▄   ███         ▄███▄▄▄▄███▄▄  ▄███▄▄▄▄██▀ ███        
+#   ▄███▀   ▀ ▀███████████ ▀▀███▀▀▀▀███▀  ▀▀███▀▀▀▀▀   ███        
+# ▄███▀                ███   ███    ███   ▀███████████ ███    █▄  
+# ███▄     ▄█    ▄█    ███   ███    ███     ███    ███ ███    ███ 
+#  ▀████████▀  ▄████████▀    ███    █▀      ███    ███ ████████▀  
+#                                           ███    ███            
+#
+#                                Rentib <sbitner420@tutanota.com>
 
 # {{{OPTIONS
 # {{{Changing Directories
@@ -238,35 +248,5 @@ update_plugins() {
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # }}}
-# {{{FOOT TERMINAL
-# if [ "$TERM" = "foot" ] || [ "$TERM" = "xterm-256color" ]; then
-#   function osc7-pwd() {
-#     emulate -L zsh
-#     setopt extendedglob
-#     local LC_ALL=C
-#     printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
-#   }
-#
-#   function chpwd-osc7-pwd() {
-#     (( ZSH_SUBSHELL )) || osc7-pwd
-#   }
-#   autoload -Uz add-zsh-hook
-#   add-zsh-hook -Uz chpwd chpwd-osc7-pwd
-#
-#   get_scheme() {
-#     # https://github.com/lemnos/theme.sh
-#     file=/home/rentib/.config/gtk-3.0/settings.ini
-#     grep -q "gtk-application-prefer-dark-theme=true" $file && \
-#       sh /home/rentib/.config/zsh/theme.sh gruvbox-material-dark-medium
-#     grep -q "gtk-application-prefer-dark-theme=false" $file && \
-#       sh /home/rentib/.config/zsh/theme.sh gruvbox-material-light-medium
-#   }
-#   get_scheme
-# fi
-#
-# TRAPUSR1() {
-#     ([ "$TERM" = "foot" ] || [ "$TERM" = "xterm-256color" ]) && get_scheme
-# }
-#}}}
 
 # vim: set fdm=marker fmr={{{,}}}:
