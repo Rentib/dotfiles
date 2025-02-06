@@ -1,0 +1,125 @@
+# vim: ft=cfg
+[global]
+  ### Display ###
+  monitor = 0
+  follow = keyboard
+
+  ### Geometry ###
+  width = (300,400)
+  height = (0,300)
+  origin = top-right
+  # offset = (10,30) # X11
+  offset = (10,10) # Wayland
+  scale = 0
+  notification_limit = 20
+
+  ### Progress bar ###
+  progress_bar = true
+  progress_bar_height = 10
+  progress_bar_corner_radius = 5 # at most half the progress_bar_height
+  progress_bar_frame_width = 1
+  progress_bar_min_width = 150
+  progress_bar_max_width = 300
+
+  icon_corner_radius = 10
+
+  indicate_hidden = yes
+  # transparency = 0
+  separator_height = 2
+
+  padding = 8
+  horizontal_padding = 8
+  text_icon_padding = 0
+
+  frame_width = 2
+  frame_color = "#fb4934"
+  # gap_size = 5
+  separator_color = frame
+  
+  sort = yes
+
+  ### Text ###
+  font = HackNerdFont
+  line_height = 20
+  #        <b>bold</b>
+  #        <i>italic</i>
+  #        <s>strikethrough</s>
+  #        <u>underline</u>
+  #
+  #        For a complete reference see
+  #        <https://docs.gtk.org/Pango/pango_markup.html>.
+  markup = full
+  format = "<b>%s</b>\n%b"
+  alignment = center
+  vertical_alignment = center
+  show_age_threshold = 60
+  ellipsize = middle
+  ignore_newline = no
+  stack_duplicates = true
+  hide_duplicate_count = false
+  show_indicators = yes
+
+  ### Icons ###
+  enable_recursive_icon_lookup = true
+  icon_theme = "rose-pine-dark, Adwaita, Papirus"
+  icon_position = left
+  min_icon_size = 16
+  max_icon_size = 128
+  # icon_path = 
+
+  ### History ###
+  sticky_history = true
+  history_length = 20
+
+  ### Misc/Advanced ###
+  dmenu = /usr/local/bin/dmenu -p dunst:
+  browser = /usr/bin/brave
+  always_run_script = true
+  title = Dunst
+  class = Dunst
+  corner_radius = 10
+  ignore_dbusclose = false
+
+  ### Wayland ###
+  force_xwayland = false
+
+  ### Legacy ###
+  force_xinerama = false
+
+  ### Mouse ###
+  mouse_left_click = close_current
+  mouse_middle_click = do_action, close_current
+  mouse_right_click = close_all
+
+  background = "#26233a"
+  foreground = "#e0def4"
+
+[experimental]
+  per_monitor_dpi = false
+
+[urgency_low]
+  timeout = 2
+  # default_icon = none
+  default_icon = "dialog-information"
+  background = "#393955"
+  highlight = "#3e8fb0"
+  frame_color = "#3e8fb0"
+  format = "<b><span foreground='#3e8fb0'>%s</span></b>\n%b"
+
+[urgency_normal]
+  timeout = 10
+  # default_icon = none
+  default_icon = "dialog-warning"
+  background = "#443c53"
+  highlight = "#f6c177"
+  frame_color = "#f6c177"
+  format = "<b><span foreground='#f6c177'>%s</span></b>\n%b"
+
+[urgency_critical]
+  timeout = 0
+  # default_icon = state-warning
+  default_icon = "dialog-error"
+  background = "#433754"
+  highlight = "#eb6f92"
+  frame_color = "#eb6f92"
+  format = "<b><span foreground='#eb6f92'>%s</span></b>\n%b"

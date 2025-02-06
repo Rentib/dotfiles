@@ -1,0 +1,30 @@
+!! Rose pine light
+
+*.background:   #faf4ed
+*.foreground:   #575279
+*.color0:       #fffaf3
+*.color1:       #b4637a
+*.color2:       #ea9d34
+*.color3:       #d7827e
+*.color4:       #286983
+*.color5:       #907aa9
+*.color6:       #56949f
+*.color7:       #9893a5
+*.color8:       #f2e9e1
+*.color9:       #b4637a
+*.color10:      #ea9d34
+*.color11:      #d7827e
+*.color12:      #286983
+*.color13:      #907aa9
+*.color14:      #56949f
+*.color15:      #797593
+
+!! TODO
+*dwm.normfgcolor:     #575279
+*dwm.normbgcolor:     #faf4ed
+*dwm.normbordercolor: #f2e9e1
+*dwm.selfgcolor:      #575279
+*dwm.selbgcolor:      #faf4ed
+*dwm.selbordercolor:  #d7827e
+
+*.cursorColor:  #575279
