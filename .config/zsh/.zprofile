@@ -52,7 +52,7 @@ _exists() {
 if _exists less; then
     PAGER=less
     LESSHISTFILE=-
-    LESS="-iRXPs?f%F    .%lt-%lb?e    END:?p    %pt\%:.."
+    LESS="-iFRXPs?f%F    .%lt-%lb?e    END:?p    %pt\%:.."
     export PAGER LESSHISTFILE LESS
 elif _exists more; then
     export PAGER=more
