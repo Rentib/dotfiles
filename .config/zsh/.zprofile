@@ -9,18 +9,6 @@
 #                ███    ███                              ▀
 #                                              Rentib <sbitner420@tutanota.com>
 
-# Default programs
-export TERMINAL="st"
-export READER="zathura"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
-export MANROFFOPT="-P -c"
-export MANWIDTH=80
-export EDITOR="nvim"
-export DIFFTOOL="nvim -d"
-export BROWSER="chromium"
-export FILEMANAGER="lf"
-export GUIFILEMANAGER="thunar"
-
 # xdg base directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -39,7 +27,6 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 export KODI_DATA="$XDG_DATA_HOME/kodi"
-export LESSHISTFILE="-"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export PYTHON_HISTORY="$XDG_CACHE_HOME/python/history"
@@ -57,37 +44,64 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some DMs
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-# Program settings
+_exists() {
+    type $1 >/dev/null 2>&1
+}
+
+# pager
+if _exists less; then
+    PAGER=less
+    LESSHISTFILE=-
+    LESS="-iRXPs?f%F    .%lt-%lb?e    END:?p    %pt\%:.."
+    export PAGER LESSHISTFILE LESS
+elif _exists more; then
+    export PAGER=more
+fi
+_exists less && export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANWIDTH=80
+export MANROFFOPT="-P -c"
+
+# default programs
+for p in nvim vim vi nano; do
+    hash "$p" 2>/dev/null && export EDITOR="$p" VISUAL="$p" && break
+done
+
+for p in st foot; do
+    hash "$p" 2>/dev/null && export TERMINAL="$p" && break
+done
+
+for p in chromium firefox; do
+    hash "$p" 2>/dev/null && export BROWSER="$p" && break
+done
+
+for p in thunar lf; do
+    case "$p" in
+    lf) cmd="$TERMINAL -e lf" ;;
+    *) cmd="$p" ;;
+    esac
+    hash "$p" 2>/dev/null && export FILEMANAGER="$cmd" && break
+done
+unset cmd
+unset p
+
+# program settings
 export CFLAGS="-O3 -march=native"
 export CXXFLAGS="$CFLAGS"
 export MAKEFLAGS="-j$(nproc)"
 
+export DIFFTOOL="nvim -d"
+export AWT_TOOLKIT=MToolkit
 export DO_NOT_TRACK=1
-export QT_QPA_PLATFORMTHEME="gtk3"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
-export AWT_TOOLKIT=MToolkit
+export QT_QPA_PLATFORMTHEME="gtk3"
 export STACK_XDG=1
 
-# cargo
-export PATH="$PATH:$HOME/.local/share/cargo/bin"
-
-# ghcup
-[ -f "/home/rentib/.local/share/ghcup/env" ] && source "/home/rentib/.local/share/ghcup/env" # ghcup-env
-export PATH="$PATH:$HOME/.local/share/cabal/bin"
-
-# flutter stuff
-export PATH="$PATH:/home/rentib/.local/src/flutter/bin"
-export PATH="$PATH:/home/rentib/.local/share/npm/bin"
-export CHROME_EXECUTABLE="/usr/bin/chromium"
-export ANDROID_SDK_ROOT='/opt/android-sdk'
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools/
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
-export PATH=$PATH:$ANDROID_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
-
-# raspberry pi pico
-export PICO_SDK_PATH=/opt/arm/pico-sdk
-export PICO_EXAMPLES_PATH=/opt/arm/pico-examples
-export PICO_EXTRAS_PATH=/opt/arm/pico-extras
-export PICO_PLAYGROUND_PATH=/opt/arm/pico-playground
+# construct PATH
+_mkpath() {
+    echo "$(find ~/.local/bin -type d -printf %p:)"
+    _exists cargo && echo "$HOME/.local/share/cargo/bin"
+    _exists cabal && echo "$HOME/.local/share/cabal/bin"
+    _exists npm   && echo "$HOME/.local/share/npm/bin"
+}
+export PATH=$PATH:$(_mkpath | tr '\n' :)

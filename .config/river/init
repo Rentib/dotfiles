@@ -93,7 +93,7 @@ riverctl map normal Super+Shift P spawn 'mpc stop'
 riverctl map normal Super       D spawn 'mew-run $(mew_opts)'
 riverctl map normal Super+Shift D spawn 'passmenu $(mew_opts)'
 riverctl map normal Super       F toggle-fullscreen
-riverctl map normal Super+Shift F spawn '$GUIFILEMANAGER'
+riverctl map normal Super+Shift F spawn '$FILEMANAGER'
 # riverctl map normal Super       G
 # riverctl map normal Super+Shift G
 riverctl map -repeat normal Super       H send-layout-cmd rivertile "main-ratio -0.01"

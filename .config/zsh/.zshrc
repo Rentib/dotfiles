@@ -216,6 +216,28 @@ function activate_venv() {
 }
 
 # }}}
+# {{{Enviorenment
+env_ghcup() {
+    [ -f "$HOME/.local/share/ghcup/env" ] && source "$HOME/.local/share/ghcup/env"
+}
+
+env_flutter() {
+    export CHROME_EXECUTABLE="/usr/bin/chromium"
+    export ANDROID_SDK_ROOT='/opt/android-sdk'
+    export PATH="$PATH:$HOME/.local/src/flutter/bin"
+    export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools/"
+    export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin/"
+    export PATH="$PATH:$ANDROID_ROOT/emulator"
+    export PATH="$PATH:$ANDROID_SDK_ROOT/tools/"
+}
+
+env_rpipico() {
+    export PICO_SDK_PATH=/opt/arm/pico-sdk
+    export PICO_EXAMPLES_PATH=/opt/arm/pico-examples
+    export PICO_EXTRAS_PATH=/opt/arm/pico-extras
+    export PICO_PLAYGROUND_PATH=/opt/arm/pico-playground
+}
+# }}}
 # {{{PLUGINS
 
 # use .local/share/zsh/plugins for place to keep repos with plugins
