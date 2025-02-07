@@ -1,77 +1,69 @@
 #!/bin/sh
 #
-#    ▄████████  ▄█        ▄█     ▄████████    ▄████████    ▄████████  ▄████████ 
-#   ███    ███ ███       ███    ███    ███   ███    ███   ███    ███ ███    ███ 
-#   ███    ███ ███       ███▌   ███    ███   ███    █▀    ███    ███ ███    █▀  
-#   ███    ███ ███       ███▌   ███    ███   ███         ▄███▄▄▄▄██▀ ███        
-# ▀███████████ ███       ███▌ ▀███████████ ▀███████████ ▀▀███▀▀▀▀▀   ███        
-#   ███    ███ ███       ███    ███    ███          ███ ▀███████████ ███    █▄  
-#   ███    ███ ███▌    ▄ ███    ███    ███    ▄█    ███   ███    ███ ███    ███ 
-#   ███    █▀  █████▄▄██ █▀     ███    █▀   ▄████████▀    ███    ███ ████████▀  
-#              ▀                                          ███    ███            
+#    ▄████████  ▄█        ▄█     ▄████████    ▄████████    ▄████████  ▄████████
+#   ███    ███ ███       ███    ███    ███   ███    ███   ███    ███ ███    ███
+#   ███    ███ ███       ███▌   ███    ███   ███    █▀    ███    ███ ███    █▀
+#   ███    ███ ███       ███▌   ███    ███   ███         ▄███▄▄▄▄██▀ ███
+# ▀███████████ ███       ███▌ ▀███████████ ▀███████████ ▀▀███▀▀▀▀▀   ███
+#   ███    ███ ███       ███    ███    ███          ███ ▀███████████ ███    █▄
+#   ███    ███ ███▌    ▄ ███    ███    ███    ▄█    ███   ███    ███ ███    ███
+#   ███    █▀  █████▄▄██ █▀     ███    █▀   ▄████████▀    ███    ███ ████████▀
+#              ▀                                          ███    ███
 #
 #                                              Rentib <sbitner420@tutanota.com>
 
-# {{{REASONABLE ALIASES
-alias                                  \
-  l='ls -CF'                           \
-  ls='ls --group-directories-first -v' \
-  lsd='ls -d *(-/DN)'                  \
-  la='ls -A'                           \
-  ll='ls -alF'
+_exists() {
+    type $1 >/dev/null 2>&1
+}
 
-alias                          \
-  rm='rm -iv'                  \
-  mv='mv -iv'                  \
-  cp='cp -iv'                  \
-  mkdir='mkdir -pv'            \
-  rmdir='rmdir -v'             \
-  df='df -Th'                  \
-  du='du -c -h'                \
-  free='free -h'               \
-  ping='ping -c 5'             \
-  ffmpeg='ffmpeg -hide_banner'
+alias l='ls -CF'
+alias ls='ls --group-directories-first -Fhv'
+alias lsd='ls -d *(-/DN)'
+alias la='ls -A'
+alias ll='ls -alF'
 
-alias              \
-  gst='git status' \
-  gbr='git branch' \
-  glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-# }}}
-# {{{COLORS
-[ -x /usr/bin/dircolors ] &&                        \
-alias                                               \
-  ls='ls --group-directories-first -v --color=auto' \
-  dir='dir --color=auto'                            \
-  vdir='vdir --color=auto'                          \
-  grep='grep --color=auto'                          \
-  egrep='egrep --color=auto'                        \
-  fgrep='fgrep --color=auto'                        \
-  ip='ip --color=auto'                              \
-  diff='diff --color=auto'
+alias rm='rm -iv'
+alias mv='mv -iv'
+alias cp='cp -riv'
+alias scp='scp -r'
+alias mkdir='mkdir -pv'
+alias rmdir='rmdir -v'
+alias df='df -Th'
+alias du='du -ch'
+alias free='free -h'
+alias ping='ping -c 5'
 
-# use bat to colorize --help outputs
-[ -x /usr/bin/bat ] && alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-# }}}
-# {{{MY ALIASES
-# [ -f $XINITRC ] && alias startx='startx $XINITRC'
+alias gst='git status'
+alias gbr='git branch'
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 
-alias               \
-  v=$EDITOR         \
-  vim='nvim'        \
-  vimdiff='nvim -d'
+if _exists dircolors; then
+    eval "$(dircolors --sh)"
+    alias ls='ls --group-directories-first -Fhv --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias ip='ip --color=auto'
+    alias diff='diff --color=auto'
+fi
 
-alias sxiv='nsxiv'
-alias lf='lfrun'
-alias minicom='minicom -c on'
-alias rsync='rsync -avhc -P'
+alias v="$EDITOR"
+alias vim="$EDITOR"
 
-alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
+_exists nvim     && alias vimdiff='nvim -d'
+_exists ffmpeg   && alias ffmpeg='ffmpeg -hide_banner'
+_exists bc       && alias bc='bc -lq'
+_exists lfrun    && alias lf='lfrun'
+_exists rsync    && alias rsync='rsync -avhc -P'
+_exists bat      && alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+_exists valgrind && alias val='valgrind --error-exitcode=123 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all -s --track-origins=yes'
+_exists minicom  && alias minicom='minicom -c on'
+_exists nsxiv    && alias sxiv='nsxiv'
 
 alias pacman_available="pacman -Slq | fzf --multi --preview 'pacman -Si {1}'"
 alias pacman_installed="pacman -Qeq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
 alias dvim='GIT_DIR=$HOME/.local/dotfiles/ GIT_WORK_TREE=$HOME nvim'
-# }}}
-
-# vim: set fdm=marker fmr={{{,}}}:
