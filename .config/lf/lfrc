@@ -18,7 +18,7 @@ cmd open ${{
     case $(file -b --mime-type "$(readlink -f $f)") in
         application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/*) $EDITOR $fx ;;
-        image/*) setsid -f swayimg $f ;;
+        image/*) setsid -f swayimg $(ls "$PWD" | awk -v sel="$(basename "$f")" '$0 ~ sel {found=1}; found {print}; !found {before = before $0 "\n"}; END {printf "%s", before}') ;;
         audio/*) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
         application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
