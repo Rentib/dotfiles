@@ -1,9 +1,0 @@
-#!/bin/sh
-
-case $BUTTON in
-  1) ;;
-  2) st -e "$EDITOR" "$0" ;;
-  3) ;;
-  4) ;;
-  5) ;;
-esac

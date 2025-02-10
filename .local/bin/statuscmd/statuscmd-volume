@@ -1,9 +1,0 @@
-#!/bin/sh
-
-case $BUTTON in
-  1) ;;
-  2) st -e "$EDITOR" "$0" ;;
-  3) rentib volume mute ;;
-  4) rentib volume 1%+ ;;
-  5) rentib volume 1%- ;;
-esac
