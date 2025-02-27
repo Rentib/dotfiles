@@ -36,7 +36,7 @@ lyrics:
 
 smartplaylist:
   auto: yes
-  relative_to: ~/Music                  # mpd music directory
+  relative_to: ~/music                  # mpd music directory
   playlist_dir: ~/.config/mpd/playlists # mpd playlist directory
   forward_slash: no
   playlists:

@@ -3,7 +3,7 @@
 if [ -z "$1" ]; then
     file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
     grep -q "gtk-application-prefer-dark-theme=true" "$file" && MODE="dark" || MODE="light"
-    dir="$HOME/Pictures/wallpapers/gruvbox-material/$MODE"
+    dir="$HOME/pics/wallpapers/gruvbox-material/$MODE"
     file=$(find "$dir" -name '*' -not -path '*/[@.]*' | shuf -n 1)
 else
     file="$1"

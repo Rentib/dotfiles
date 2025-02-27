@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MUSIC_DIR="$HOME/Music"
+MUSIC_DIR="$HOME/music"
 PREVIEW_DIR="$XDG_CONFIG_HOME/ncmpcpp/previews"
 
 [ -d "$PREVIEW_DIR" ] || mkdir -p "$PREVIEW_DIR"

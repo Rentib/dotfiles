@@ -52,7 +52,7 @@ set_st() {
 }
 
 set_wallpaper() {
-    dir="$HOME/Pictures/wallpapers"
+    dir="$HOME/pics/wallpapers"
     bg=$(find "$dir/$THEME/$MODE" -name '*' -not -path '*/[@.]*' | shuf -n 1)
     ln -sf "$bg" "$dir/$MODE"
     setbg "$dir/$MODE"

@@ -11,7 +11,7 @@
 
 [mpd]
 mpd_connection_timeout = 5
-mpd_music_dir          = "~/Music"
+mpd_music_dir          = "~/music"
 mpd_crossfade_time     = 3
 
 [global]

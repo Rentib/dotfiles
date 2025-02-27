@@ -47,12 +47,11 @@ map H half-up
 map L half-down
 
 map gh cd 
-map gs cd ~/Studia/sem7
-map gd cd ~/Desktop
-map gD cd ~/Downloads
+map gs cd ~/misc/Studia/sem8
+map gd cd ~/misc
+map gD cd ~/dl
 map gc cd ~/.config
 map g/ cd /
-map gG cd ~/Desktop/games
 
 map d delete
 map D trash
