@@ -19,6 +19,13 @@ select = #00000006
 border = #000000ff
 shadow = #00000000
 
+[font]
+name = IosevkaTerm NFM
+size = 14
+
+[info]
+show = no
+
 [keys.viewer]
 q = exit
 return = mode
