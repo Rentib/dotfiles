@@ -51,13 +51,6 @@ set_st() {
     pidof -q st && pidof st | xargs kill -s USR1
 }
 
-set_wallpaper() {
-    dir="$HOME/pics/wallpapers"
-    bg=$(find "$dir/$THEME/$MODE" -name '*' -not -path '*/[@.]*' | shuf -n 1)
-    ln -sf "$bg" "$dir/$MODE"
-    setbg "$dir/$MODE"
-}
-
 set_bat() {
     file="$XDG_CONFIG_HOME/bat/config"
     sed -i "s/\(theme=.*-\)\(light\|dark\)/\1$MODE/" "$file"
@@ -131,7 +124,7 @@ set_Xresources
 set_zathura &
 set_btop &
 set_st &
-set_wallpaper &
+setbg &
 set_bat &
 set_chromium &
 set_dam &
