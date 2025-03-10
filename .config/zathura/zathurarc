@@ -10,6 +10,8 @@ set statusbar-h-padding 0
 set statusbar-v-padding 0
 set page-padding 1
 
+set font "Iosevka 14"
+
 map r reload
 map R rotate
 map K zoom in
