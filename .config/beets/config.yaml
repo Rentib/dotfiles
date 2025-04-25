@@ -23,6 +23,8 @@ plugins:
   - thumbnails
   - unimported
 
+directory: ~/music/
+
 discogs:
   source_weight: 0.4
 
