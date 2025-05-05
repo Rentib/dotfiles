@@ -22,6 +22,7 @@
   progress_bar_max_width = 300
 
   icon_corner_radius = 10
+  icon_corners = all
 
   indicate_hidden = yes
   # transparency = 0
@@ -40,7 +41,7 @@
 
   ### Text ###
   font = HackNerdFont
-  line_height = 20
+  line_height = 10
   #        <b>bold</b>
   #        <i>italic</i>
   #        <s>strikethrough</s>
@@ -73,7 +74,7 @@
 
   ### Misc/Advanced ###
   dmenu = /usr/local/bin/dmenu -p dunst:
-  browser = /usr/bin/brave
+  browser = /usr/bin/xdg-open
   always_run_script = true
   title = Dunst
   class = Dunst

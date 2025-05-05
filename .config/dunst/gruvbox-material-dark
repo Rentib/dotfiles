@@ -22,6 +22,7 @@
   progress_bar_max_width = 300
 
   icon_corner_radius = 10
+  icon_corners = all
 
   indicate_hidden = yes
   # transparency = 0
@@ -40,7 +41,7 @@
 
   ### Text ###
   font = HackNerdFont
-  line_height = 20
+  line_height = 10
   #        <b>bold</b>
   #        <i>italic</i>
   #        <s>strikethrough</s>
@@ -73,7 +74,7 @@
 
   ### Misc/Advanced ###
   dmenu = /usr/local/bin/dmenu -p dunst:
-  browser = /usr/bin/brave
+  browser = /usr/bin/xdg-open
   always_run_script = true
   title = Dunst
   class = Dunst
@@ -97,10 +98,6 @@
 [urgency_low]
   timeout = 2
   default_icon = none
-# theme
-  # background = "#fbf1c7"
-  # foreground = "#a89984"
-  # frame_color = "#ebdbb2"
   background = "#1d2021"
   foreground = "#d4be98"
   frame_color = "#7daea3"
@@ -108,10 +105,6 @@
 [urgency_normal]
   timeout = 10
   default_icon = none
-# theme
-  # background = "#fbf1c7"
-  # foreground = "#654735"
-  # frame_color = "#c35e0a"
   background = "#1d2021"
   foreground = "#d4be98"
   frame_color = "#a9b665"
@@ -119,10 +112,6 @@
 [urgency_critical]
   timeout = 0
   default_icon = state-warning
-# theme
-  # background = "#f14a4a"
-  # foreground = "#3c3836"
-  # frame_color = "#3c3836"
   background = "#3c1f1e"
   foreground = "#ddc7a1"
   frame_color = "#ea6962"
