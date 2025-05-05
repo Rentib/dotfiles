@@ -11,6 +11,7 @@ set statusbar-v-padding 0
 set page-padding 1
 
 set font "Iosevka 14"
+set guioptions none
 
 map r reload
 map R rotate
