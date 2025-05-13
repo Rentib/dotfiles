@@ -6,7 +6,7 @@ riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_
 
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'swww-daemon'
-riverctl spawn 'wlsunset -d 1800 $(wlsunset-sunrise-sunset)'
+riverctl spawn 'wlsunset -d 1800 -l 51.91944444 -L 19.14513889'
 riverctl spawn 'tmux new-session -s $USER -d'
 
 {
