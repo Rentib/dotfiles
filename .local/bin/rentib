@@ -12,8 +12,8 @@ brightness() {
         exit 1
     }
     case "$1" in
-        [-+]*) [ "$1" -gt 0 ] && light -A "$1" || light -U "${1#-}" ;;
-        *)     light -S "$1" ;;
+    [-+]*) [ "$1" -gt 0 ] && light -A "$1" || light -U "${1#-}" ;;
+    *) light -S "$1" ;;
     esac
     brightness=$(light -G | cut -d '.' -f 1)
     brightness_icon=""
@@ -28,21 +28,48 @@ brightness() {
 
 volume() {
     dev=@DEFAULT_SINK@
-    [ "$1" = '-m' ] && { dev=@DEFAULT_SOURCE@; shift; }
+    [ "$1" = '-m' ] && {
+        dev=@DEFAULT_SOURCE@
+        shift
+    }
     case "$1" in
-        mute) wpctl set-mute "$dev" toggle ;;
-        [0-9]|[0-9][%]|[0-9][%][-+]|[0-9][0-9]|[0-9][0-9][%]|[0-9][0-9][%][-+])
-            wpctl set-volume "$dev" "$1" ;;
-        *) echo "usage: vol [-m] vol[%][-/+]|mute" >&2; exit 1 ;;
+    mute) wpctl set-mute "$dev" toggle ;;
+    [0-9] | [0-9][%] | [0-9][%][-+] | [0-9][0-9] | [0-9][0-9][%] | [0-9][0-9][%][-+])
+        wpctl set-volume "$dev" "$1"
+        ;;
+    *)
+        echo "usage: vol [-m] vol[%][-/+]|mute" >&2
+        exit 1
+        ;;
     esac
 
     case "$dev" in
-        @DEFAULT_SINK@) pidof slstatus && kill -35 "$(pidof slstatus)" ;;
-        @DEFAULT_SOURCE@) wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0 ;;
+    @DEFAULT_SINK@) pidof slstatus && kill -35 "$(pidof slstatus)" ;;
+    @DEFAULT_SOURCE@) wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0 ;;
     esac
 }
 
+pw_sink() {
+    [ "$XDG_SESSION_TYPE" = "wayland" ] && menu="mew $(mew_opts)" || menu="dmenu $(dmenu_opts)"
+    devices=$(pw-dump | jq -r '.[] | select(.info.props."media.class" == "Audio/Sink") | "\(.id)|\(.info.props."node.description")"')
+    chosen=$(echo "$devices" | awk -F'|' '{print $2}' | $menu -i -p "Select audio device:")
+    [ -z "$chosen" ] && exit 0
+    chosen_id=$(echo "$devices" | grep "|$chosen$" | awk -F'|' '{print $1}')
+    wpctl set-default $chosen_id
+}
+
+pw_source() {
+    [ "$XDG_SESSION_TYPE" = "wayland" ] && menu="mew $(mew_opts)" || menu="dmenu $(dmenu_opts)"
+    devices=$(pw-dump | jq -r '.[] | select(.info.props."media.class" == "Audio/Source") | "\(.id)|\(.info.props."node.description")"')
+    chosen=$(echo "$devices" | awk -F'|' '{print $2}' | $menu -i -p "Select audio device:")
+    [ -z "$chosen" ] && exit 0
+    chosen_id=$(echo "$devices" | grep "|$chosen$" | awk -F'|' '{print $1}')
+    wpctl set-default $chosen_id
+}
+
 case "$basename" in
-    brightness) brightness "$@" ;;
-    volume) volume "$@" ;;
+brightness) brightness "$@" ;;
+volume) volume "$@" ;;
+sink) pw_sink "$@" ;;
+source) pw_source "$@" ;;
 esac
