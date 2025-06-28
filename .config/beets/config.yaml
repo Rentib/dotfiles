@@ -1,5 +1,5 @@
 # To install beets with dependencies run:
-# pip install "beets[albumtypes,chroma,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,replaygain,scrub,smartplaylist,spotify,thumbnails,unimported]"
+# pip install "beets[albumtypes,chroma,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,replaygain,scrub,smartplaylist,spotify,thumbnails,types,unimported]"
 # pip install beets-describe
 plugins:
   - albumtypes
@@ -21,9 +21,27 @@ plugins:
   - smartplaylist
   - spotify
   - thumbnails
+  - types
   - unimported
 
 directory: ~/music/
+ignore_hidden: yes
+original_date: yes
+overwrite_null:
+  rating: [5.0]
+musicbrainz:
+  extra_tags: [rating]
+  genres: yes
+  # external_ids:
+  #   discogs: yes
+  #   spotify: yes
+  #   bandcamp: yes
+  #   beatport: yes
+  #   deezer: yes
+  #   tidal: yes
+match:
+  preferred:
+    original_year: yes
 
 discogs:
   source_weight: 0.4
@@ -34,7 +52,7 @@ fetchart:
 
 lyrics:
   synced: yes
-  sources: lrclib tekstowo genius google
+  sources: [lrclib, tekstowo, genius]
 
 smartplaylist:
   auto: yes
@@ -51,6 +69,9 @@ replaygain:
 
 spotify:
   source_weight: 0.3
+
+types:
+  rating: float
 
 unimported:
   ignore_subdirectories: .venv
