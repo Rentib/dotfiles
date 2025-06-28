@@ -1,7 +1,7 @@
 [user]
-	name = Rentib
-	email = sbitner420@tutanota.com
-	signingkey = /home/rentib/.ssh/id_git_signature
+    name = Rentib
+    email = sbitner420@tutanota.com
+    signingkey = /home/rentib/.ssh/id_git_signature
 [init]
     defaultBranch = master
 [gpg]
