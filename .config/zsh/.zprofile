@@ -85,7 +85,7 @@ unset cmd
 unset p
 
 # program settings
-export CFLAGS="-O3 -march=native"
+export CFLAGS="-O2 -pipe -march=native"
 export CXXFLAGS="$CFLAGS"
 export MAKEFLAGS="-j$(nproc)"
 
