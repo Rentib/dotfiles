@@ -16,11 +16,12 @@ _exists() {
     type $1 >/dev/null 2>&1
 }
 
-alias l='ls -CF'
+alias v="$EDITOR"
+alias vim="$EDITOR"
+
 alias ls='ls --group-directories-first -Fhv'
+alias ll='ls -al'
 alias lsd='ls -d *(-/DN)'
-alias la='ls -A'
-alias ll='ls -alF'
 
 alias rm='rm -iv'
 alias mv='mv -iv'
@@ -39,18 +40,11 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C
 
 if _exists dircolors; then
     eval "$(dircolors --sh)"
-    alias ls='ls --group-directories-first -Fhv --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias egrep='egrep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias ip='ip --color=auto'
     alias diff='diff --color=auto'
+    alias grep='grep --color=auto'
+    alias ip='ip -color=auto'
+    alias ls='ls --color=auto --group-directories-first -Fhv'
 fi
-
-alias v="$EDITOR"
-alias vim="$EDITOR"
 
 _exists nvim     && alias vimdiff='nvim -d'
 _exists ffmpeg   && alias ffmpeg='ffmpeg -hide_banner'
