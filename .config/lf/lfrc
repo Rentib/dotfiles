@@ -7,7 +7,6 @@ set drawbox true
 set scrolloff 10
 set cursorpreviewfmt "\033[7;1m"
 set icons true
-set sixel true
 
 set preview true
 set previewer "~/.config/lf/ctpv/ctpv"
@@ -47,7 +46,7 @@ map H half-up
 map L half-down
 
 map gh cd 
-map gs cd ~/misc/Studia/sem8
+map gs cd ~/misc/Studia/sem9
 map gd cd ~/misc
 map gD cd ~/dl
 map gc cd ~/.config
