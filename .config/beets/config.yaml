@@ -1,8 +1,9 @@
 # To install beets with dependencies run:
-# pip install "beets[albumtypes,chroma,discogs,duplicates,fetchart,fromfilename,ftintitle,info,lastgenre,lyrics,missing,mpdstats,mpdupdate,replaygain,scrub,smartplaylist,spotify,thumbnails,types,unimported]"
+# pip install "beets[autobpm,chroma,discogs,fetchart,lyrics,mpdstats,replaygain,scrub]"
 # pip install beets-describe
 plugins:
   - albumtypes
+  - autobpm
   - chroma
   - describe
   - discogs
@@ -11,7 +12,6 @@ plugins:
   - fromfilename
   - ftintitle
   - info
-  - lastgenre
   - lyrics
   - missing
   - mpdstats
@@ -20,39 +20,45 @@ plugins:
   - scrub
   - smartplaylist
   - spotify
-  - thumbnails
-  - types
   - unimported
 
 directory: ~/music/
 ignore_hidden: yes
 original_date: yes
-overwrite_null:
-  rating: [5.0]
-musicbrainz:
-  extra_tags: [rating]
-  genres: yes
-  # external_ids:
-  #   discogs: yes
-  #   spotify: yes
-  #   bandcamp: yes
-  #   beatport: yes
-  #   deezer: yes
-  #   tidal: yes
+import:
+  resume: ask
+  incremental: yes
+  incremental_skip_later: yes
+  languages: [pl, en]
 match:
   preferred:
     original_year: yes
+
+autobpm:
+  auto: no
 
 discogs:
   source_weight: 0.4
 
 fetchart:
+  auto: yes
   cautious: true
   sources: itunes *
 
 lyrics:
-  synced: yes
+  auto: no
+  dist_thresh: 0.11
+  fallback: ''
   sources: [lrclib, tekstowo, genius]
+  synced: yes
+
+musicbrainz:
+  extra_tags: [barcode, catalognumber, country, label, media, year]
+  genres: yes
+  external_ids:
+    deezer: yes
+    discogs: yes
+    spotify: yes
 
 smartplaylist:
   auto: yes
@@ -62,16 +68,18 @@ smartplaylist:
   playlists:
     - name: all.m3u
       query: ''
+    - name: pl89bpm.m3u
+      query: bpm:89 country:pl
 
 replaygain:
-  auto: yes
+  auto: no
   backend: ffmpeg
 
 spotify:
   source_weight: 0.3
 
-types:
-  rating: float
-
 unimported:
   ignore_subdirectories: .venv
+
+# https://docs.beets.io/en/latest/plugins/subsonicplaylist.html
+# https://docs.beets.io/en/latest/plugins/subsonicupdate.html
