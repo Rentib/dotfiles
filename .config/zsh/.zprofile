@@ -24,6 +24,7 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
 export GHCUP_USE_XDG_DIRS=true
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GOPATH="$XDG_DATA_HOME"/go
 export GRADLE_USER_HOME="$XDG_CONFIG_HOME/gradle"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 export KODI_DATA="$XDG_DATA_HOME/kodi"
