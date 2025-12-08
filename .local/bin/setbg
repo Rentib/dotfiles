@@ -14,7 +14,7 @@ fi
 case $XDG_SESSION_TYPE in
     wayland)
       command -v swww >/dev/null && {
-        pidof swww-daemon >/dev/null || swww init
+        pidof swww-daemon >/dev/null || setsid -f swww-daemon -q
         swww img \
           --resize fit \
           --transition-type any \
