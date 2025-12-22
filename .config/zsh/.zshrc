@@ -236,6 +236,10 @@ env_rpipico() {
     export PICO_EXTRAS_PATH=/opt/arm/pico-extras
     export PICO_PLAYGROUND_PATH=/opt/arm/pico-playground
 }
+
+env_go() {
+    export PATH="$PATH:$HOME/.local/share/go/bin"
+}
 # }}}
 # {{{PLUGINS
 
