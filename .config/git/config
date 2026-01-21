@@ -15,3 +15,6 @@
     recommit = reset ORIG_HEAD
     ncommits = rev-list --all --count
     ucommits = shortlog --summary --numbered --email
+[core]
+	precomposeunicode = true
+	quotePath = false
