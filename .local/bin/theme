@@ -46,9 +46,17 @@ set_btop() {
     ln -sf "$dir/themes/$THEME-$MODE.theme" "$dir/themes/btop.theme"
 }
 
-set_st() {
+set_term() {
     # st
     pidof -q st && pidof st | xargs kill -s USR1
+
+    # foot
+    case "$MODE" in
+    "dark")  pkill -USR1 -f 'foot --server' ;;
+    "light") pkill -USR2 -f 'foot --server' ;;
+    esac
+    dir="$XDG_CONFIG_HOME/foot"
+    ln -sf "$dir/themes/$THEME-$MODE.ini" "$dir/themes/theme.ini"
 }
 
 set_bat() {
@@ -123,7 +131,7 @@ set_gtk &
 set_Xresources
 set_zathura &
 set_btop &
-set_st &
+set_term &
 setbg &
 set_bat &
 set_chromium &
