@@ -38,7 +38,7 @@ autobpm:
   auto: no
 
 discogs:
-  source_weight: 0.4
+  data_source_mismatch_penalty: 0.4
 
 fetchart:
   auto: yes
@@ -68,15 +68,13 @@ smartplaylist:
   playlists:
     - name: all.m3u
       query: ''
-    - name: pl89bpm.m3u
-      query: bpm:89 country:pl
 
 replaygain:
   auto: no
   backend: ffmpeg
 
 spotify:
-  source_weight: 0.3
+  data_source_mismatch_penalty: 0.3
 
 unimported:
   ignore_subdirectories: .venv
