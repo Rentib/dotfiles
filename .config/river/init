@@ -5,8 +5,8 @@ riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG
 riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
-riverctl spawn 'swww-daemon'
 riverctl spawn 'wlsunset -d 1800 -l 51.91944444 -L 19.14513889'
+riverctl spawn 'awww-daemon'
 riverctl spawn 'tmux new-session -s $USER -d'
 
 {
