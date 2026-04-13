@@ -6,23 +6,22 @@ riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_
 
 [ "$TERMINAL" == "foot" ] && riverctl spawn 'foot --server --hold'
 riverctl spawn 'wlsunset -d 1800 -l 51.91944444 -L 19.14513889'
-riverctl spawn 'awww-daemon'
 riverctl spawn 'tmux new-session -s $USER -d'
 
 {
     resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
     [ -f $resources ] && xrdb $resources
     # TODO: move to theme script
-    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:'  | awk '{print $NF}' | sed s/#/0x/)
     riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
 
     # dam requires xrdb
     riverctl spawn 'slstatus | dam'
 } &
 
-daemons="dunst mpd pipewire mpdup-statusbar"
+daemons="dunst mpd pipewire mpdup-statusbar awww-daemon"
 for daemon in $daemons; do
-  pidof -sx "$daemon" || setsid -f "$daemon"
+    pidof -sx "$daemon" || setsid -f "$daemon"
 done >/dev/null 2>&1
 
 riverctl keyboard-layout pl
@@ -36,21 +35,21 @@ riverctl input "$touchpad" tap enabled
 # riverctl input "$touchpad" natural-scroll enabled
 #}}}
 # Rules{{{
-riverctl rule-add -app-id 'Brave-browser'   tags $((1<<1)) # Xwayland
-riverctl rule-add -app-id 'brave-browser'   tags $((1<<1)) # Wayland
-riverctl rule-add -app-id 'Firefox'         tags $((1<<1))
-riverctl rule-add -app-id 'chromium'        tags $((1<<1))
-riverctl rule-add -app-id 'discord'         tags $((1<<8))
-riverctl rule-add -app-id 'vesktop'         tags $((1<<8))
-riverctl rule-add -app-id 'heroic'          tags $((1<<7))
-riverctl rule-add -app-id 'lutris'          tags $((1<<7))
-riverctl rule-add -app-id 'transmission'    tags $((1<<2))
-riverctl rule-add -app-id 'transmission-qt' tags $((1<<2))
+riverctl rule-add -app-id 'Brave-browser'   tags $((1 << 1)) # Xwayland
+riverctl rule-add -app-id 'brave-browser'   tags $((1 << 1)) # Wayland
+riverctl rule-add -app-id 'Firefox'         tags $((1 << 1))
+riverctl rule-add -app-id 'chromium'        tags $((1 << 1))
+riverctl rule-add -app-id 'discord'         tags $((1 << 8))
+riverctl rule-add -app-id 'vesktop'         tags $((1 << 8))
+riverctl rule-add -app-id 'heroic'          tags $((1 << 7))
+riverctl rule-add -app-id 'transmission'    tags $((1 << 2))
+riverctl rule-add -app-id 'transmission-qt' tags $((1 << 2))
 riverctl rule-add -app-id '*'               ssd
 riverctl rule-add -app-id 'Nsxiv*'          float
 riverctl rule-add -app-id 'swayimg*'        float
 riverctl rule-add -app-id 'zenity*'         float
 riverctl rule-add -app-id 'Pinentry*'       float
+riverctl rule-add -app-id 'chrome-nngceckbapebfimnlniiiahkandclblb-Default' float
 # }}}
 # Key Bindings{{{
 for i in $(seq 1 9); do
@@ -61,7 +60,7 @@ for i in $(seq 1 9); do
     riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
 done
 all_tags=$(((1 << 32) - 1))
-riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super       0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 riverctl map normal Super       Tab focus-previous-tags
 # riverctl map normal Super+Shift Tab
@@ -108,7 +107,7 @@ riverctl map -repeat normal Super+Shift L send-layout-cmd rivertile "main-count 
 # riverctl map normal Super+Shift Semicolon
 # riverctl map normal Super       Apostrophe
 # riverctl map normal Super+Shift Apostrophe
-[ "$TERMINAL" = "foot" ] && riverctl map normal Super       Return spawn 'footclient' || riverctl map normal Super       Return spawn '$TERMINAL'
+[ "$TERMINAL" = "foot" ] && riverctl map normal Super Return spawn 'footclient' || riverctl map normal Super Return spawn '$TERMINAL'
 # riverctl map normal Super+Shift Return
 
 # riverctl map normal Super       Z
@@ -119,8 +118,8 @@ riverctl map normal Super+Shift X spawn 'shutdownmenu'
 # riverctl map normal Super+Shift C
 # riverctl map normal Super       V
 # riverctl map normal Super+Shift V
-riverctl map normal Super       B spawn '$BROWSER'
-riverctl map normal Super+Mod1  B spawn 'pkill -SIGUSR1 dam'
+riverctl map normal Super      B spawn '$BROWSER'
+riverctl map normal Super+Mod1 B spawn 'pkill -SIGUSR1 dam'
 # riverctl map normal Super       N
 riverctl map normal Super+Shift N spawn 'restart-dunst'
 riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
@@ -145,13 +144,13 @@ riverctl map normal Super       F12 spawn 'theme -t'
 
 riverctl spawn 'wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0'
 for mode in normal locked; do
-  riverctl map         $mode None XF86AudioMute         spawn 'rentib volume mute'
-  riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'rentib volume 2%-'
-  riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'rentib volume 2%+'
-  riverctl map         $mode None XF86AudioMicMute      spawn 'rentib volume -m mute'
-  riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'rentib brightness -5'
-  riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'rentib brightness +5'
-  riverctl map         $mode None XF86FullScreen        toggle-fullscreen
+    riverctl map         $mode None XF86AudioMute         spawn 'rentib volume mute'
+    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'rentib volume 2%-'
+    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'rentib volume 2%+'
+    riverctl map         $mode None XF86AudioMicMute      spawn 'rentib volume -m mute'
+    riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'rentib brightness -5'
+    riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'rentib brightness +5'
+    riverctl map         $mode None XF86FullScreen        toggle-fullscreen
 done
 
 # Super+Alt+{H,J,K,L} to move views
@@ -205,14 +204,14 @@ header="gtk-application-prefer-dark-theme="
 
 file="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
 case "$MODE" in
-    light) sed -i "s/${header}true/${header}false/g" "$file" ;;
-    dark) sed -i "s/${header}false/${header}true/g" "$file" ;;
+light) sed -i "s/${header}true/${header}false/g" "$file" ;;
+dark)  sed -i "s/${header}false/${header}true/g" "$file" ;;
 esac
 
 file="$XDG_CONFIG_HOME/gtk-4.0/settings.ini"
 case "$MODE" in
-    light) sed -i "s/${header}1/${header}0/g" "$file" ;;
-    dark) sed -i "s/${header}0/${header}1/g" "$file" ;;
+light) sed -i "s/${header}1/${header}0/g" "$file" ;;
+dark)  sed -i "s/${header}0/${header}1/g" "$file" ;;
 esac
 
 gsettings set org.gnome.desktop.interface gtk-theme    "$THEME-$MODE"
