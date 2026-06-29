@@ -3,7 +3,7 @@
 basename=$(basename "$0")
 if [ "$basename" = rentib ]; then
     rentib="$basename " basename="$1"
-    shift
+    [ $# -gt 0 ] && shift || basename=help
 fi
 
 brightness() {
@@ -72,4 +72,5 @@ brightness) brightness "$@" ;;
 volume) volume "$@" ;;
 sink) pw_sink "$@" ;;
 source) pw_source "$@" ;;
+*) echo "rentib: unknown command '$basename'" >&2; exit 1 ;;
 esac
