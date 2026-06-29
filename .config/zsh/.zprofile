@@ -44,6 +44,7 @@ export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some DMs
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 
 _exists() {
     type $1 >/dev/null 2>&1
