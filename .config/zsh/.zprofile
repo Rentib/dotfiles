@@ -39,7 +39,6 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-export WINEARCH=wow64
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # Breaks some DMs
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
@@ -90,6 +89,13 @@ unset p
 export CFLAGS="-O2 -pipe -march=native"
 export CXXFLAGS="$CFLAGS"
 export MAKEFLAGS="-j$(nproc)"
+
+export WINEARCH=wow64
+
+export GOPROXY=direct
+export GOSUMDB=off
+export GOTELEMETRY=off
+export GOTOOLCHAIN=local
 
 export DIFFTOOL="nvim -d"
 export AWT_TOOLKIT=MToolkit
