@@ -129,7 +129,7 @@ HISTSIZE=10000
 SAVEHIST=20000
 # }}}
 # {{{ALIASES
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 # }}}
 # {{{FZF
 export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
