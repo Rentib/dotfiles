@@ -131,15 +131,6 @@ SAVEHIST=20000
 # {{{ALIASES
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 # }}}
-# {{{FZF
-export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
-
-command -v fd > /dev/null && {
-    export FZF_DEFAULT_COMMAND='fd -t f      -H -L -E .git --strip-cwd-prefix'
-    export FZF_ALT_C_COMMAND='  fd -t d      -H -L -E .git --strip-cwd-prefix'
-    export FZF_CTRL_T_COMMAND=' fd -t f -t d -H -L -E .git --strip-cwd-prefix'
-}
-# }}}
 # {{{Automatically Activate Python Venv
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd automatically_activate_python_venv

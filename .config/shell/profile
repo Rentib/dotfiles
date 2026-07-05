@@ -110,6 +110,13 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 export QT_QPA_PLATFORMTHEME="gtk3"
 export STACK_XDG=1
 
+export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
+_exists fd && {
+    export FZF_DEFAULT_COMMAND='fd -t f      -H -L -E .git --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND='  fd -t d      -H -L -E .git --strip-cwd-prefix'
+    export FZF_CTRL_T_COMMAND=' fd -t f -t d -H -L -E .git --strip-cwd-prefix'
+}
+
 # construct PATH
 _mkpath() {
     echo "$(find ~/.local/bin -type d -printf %p:)"
