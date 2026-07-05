@@ -190,35 +190,9 @@ env_go() {
 }
 # }}}
 # {{{PLUGINS
-# use .local/share/zsh/plugins for place to keep repos with plugins
-plugin_dir="${XDG_DATA_HOME}/zsh/plugins"
-plugins=("z-shell/F-Sy-H")
-for plugin in $plugins; do
-  user=$(echo $plugin | cut -d '/' -f1)
-  repo=$(echo $plugin | cut -d '/' -f2)
-
-  [ -d "$plugin_dir/$repo" ] || \
-    git -C "$plugin_dir" \
-      clone --depth 1 --single-branch --no-tags -q \
-      "https://github.com/$plugin"
-
-  source $(find "$plugin_dir/$repo" -type f -name "*.plugin.zsh")
-done
-unset plugin_dir plugins user repo
-
-update_plugins() {
-  plugin_dir="${XDG_DATA_HOME}/zsh/plugins"
-  url="https://github.com"
-  for plugin in $plugin_dir/*; do
-    echo "Updating $plugin"
-    git -C $plugin pull
-  done
-  unset plugin_dir url
-}
-
-# fuzzy finder
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh >/dev/null
+source /usr/share/fzf/completion.zsh >/dev/null
+source ${XDG_DATA_HOME}/zsh/plugins/F-Sy-H/F-Sy-H.plugin.zsh >/dev/null # https://github.com/z-shell/F-Sy-H
 # }}}
 
 # vim: set fdm=marker fmr={{{,}}}:
