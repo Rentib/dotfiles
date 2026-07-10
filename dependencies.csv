@@ -20,7 +20,6 @@
 ,gtk4,"GObject-based multi-plaftform GUI"
 ,gvfs,"virtual filesystem for GIO"
 G,https://codeberg.org/Rentib/mew.git,"dynamic menu for wayland"
-G,https://github.com/NikitaIvanovV/ctpv.git,"image previews for lf file manager"
 G,https://github.com/Rentib/dam.git,"dwm-esque statusbar for river"
 G,https://github.com/Rentib/slstatus.git,"suckless status generator"
 G,https://github.com/Rentib/st-flexipatch.git,"suckless terminal emulator"
