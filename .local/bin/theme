@@ -90,6 +90,7 @@ set_tmux() {
 set_dunst() {
     dir="$XDG_CONFIG_HOME/dunst"
     ln -sf "$dir/$THEME-$MODE" "$dir/dunstrc"
+    dunstctl reload
 }
 
 get_theme
@@ -137,7 +138,7 @@ set_bat &
 set_chromium &
 set_dam &
 set_tmux &
-set_dunst && restart-dunst >/dev/null 2>&1
+set_dunst
 
 notify-send \
     -t 1000 \

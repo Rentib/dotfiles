@@ -121,7 +121,7 @@ riverctl map normal Super+Shift X spawn 'shutdownmenu'
 riverctl map normal Super      B spawn '$BROWSER'
 riverctl map normal Super+Mod1 B spawn 'pkill -SIGUSR1 dam'
 # riverctl map normal Super       N
-riverctl map normal Super+Shift N spawn 'restart-dunst'
+riverctl map normal Super+Shift N spawn 'dunstctl reload'
 riverctl map normal Super       M spawn '$TERMINAL -e ncmpcpp'
 # riverctl map normal Super+Shift M
 riverctl map normal Super       Comma spawn 'mpc prev'
