@@ -1,0 +1,2 @@
+#!/bin/sh
+grim -g "$(slurp -p)" -t ppm - | magick - -format "#%[hex:p{0,0}]" info: | wl-copy
