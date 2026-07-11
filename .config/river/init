@@ -12,8 +12,8 @@ riverctl spawn 'tmux new-session -s $USER -d'
     resources=${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
     [ -f $resources ] && xrdb $resources
     # TODO: move to theme script
-    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:'  | awk '{print $NF}' | sed s/#/0x/)
-    riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed s/#/0x/)
+    riverctl border-color-focused   $(xrdb -query | grep -E '\*dwm\.selbordercolor:'  | awk '{print $NF}' | sed 's/#/0x/')
+    riverctl border-color-unfocused $(xrdb -query | grep -E '\*dwm\.normbordercolor:' | awk '{print $NF}' | sed 's/#/0x/')
 
     # dam requires xrdb
     riverctl spawn 'slstatus | dam'
