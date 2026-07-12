@@ -23,7 +23,7 @@ Here are some of the programs I use:
 - **[dunst](https://dunst-project.org/)** notification manager
 - **[ungoogled chromium](https://github.com/ungoogled-software/ungoogled-chromium)** browser
 - **[btop](https://github.com/aristocratos/btop)** system monitor
-- **[wlsunset](https://sr.ht/~kennylevinsen/wlsunset/)** gamma adjustments
+- **[gammastep](https://gitlab.com/chinstrap/gammastep)** gamma adjustments
 - **[yay](https://github.com/Jguer/yay)** AUR helper
 
 ## Eye-candy
