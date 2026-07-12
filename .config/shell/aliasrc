@@ -46,6 +46,7 @@ if _exists dircolors; then
     alias ls='ls --color=auto --group-directories-first -Fhv'
 fi
 
+_exists ssh      && alias ssh='TERM=xterm-256color ssh'
 _exists nvim     && alias vimdiff='nvim -d'
 _exists ffmpeg   && alias ffmpeg='ffmpeg -hide_banner'
 _exists bc       && alias bc='bc -lq'
