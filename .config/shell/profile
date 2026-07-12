@@ -102,18 +102,22 @@ export GOSUMDB=off
 export GOTELEMETRY=off
 export GOTOOLCHAIN=local
 
-export DIFFTOOL="nvim -d"
-export AWT_TOOLKIT=MToolkit
-export DO_NOT_TRACK=1
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME="gtk3"
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
-export QT_QPA_PLATFORMTHEME="gtk3"
-export STACK_XDG=1
 
 export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
 export FZF_DEFAULT_COMMAND='fd -t f      -H -L -E .git --strip-cwd-prefix'
 export FZF_ALT_C_COMMAND='  fd -t d      -H -L -E .git --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND=' fd -t f -t d -H -L -E .git --strip-cwd-prefix'
+
+export DO_NOT_TRACK=1
+export DIFFTOOL="nvim -d"
+export STACK_XDG=1
+export AWT_TOOLKIT=MToolkit
 
 # construct PATH
 _mkpath() {
