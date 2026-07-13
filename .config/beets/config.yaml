@@ -43,7 +43,6 @@ discogs:
 fetchart:
   auto: yes
   cautious: true
-  sources: itunes *
 
 lyrics:
   auto: no
