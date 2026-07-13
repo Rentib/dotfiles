@@ -21,12 +21,6 @@ set -o GLOB_COMPLETE         # list options instead of inserting them when match
 set -o REC_EXACT             # if the string exactly matches a possible completion, accept it
 set -o MAGIC_EQUAL_SUBST     # unquoted arguments of the form ‘anything=expression’ after the command name have filename expansion
 set -o NUMERIC_GLOB_SORT     # sort filenames numerically when it makes sense
-set -o HIST_FIND_NO_DUPS     # ignore duplicates when searching history
-set -o HIST_IGNORE_ALL_DUPS  # if new command duplicates and old one, the old one is removed
-set -o HIST_IGNORE_DUPS      # don't enter commands into history list if they are duplicates of the previous event
-set -o HIST_REDUCE_BLANKS    # emove superfluous blanks from each command line being added to the history list
-set -o HIST_SAVE_NO_DUPS     # when writing out the history file, older commands that duplicate newer ones are omitted
-set -o HIST_VERIFY           # entering a line with history expansion puts it into the editing buffer (doesn't execute)
 set -o NO_CLOBBER            # don't overwrite existing files (you can with >!)
 set -o CORRECT               # ask to correct mistakes in commands
 set -o INTERACTIVE_COMMENTS  # allow for comments in interactive mode
@@ -123,10 +117,20 @@ autoload -Uz colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 # }}}
 # {{{HISTORY
-test -d $XDG_STATE_HOME/zsh || mkdir -p $XDG_STATE_HOME/zsh
-HISTFILE=$XDG_STATE_HOME/zsh/history
-HISTSIZE=10000
-SAVEHIST=20000
+test -d "$XDG_STATE_HOME/zsh" || mkdir -p "$XDG_STATE_HOME/zsh"
+
+set -o HIST_FIND_NO_DUPS
+set -o HIST_IGNORE_ALL_DUPS
+set -o HIST_IGNORE_DUPS
+set -o HIST_IGNORE_SPACE
+set -o HIST_REDUCE_BLANKS
+set -o HIST_SAVE_NO_DUPS
+set -o HIST_VERIFY
+set -o INC_APPEND_HISTORY
+
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 # }}}
 # {{{ALIASES
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
