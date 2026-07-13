@@ -48,7 +48,6 @@ zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' ignore-parents parent
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:functions' ignored-patterns '(_*|*-widget|pre(cmd|exec))'
 
