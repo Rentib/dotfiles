@@ -19,6 +19,8 @@ _exists() {
 alias v="$EDITOR"
 alias vim="$EDITOR"
 
+alias sudo='sudo '
+
 alias ls='ls --group-directories-first -Fhv'
 alias ll='ls -al'
 alias lsd='ls -d *(-/DN)'
