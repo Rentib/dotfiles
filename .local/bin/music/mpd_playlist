@@ -1,0 +1,27 @@
+#!/bin/sh
+# gets songs from mpd playlist (queue) and adjusts them for cd
+
+digits="$(mpc status %length% | tr -d '\n' | wc -c)"
+
+mpc playlist -f "[%file%;;;%position%;;;%artist%;;;%title%]" | while IFS= read -r line; do
+    file="$(echo "$line" | awk -F ";;;" '{print $1}')"
+    position="$(echo "$line" | awk -F ";;;" '{print $2}')"
+    artist="$(echo "$line" | awk -F ";;;" '{print $3}')"
+    title="$(echo "$line" | awk -F ";;;" '{print $4}')"
+
+    position="$(printf "%0${digits}d" "$position")"
+    artist_ascii="$(echo "$artist" | iconv -f utf-8 -t ascii//TRANSLIT)"
+    title_ascii="$(echo "$title" | iconv -f utf-8 -t ascii//TRANSLIT)"
+    ext="flac"
+
+    song="$position. $artist_ascii - $title_ascii.$ext"
+    echo "$song"
+
+    ffmpeg -nostdin -i ~/music/"$file" -af "loudnorm=I=-16:TP=-1.5:LRA=11,silenceremove=1:0:-50dB" -c:a flac "$song"
+
+    metaflac --remove-all "$song"
+    metaflac --set-tag="artist=$artist_ascii" \
+             --set-tag="title=$title_ascii" \
+             --set-tag="track=$position" \
+             "$song"
+done
