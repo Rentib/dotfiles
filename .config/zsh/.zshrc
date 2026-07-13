@@ -40,8 +40,6 @@ bindkey '^v' edit-command-line
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-$XDG_DATA_HOME/zsh/completion/}}
 
-autoload -Uz compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
-
 zstyle ':completion:**' use-cache on
 zstyle ':completion:**' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 
@@ -49,6 +47,8 @@ zstyle ':completion:*' completer _prefix _complete _extensions _approximate
 zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;35 cd=00\;34 or=00\;41 mi=00\;45 ex=01\;32
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose true
+zstyle ':completion:*' ignore-parents parent
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:functions' ignored-patterns '(_*|*-widget|pre(cmd|exec))'
 
@@ -58,6 +58,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*' insert-ids single
+
+autoload -Uz compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 # }}}
 # {{{KEYBINDINGS
 # create a zkbd compatible hash;
