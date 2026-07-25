@@ -46,7 +46,6 @@ map H half-up
 map L half-down
 
 map gh cd 
-map gs cd ~/misc/Studia/sem9
 map gd cd ~/misc
 map gD cd ~/dl
 map gc cd ~/.config
