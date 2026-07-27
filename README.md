@@ -8,10 +8,9 @@ These are my dotfiles setup as a bare git repo.
 I run *[Arch Linux](https://archlinux.org/)* on ThinkPad T14 with 512GiB of SSD and 32GiB of RAM;
 typical memory usage is from 600MB to ~2GB when browsing the web.
 Here are some of the programs I use:
-- **[river](https://codeberg.org/river/river)** window manager
-    - **[dam](https://github.com/Rentib/dam)** bar
+- **[dwl](https://codeberg.org/Rentib/dwl)** window manager
     - **[slstatus](https://github.com/Rentib/slstatus)** status generator
-- **[st](https://github.com/Rentib/st-flexipatch)** terminal
+- **[foot](https://codeberg.org/dnkl/foot)** terminal
 - **[mew](https://codeberg.org/Rentib/mew)** application launcher
 - **[zsh](https://www.zsh.org/)** shell
 - **[neovim](https://github.com/Rentib/nvim)** text editor
