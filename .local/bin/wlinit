@@ -1,0 +1,12 @@
+#!/bin/sh
+
+tmux new-session -s $USER -d
+
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=dwl
+export XDG_CURRENT_DESKTOP=dwl
+
+export GDK_BACKEND=wayland
+export QT_QPA_PLATFORM="wayland;xcb"
+
+dbus-run-session dwl -s 'dwl-startup'
