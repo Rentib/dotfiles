@@ -81,6 +81,12 @@ set_dam() {
     pidof -q dam && pidof dam | xargs kill -s USR2
 }
 
+set_dwl() {
+    dir="$XDG_CONFIG_HOME/dwl"
+    ln -sf "$dir/$THEME-$MODE" "$dir/config"
+    pidof -q dwl && pidof dwl | xargs kill -s USR1
+}
+
 set_mew() {
     dir="$XDG_CONFIG_HOME/mew"
     ln -sf "$dir/$THEME-$MODE" "$dir/config"
@@ -142,6 +148,7 @@ setbg &
 set_bat &
 set_chromium &
 set_dam &
+set_dwl &
 set_mew &
 set_tmux &
 set_dunst

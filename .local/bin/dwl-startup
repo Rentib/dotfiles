@@ -1,0 +1,6 @@
+#!/bin/sh
+
+daemons="awww-daemon dunst gammastep mpd mpdup-statusbar pipewire pipewire-pulse wireplumber"
+for daemon in $daemons; do
+    pidof -sx "$daemon" || setsid -f "$daemon"
+done >/dev/null 2>&1

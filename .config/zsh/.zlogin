@@ -10,4 +10,4 @@
 #                             Rentib <sbitner420@tutanota.com>
 
 # start wm if and only if we are in login shell
-[ "$(tty)" = "/dev/tty1" ] && exec dbus-run-session river
+[ "$(tty)" = "/dev/tty1" ] && exec wlinit
