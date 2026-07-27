@@ -30,11 +30,11 @@ set_gtk() {
     riverctl xcursor-theme "cursors-$THEME-$MODE" 32
 }
 
-set_Xresources() {
-    dir="$XDG_CONFIG_HOME/X11"
-    ln -sf "$dir/themes/$THEME-$MODE" "$dir/themes/theme"
-    xrdb "$dir"/Xresources
-}
+# set_Xresources() {
+#     dir="$XDG_CONFIG_HOME/X11"
+#     ln -sf "$dir/themes/$THEME-$MODE" "$dir/themes/theme"
+#     xrdb "$dir"/Xresources
+# }
 
 set_zathura() {
     dir="$XDG_CONFIG_HOME/zathura"
@@ -140,7 +140,6 @@ while true; do
 done
 
 set_gtk &
-set_Xresources
 set_zathura &
 set_btop &
 set_term &
