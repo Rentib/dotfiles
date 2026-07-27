@@ -11,21 +11,9 @@ fi
 
 [ -z "$file" ] || [ ! -f "$file" ] && exit 1
 
-case $XDG_SESSION_TYPE in
-    wayland)
-      command -v awww >/dev/null && {
-        pidof awww-daemon >/dev/null || setsid -f awww-daemon -q
-        awww img \
-          --resize fit \
-          --transition-type any \
-          --transition-duration 2 \
-          "$file"
-      } || {
-        command -v swaybg >/dev/null && {
-          pidof swaybg && killall swaybg
-          swaybg -m fill -i "$file" &
-        }
-      }
-      ;;
-    *) xwallpaper --zoom "$file" ;;
-esac
+pidof awww-daemon >/dev/null || setsid -f awww-daemon -q
+awww img \
+    --resize fit \
+    --transition-type any \
+    --transition-duration 2 \
+    "$file"

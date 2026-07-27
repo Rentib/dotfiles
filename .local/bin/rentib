@@ -50,7 +50,7 @@ volume() {
 }
 
 pw_sink() {
-    [ "$XDG_SESSION_TYPE" = "wayland" ] && menu="mew" || menu="dmenu $(dmenu_opts)"
+    menu="mew"
     devices=$(pw-dump | jq -r '.[] | select(.info.props."media.class" == "Audio/Sink") | "\(.id)|\(.info.props."node.description")"')
     chosen=$(echo "$devices" | awk -F'|' '{print $2}' | $menu -i -p "Select audio device:")
     [ -z "$chosen" ] && exit 0
@@ -59,7 +59,7 @@ pw_sink() {
 }
 
 pw_source() {
-    [ "$XDG_SESSION_TYPE" = "wayland" ] && menu="mew" || menu="dmenu $(dmenu_opts)"
+    menu="mew"
     devices=$(pw-dump | jq -r '.[] | select(.info.props."media.class" == "Audio/Source") | "\(.id)|\(.info.props."node.description")"')
     chosen=$(echo "$devices" | awk -F'|' '{print $2}' | $menu -i -p "Select audio device:")
     [ -z "$chosen" ] && exit 0
