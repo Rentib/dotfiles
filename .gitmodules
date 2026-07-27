@@ -14,9 +14,3 @@
 [submodule ".local/src/mew"]
     path = .local/src/mew
     url = https://codeberg.org/Rentib/mew
-[submodule ".local/src/ctpv"]
-    path = .local/src/ctpv
-    url = https://github.com/NikitaIvanovV/ctpv
-[submodule ".local/src/shntool"]
-    path = .local/src/shntool
-    url = https://github.com/bayun/shntool
