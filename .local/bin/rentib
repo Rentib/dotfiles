@@ -11,20 +11,32 @@ brightness() {
         echo "usage: rentib brightness [-|+]int" >&2
         exit 1
     }
+    dev=/sys/class/backlight/amdgpu_bl1
+    [ -e $dev ] || {
+        echo "no backlight class found" >&2
+        exit 1
+    }
+    read -r bri < $dev/brightness
+    read -r max < $dev/max_brightness
+    min=0
+    perc="$((max / 100))"
     case "$1" in
-    [-+]*) [ "$1" -gt 0 ] && light -A "$1" || light -U "${1#-}" ;;
-    *) light -S "$1" ;;
+        [-+]*) bri="$((bri + $1 * perc))" ;;
+            *) bri="$((      $1 * perc))" ;;
     esac
-    brightness=$(light -G | cut -d '.' -f 1)
-    brightness_icon=""
+
+    bri="$(( bri > max ? max : bri < min ? min : bri))"
+    echo "$bri" | tee $dev/brightness
+    bri="$(( bri * 100 / max ))"
+
     # TODO: xrdb was dropped, so somehing else must be used here
     # bar_color="$(xrdb -query | grep 'color1:' | awk '{print $2}')"
     notify-send \
         -t 1000 \
         -h string:x-dunst-stack-tag:notify_brightness \
         -h string:hlcolor:"$bar_color" \
-        -h int:value:"$brightness" \
-        "$brightness_icon $brightness%"
+        -h int:value:"$bri" \
+        " $bri%"
 }
 
 volume() {
@@ -46,7 +58,9 @@ volume() {
 
     case "$dev" in
     @DEFAULT_SINK@) pidof slstatus && kill -35 "$(pidof slstatus)" ;;
-    @DEFAULT_SOURCE@) wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && light -s sysfs/leds/platform::micmute -S 100 || light -s sysfs/leds/platform::micmute -S 0 ;;
+    @DEFAULT_SOURCE@) wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' && \
+      echo 1 | tee /sys/class/leds/platform::micmute/brightness || \
+      echo 0 | tee /sys/class/leds/platform::micmute/brightness ;;
     esac
 }
 
