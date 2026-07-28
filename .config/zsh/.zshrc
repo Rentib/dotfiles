@@ -26,12 +26,10 @@ set -o CORRECT               # ask to correct mistakes in commands
 set -o INTERACTIVE_COMMENTS  # allow for comments in interactive mode
 set -o LONG_LIST_JOBS        # print job notifications in the long format by default
 set -o NOTIFY                # report the status of a job immediately
-set -o PROMPT_SUBST          # expansions are performed in prompts
 set -o NO_BEEP               # no beep on zle errors
 set -o EMACS                 # emacs mode
 
 WORDCHARS=${WORDCHARS//\/}   # don't consider certain characters part of the word
-PROMPT_EOL_MARK=""           # hide EOL sign ('%')
 # }}}
 # {{{COMPLETION SYSTEM
 autoload edit-command-line
@@ -114,8 +112,9 @@ bindkey -M menuselect 'k' vi-up-line-or-history   # completion menu up
 bindkey -M menuselect 'l' vi-forward-char         # completion menu right
 # }}}
 # {{{PROMPT
-autoload -Uz colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+set -o PROMPT_SUBST          # expansions are performed in prompts
+PROMPT_EOL_MARK=""           # hide EOL sign ('%')
+PS1='%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M %F{magenta}%~%F{red}]%f%b$%b '
 # }}}
 # {{{HISTORY
 test -d "$XDG_STATE_HOME/zsh" || mkdir -p "$XDG_STATE_HOME/zsh"
