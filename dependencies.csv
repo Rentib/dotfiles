@@ -6,7 +6,6 @@
 ,bluez,"daemons for bluetooth protocol"
 ,btop,"a monitor of system resources (better top/htop)"
 ,clang,"c language family frontend for llvm"
-,cmake,"a cross-platform open-source make system"
 ,dunst,"customizable and lightweight notification daemon"
 ,fcft,"Simple library for font loading and glyph rasterization"
 ,fd,"simple, fast alternative to find"
