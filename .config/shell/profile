@@ -109,10 +109,13 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
-export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --color 16 --prompt='❯ ' --pointer='-' --marker='+' --ansi --multi"
+export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --no-border --ansi --color=bw'
 export FZF_DEFAULT_COMMAND='fd -t f      -H -L -E .git --strip-cwd-prefix'
 export FZF_ALT_C_COMMAND='  fd -t d      -H -L -E .git --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND=' fd -t f -t d -H -L -E .git --strip-cwd-prefix'
+
+export SKIM_DEFAULT_OPTIONS='--height=50% --layout=reverse --no-border --ansi --color=16'
+export SKIM_DEFAULT_COMMAND='fd -t f      -H -L -E .git --strip-cwd-prefix'
 
 export DO_NOT_TRACK=1
 export DIFFTOOL="nvim -d"
