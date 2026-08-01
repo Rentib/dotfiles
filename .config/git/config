@@ -1,7 +1,7 @@
 [user]
-    name = Rentib
+    name = rentib
     email = sbitner420@tutanota.com
-    signingkey = /home/rentib/.ssh/id_git_signature
+    signingkey = ~/.ssh/id_ed25519
 [init]
     defaultBranch = master
 [gpg]
@@ -16,5 +16,5 @@
     ncommits = rev-list --all --count
     ucommits = shortlog --summary --numbered --email
 [core]
-	precomposeunicode = true
-	quotePath = false
+    precomposeunicode = true
+    quotePath = false
