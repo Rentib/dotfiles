@@ -8,42 +8,46 @@
 -- 4. /etc/xdg/swayimg/init.lua
 
 -- General config
-swayimg.set_mode("viewer")            -- mode at startup
-swayimg.enable_antialiasing(true)     -- anti-aliasing
-swayimg.enable_decoration(false)      -- window title/buttons/borders
-swayimg.enable_overlay(false)         -- window overlay mode
-swayimg.enable_exif_orientation(true) -- image orientation by EXIF
-swayimg.set_dnd_button("MouseRight")  -- drag-and-drop mouse button
+swayimg.mode = "viewer"           -- mode at startup
+swayimg.antialiasing = true       -- anti-aliasing
+swayimg.decoration = false        -- window title/buttons/borders
+swayimg.overlay = false           -- window overlay mode
+swayimg.exif_orientation = true   -- image orientation by EXIF
+swayimg.dnd_button = "MouseRight" -- drag-and-drop mouse button
+
+swayimg.set_format_params('raw', { camera_wb = true }) -- use camera white balance
 
 -- Image list configuration
-swayimg.imagelist.set_order("numeric")    -- list order
-swayimg.imagelist.enable_reverse(false)   -- reverse order
-swayimg.imagelist.enable_recursive(false) -- recursive directory reading
-swayimg.imagelist.enable_adjacent(false)  -- add adjacent files from same dir
-swayimg.imagelist.enable_fsmon(true)      -- enable file system monitoring
+swayimg.imagelist.order = "numeric" -- list order
+swayimg.imagelist.reverse = false   -- reverse order
+swayimg.imagelist.recursive = false -- recursive directory reading
+swayimg.imagelist.adjacent = false  -- add adjacent files from same dir
+swayimg.imagelist.fsmon = true      -- enable file system monitoring
 
 -- Text overlay configuration
-swayimg.text.set_font("IosevkaTerm NFM") -- font name
-swayimg.text.set_size(24)                -- font size in pixels
-swayimg.text.set_spacing(0)              -- line spacing
-swayimg.text.set_padding(10)             -- padding from window edge
-swayimg.text.set_foreground(0xff000000)  -- foreground text color
-swayimg.text.set_background(0x00ffffff)  -- text background color
-swayimg.text.set_shadow(0x0d000000)      -- text shadow color
-swayimg.text.set_timeout(5)              -- layer hide timeout
-swayimg.text.set_status_timeout(3)       -- status message hide timeout
+swayimg.text.visible = true              -- overlay visible state
+swayimg.text.font = "IosevkaTerm NFM" -- font name
+swayimg.text.size = 24                -- font size in pixels
+swayimg.text.spacing = 0              -- line spacing
+swayimg.text.padding = 10             -- padding from window edge
+swayimg.text.color = 0xff000000       -- text color
+swayimg.text.background = 0x00ffffff  -- background color
+swayimg.text.shadow = 0x0d000000      -- shadow color
+swayimg.text.timeout = 5              -- layer hide timeout
+swayimg.text.status_timeout = 3       -- status message hide timeout
 
 -- Image viewer mode
-swayimg.viewer.set_default_scale("optimal")                     -- default image scale
-swayimg.viewer.set_default_position("center")                   -- default image position
-swayimg.viewer.set_drag_button("MouseLeft")                     -- mouse button to drag image
+swayimg.viewer.default_scale = "optimal"                        -- default image scale
+swayimg.viewer.default_position = "center"                      -- default image position
+swayimg.viewer.drag_button = "MouseLeft"                        -- mouse button to drag image
+swayimg.viewer.autocenter = true                                -- enable automatic centering
+swayimg.viewer.loop = true                                      -- enable image list loop mode
+swayimg.viewer.preload = 1                                      -- number of images to preload
+swayimg.viewer.history = 1                                      -- number of the history cache
+swayimg.viewer.mark_color = 0xff808080                          -- mark icon color
+swayimg.viewer.pinch_factor = 1.0                               -- pinch gesture factor
 swayimg.viewer.set_window_background(0xff000000)                -- window background color
 swayimg.viewer.set_image_chessboard(20, 0xff333333, 0xff4c4c4c) -- chessboard
-swayimg.viewer.enable_centering(true)                           -- enable automatic centering
-swayimg.viewer.enable_loop(true)                                -- enable image list loop mode
-swayimg.viewer.limit_preload(1)                                 -- number of images to preload
-swayimg.viewer.limit_history(1)                                 -- number of the history cache
-swayimg.viewer.set_mark_color(0xff808080)                       -- mark icon color
 swayimg.viewer.set_text("topleft", {                            -- top left text block scheme
     "File: {name}",
     "Format: {format}",
@@ -62,29 +66,32 @@ swayimg.viewer.set_text("bottomleft", { -- bottom left text block scheme
 })
 
 -- Slide show mode, same config as for viewer mode with the following defaults:
-swayimg.slideshow.set_timeout(5)                    -- timeout to switch image
-swayimg.slideshow.set_default_scale("fit")          -- default image scale
+swayimg.slideshow.timeout = 5                       -- timeout to switch image
+swayimg.slideshow.default_scale = "fit"             -- default image scale
+swayimg.slideshow.history = 0                       -- number of the history cache
 swayimg.slideshow.set_window_background("auto")     -- window background mode
-swayimg.slideshow.limit_history(0)                  -- number of the history cache
 swayimg.slideshow.set_text("topleft", { "{name}" }) -- top left text block scheme
 
 -- Gallery mode
-swayimg.gallery.set_aspect("fill")               -- thumbnail aspect ratio
-swayimg.gallery.set_thumb_size(200)              -- thumbnail size in pixels
-swayimg.gallery.set_padding_size(5)              -- padding between thumbnails
-swayimg.gallery.set_border_size(5)               -- border size for selected thumbnail
-swayimg.gallery.set_border_color(0x00000000)     -- border color for selected thumbnail
-swayimg.gallery.set_selected_scale(1.15)         -- scale for selected thumbnail
-swayimg.gallery.set_selected_color(0x00000000)   -- background color for selected thumbnail
-swayimg.gallery.set_unselected_color(0x00000000) -- background color for unselected thumbnail
-swayimg.gallery.set_window_color(0xff000000)     -- window background color
-swayimg.gallery.limit_cache(100)                 -- number of thumbnails stored in memory
-swayimg.gallery.enable_preload(false)            -- preloading invisible thumbnails
-swayimg.gallery.enable_pstore(false)             -- enable persistent storage for thumbnails
-swayimg.gallery.set_text("topleft", {            -- top left text block scheme
+swayimg.gallery.thumb_size = 200              -- thumbnail size in pixels
+swayimg.gallery.aspect = "fill"               -- thumbnail aspect ratio
+swayimg.gallery.padding_size = 5              -- padding between thumbnails
+swayimg.gallery.border_size = 5               -- border size for selected thumbnail
+swayimg.gallery.border_color = 0x00000000     -- border color for selected thumbnail
+swayimg.gallery.selected_scale = 1.15         -- scale for selected thumbnail
+swayimg.gallery.selected_color = 0x00000000   -- background color for selected thumbnail
+swayimg.gallery.unselected_color = 0x00000000 -- background color for unselected thumbnail
+swayimg.gallery.window_color = 0xff000000     -- window background color
+swayimg.gallery.pinch_factor = 100.0          -- pinch gesture factor
+swayimg.gallery.hover = true                  -- enable mouse following
+swayimg.gallery.cache = 100                   -- number of thumbnails stored in memory
+swayimg.gallery.preload = false               -- preloading invisible thumbnails
+swayimg.gallery.embedded_thumb = true         -- use embedded thumbnails
+swayimg.gallery.pstore = false                -- enable persistent storage for thumbnails
+swayimg.gallery.set_text("topleft", {         -- top left text block scheme
     "File: {name}"
 })
-swayimg.gallery.set_text("topright", { -- top right text block scheme
+swayimg.gallery.set_text("topright", {        -- top right text block scheme
     "{list.index} of {list.total}"
 })
 
@@ -104,12 +111,12 @@ end)
 -- Viewer:
 swayimg.viewer.on_key("Escape", swayimg.exit)
 swayimg.viewer.on_key("q", swayimg.exit)
-swayimg.viewer.on_key("Return", function() swayimg.set_mode("gallery") end)
-swayimg.viewer.on_key("f", swayimg.set_fullscreen)
-swayimg.viewer.on_key("g", function() swayimg.viewer.switch_image("first") end)
-swayimg.viewer.on_key("Shift+g", function() swayimg.viewer.switch_image("last") end)
-swayimg.viewer.on_key("p", function() swayimg.viewer.switch_image("prev") end)
-swayimg.viewer.on_key("n", function() swayimg.viewer.switch_image("next") end)
+swayimg.viewer.on_key("Return", function() swayimg.mode = "gallery" end)
+swayimg.viewer.on_key("f", function() swayimg.fullscreen = not swayimg.fullscreen end)
+swayimg.viewer.on_key("g", function() swayimg.viewer.open("first") end)
+swayimg.viewer.on_key("Shift+g", function() swayimg.viewer.open("last") end)
+swayimg.viewer.on_key("p", function() swayimg.viewer.open("prev") end)
+swayimg.viewer.on_key("n", function() swayimg.viewer.open("next") end)
 swayimg.viewer.on_key("r", swayimg.viewer.reload)
 swayimg.viewer.on_key("h", function()
     pos = swayimg.viewer.get_position()
@@ -144,20 +151,20 @@ end)
 swayimg.viewer.on_key("Shift+Delete", function()
     local img = swayimg.viewer.get_image()
     os.remove(img.path)
-    swayimg.viewer.switch_image("next")
+    swayimg.viewer.open("next")
 end)
 
 -- Gallery:
 swayimg.gallery.on_key("Escape", swayimg.exit)
 swayimg.gallery.on_key("q", swayimg.exit)
 swayimg.gallery.on_key("Return", function() swayimg.set_mode("viewer") end)
-swayimg.gallery.on_key("f", swayimg.toggle_fullscreen)
-swayimg.gallery.on_key("g", function() swayimg.gallery.switch_image("first") end)
-swayimg.gallery.on_key("Shift+g", function() swayimg.gallery.switch_image("last") end)
-swayimg.gallery.on_key("h", function() swayimg.gallery.switch_image("left") end)
-swayimg.gallery.on_key("j", function() swayimg.gallery.switch_image("down") end)
-swayimg.gallery.on_key("k", function() swayimg.gallery.switch_image("up") end)
-swayimg.gallery.on_key("l", function() swayimg.gallery.switch_image("right") end)
+swayimg.gallery.on_key("f", function() swayimg.fullscreen = not swayimg.fullscreen end)
+swayimg.gallery.on_key("g", function() swayimg.gallery.select("first") end)
+swayimg.gallery.on_key("Shift+g", function() swayimg.gallery.select("last") end)
+swayimg.gallery.on_key("h", function() swayimg.gallery.select("left") end)
+swayimg.gallery.on_key("j", function() swayimg.gallery.select("down") end)
+swayimg.gallery.on_key("k", function() swayimg.gallery.select("up") end)
+swayimg.gallery.on_key("l", function() swayimg.gallery.select("right") end)
 swayimg.gallery.on_key("b", function()
     os.execute("setbg " .. swayimg.gallery.get_image().path)
 end)
@@ -167,5 +174,5 @@ end)
 swayimg.gallery.on_key("Shift+Delete", function()
     local img = swayimg.gallery.get_image()
     os.remove(img.path)
-    swayimg.gallery.switch_image("next")
+    swayimg.gallery.select("next")
 end)
