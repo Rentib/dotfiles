@@ -20,7 +20,13 @@ Here are some of the programs I use:
 - **[ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)** music player (with **[mpd](https://www.musicpd.org/)**)
 - **[mpv](https://mpv.io/)** media player
 - **[dunst](https://dunst-project.org/)** notification manager
-- **[ungoogled chromium](https://github.com/ungoogled-software/ungoogled-chromium)** browser
+- **[librewolf](https://librewolf.net/)** browser
+    - **[uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)**
+    - **[Skip Redirect](https://addons.mozilla.org/en-US/firefox/addon/skip-redirect/)**
+    - **[Bitwarden](https://addons.mozilla.org/en-US/firefox/addon/bitwarden-password-manager/)**
+    - **[Stylus](https://addons.mozilla.org/en-US/firefox/addon/styl-us/)**
+    - **[UltimaDark](https://addons.mozilla.org/en-US/firefox/addon/ultimadark/)**
+    - **[Vimium C](https://addons.mozilla.org/en-US/firefox/addon/vimium-c/)**
 - **[btop](https://github.com/aristocratos/btop)** system monitor
 - **[gammastep](https://gitlab.com/chinstrap/gammastep)** gamma adjustments
 - **[yay](https://github.com/Jguer/yay)** AUR helper

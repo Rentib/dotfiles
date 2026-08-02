@@ -69,11 +69,11 @@ for p in nvim vim vi nano; do
     hash "$p" 2>/dev/null && export EDITOR="$p" VISUAL="$p" && break
 done
 
-for p in st foot; do
+for p in foot st; do
     hash "$p" 2>/dev/null && export TERMINAL="$p" && break
 done
 
-for p in chromium firefox; do
+for p in librewolf chromium firefox; do
     hash "$p" 2>/dev/null && export BROWSER="$p" && break
 done
 
