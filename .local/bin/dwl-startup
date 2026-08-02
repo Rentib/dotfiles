@@ -1,6 +1,15 @@
 #!/bin/sh
 
-daemons="awww-daemon dunst gammastep mpd mpdup-statusbar pipewire pipewire-pulse wireplumber"
+daemons="mpd mpdup-statusbar pipewire pipewire-pulse wireplumber"
 for daemon in $daemons; do
     pidof -sx "$daemon" || setsid -f "$daemon"
 done >/dev/null 2>&1
+
+awww-daemon   >/dev/null 2>&1 &
+dunst         >/dev/null 2>&1 &
+foot --server >/dev/null 2>&1 &
+gammastep     >/dev/null 2>&1 &
+
+wpctl get-volume @DEFAULT_SOURCE@ | grep -q 'MUTED' &&             \
+      echo 1 | tee /sys/class/leds/platform::micmute/brightness || \
+      echo 0 | tee /sys/class/leds/platform::micmute/brightness
